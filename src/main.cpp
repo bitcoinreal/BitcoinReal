@@ -2141,24 +2141,16 @@ int64_t GetBlockValue(int nHeight)
     } 
 	else if(nHeight > 0 && nHeight < 81)
 	{
-		return 1000000000 * COIN;
-	}
-	
-	else 
-		
-	if(nHeight > 1 && nHeight <= GetSporkValue(SPORK_35_MOVE_REWARDS)) 
+		return 0.1 * COIN;
+	}else if(nHeight > 81 && nHeight < 10000)
 	{
-			
-		if (nHeight < 3) {
-			return  .001 * COIN;
-		} 
-			
-	//switch POS
-    } else if (nHeight > GetSporkValue(SPORK_35_MOVE_REWARDS)) {
+		return 0.1 * COIN;
+	}
+	// Swith POS
+	 else if (nHeight > 10000) {
 
-	
 		int enabled_nodes = mnodeman.CountEnabled();
-		if (10003 == GetSporkValue(SPORK_35_MOVE_REWARDS)) {
+		if (10000 == GetSporkValue(SPORK_35_MOVE_REWARDS)) {
 				nSubsidy = 1.76 * COIN;
 		} else if (10005 == GetSporkValue(SPORK_35_MOVE_REWARDS)) {
 				nSubsidy = 2.80 * COIN;

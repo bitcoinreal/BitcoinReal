@@ -121,7 +121,7 @@ public:
         nMaxMoneyOut = 10000000000 * COIN; // 10,000,000,000 BR
 
         /** Height or Time Based Activations **/
-        nLastPOWBlock = 81;
+        nLastPOWBlock = 10001;
         nModifierUpdateBlock = 999999999;
         nZerocoinStartHeight = 361;
         nAccumulatorStartHeight = 1;
@@ -131,16 +131,6 @@ public:
         nBlockFirstFraudulent = ~1; //First block that bad serials emerged
         nBlockLastGoodCheckpoint = ~1; //Last valid accumulator checkpoint
 
-        /**
-         * Build the genesis block. Note that the output of the genesis coinbase cannot
-         * be spent as it did not originally exist in the database.
-         *
-         * CBlock(hash=00000ffd590b14, ver=1, hashPrevBlock=00000000000000, hashMerkleRoot=e0028e, nTime=1390095618, nBits=1e0ffff0, nNonce=28917698, vtx=1)
-         *   CTransaction(hash=e0028e, ver=1, vin.size=1, vout.size=1, nLockTime=0)
-         *     CTxIn(COutPoint(000000, -1), coinbase 04ffff001d01044c5957697265642030392f4a616e2f3230313420546865204772616e64204578706572696d656e7420476f6573204c6976653a204f76657273746f636b2e636f6d204973204e6f7720416363657074696e6720426974636f696e73)
-         *     CTxOut(nValue=50.00000000, scriptPubKey=0xA9037BAC7050C479B121CF)
-         *   vMerkleTree: e0028e
-         */
 		 
         const char* pszTimestamp = "LiteSpeed is one of the best developers";
         CMutableTransaction txNew;
@@ -203,20 +193,14 @@ public:
 		vSeeds.push_back(CDNSSeedData("206.189.26.96", "206.189.26.96")); // EU01
 		vSeeds.push_back(CDNSSeedData("46.101.36.130", "46.101.36.130")); // EU02
 		vSeeds.push_back(CDNSSeedData("206.189.19.145", " 206.189.19.145")); // EU03
-		
 		vSeeds.push_back(CDNSSeedData("178.128.54.63", "178.128.54.63")); // ASIA1
 		vSeeds.push_back(CDNSSeedData("178.128.60.56", "178.128.60.56")); // ASIA2
 		vSeeds.push_back(CDNSSeedData("178.128.210.43", " 178.128.210.43")); // ASIA3
-		
 		vSeeds.push_back(CDNSSeedData("178.128.243.17", "178.128.243.17 ")); // SA1
 		vSeeds.push_back(CDNSSeedData("46.101.36.130", "46.101.36.130")); // SA2
-		
 		vSeeds.push_back(CDNSSeedData("142.93.115.88", "142.93.115.88")); // NA1
 		vSeeds.push_back(CDNSSeedData("142.93.123.217", "142.93.123.217")); // NA2
 		vSeeds.push_back(CDNSSeedData("142.93.123.238", " 142.93.123.238")); // NA3
-		
-		
-		// Domains
 		vSeeds.push_back(CDNSSeedData("eu.bitcoinreal.org", "eu.bitcoinreal.org")); // Europe
 		vSeeds.push_back(CDNSSeedData("asia.bitcoinreal.org", "asia.bitcoinreal.org")); // Asia
 		vSeeds.push_back(CDNSSeedData("na.bitcoinreal.org", " na.bitcoinreal.org")); // North Amercia
@@ -282,7 +266,7 @@ public:
         nMinerThreads = 0;
         nTargetTimespan = 1 * 60; // Bitcoin Real: 1 day
         nTargetSpacing = 1 * 60;  // Bitcoin Real: 1 minute
-        nLastPOWBlock = 200;
+        nLastPOWBlock = 10000;
         nMaturity = 15;
         nMasternodeCountDrift = 4;
         nModifierUpdateBlock = 51197; //approx Mon, 17 Apr 2017 04:00:00 GMT
