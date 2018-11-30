@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=bitcoinreal
+Comment=bitcoinreal P2P Cryptocurrency
+Comment[fr]=bitcoinreal, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=bitcoinreal, eşten eşe kriptografik sanal para birimi
+Exec=bitcoinreal-qt %u
+Terminal=false
+Type=Application
+Icon=bitcoinreal128
+MimeType=x-scheme-handler/bitcoinreal;
+Categories=Office;Finance;
