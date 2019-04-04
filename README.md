@@ -3,5 +3,7 @@ When the great revolution that is bitcoin began, the anonymous desired to test t
 
 
 Website: https://www.bitcoinreal.org
+
 Downloads: https://github.com/bitcoinreal/BitcoinReal/releases/tag/4.1.13
+
 Block Explorer: http://explorer.bitcoinreal.org
