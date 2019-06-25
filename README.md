@@ -26,6 +26,6 @@ Network Port: 13319
 
 Website: https://www.bitcoinreal.org
 
-Downloads: https://github.com/bitcoinreal/BitcoinReal/releases/tag/4.1.13
+Downloads: https://github.com/bitcoinreal/BitcoinReal/releases/tag/4.1.14
 
 Block Explorer: http://explorer.bitcoinreal.org
