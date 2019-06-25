@@ -1,0 +1,26 @@
+# /etc/conf.d/bitcoinreald: config file for /etc/init.d/bitcoinreald
+
+# Config file location
+#BITCOIND_CONFIGFILE="/etc/bitcoinreal/bitcoinreal.conf"
+
+# What directory to write pidfile to?  (created and owned by $BITCOIND_USER)
+#BITCOIND_PIDDIR="/var/run/bitcoinreald"
+
+# What filename to give the pidfile
+#BITCOIND_PIDFILE="${BITCOIND_PIDDIR}/bitcoinreald.pid"
+
+# Where to write bitcoinreald data (be mindful that the blockchain is large)
+#BITCOIND_DATADIR="/var/lib/bitcoinreald"
+
+# User and group to own bitcoinreald process
+#BITCOIND_USER="bitcoinreal"
+#BITCOIND_GROUP="bitcoinreal"
+
+# Path to bitcoinreald executable
+#BITCOIND_BIN="/usr/bin/bitcoinreald"
+
+# Nice value to run bitcoinreald under
+#BITCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+BITCOIND_OPTS=""
