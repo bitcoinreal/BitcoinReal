@@ -136,10 +136,6 @@
         <translation>用于在操作系统帐户遭到破坏时禁用琐碎的sendmoney。没有真正的安全性。</translation>
     </message>
     <message>
-        <source>For anonymization and staking only</source>
-        <translation>仅用于匿名化和加密</translation>
-    </message>
-    <message>
         <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
         <translation>输入一个新的钱包密码&lt;br/&gt;钱包密码&lt;b&gt;建议使用10位以上的随机字符&lt;/b&gt;，或者&lt;b&gt; 3个以上的单词&lt;/b&gt;。并建议有序使用大小写字母。</translation>
     </message>
@@ -176,16 +172,16 @@
         <translation>确认钱包加密</translation>
     </message>
     <message>
-        <source>BitcoinReal will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BRCOINs from being stolen by malware infecting your computer.</source>
-        <translation>BitcoinReal将关闭以完成加密过程。但是，仅仅加密您的钱包是不够的，因为它并不能阻止恶意软件从您的电脑里面偷取BRCOINs。</translation>
+        <source>BitcoinReal will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BRs from being stolen by malware infecting your computer.</source>
+        <translation>BitcoinReal将关闭以完成加密过程。但是，仅仅加密您的钱包是不够的，因为它并不能阻止恶意软件从您的电脑里面偷取BRs。</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
         <translation>您确定加密您的钱包吗？</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BRCOIN&lt;/b&gt;!</source>
-        <translation>注意：请妥善保管好你的密码，因为在加密后，没有密码将无法打开钱包。这将会让您&lt;b&gt;损失钱包中所有的BRCOIN&lt;/b&gt;！</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BR&lt;/b&gt;!</source>
+        <translation>注意：请妥善保管好你的密码，因为在加密后，没有密码将无法打开钱包。这将会让您&lt;b&gt;损失钱包中所有的BR&lt;/b&gt;！</translation>
     </message>
     <message>
         <source>Wallet encrypted</source>
@@ -229,6 +225,9 @@
     </message>
 </context>
 <context>
+    <name>BanTableModel</name>
+    </context>
+<context>
     <name>Bip38ToolDialog</name>
     <message>
         <source>BIP 38 Tool</source>
@@ -239,16 +238,8 @@
         <translation>&amp;BIP 38 加密</translation>
     </message>
     <message>
-        <source>Enter a BitcoinReal Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
-        <translation>输入您要使用BIP 38加密的BitcoinReal地址。在中间框中输入密码。按加密计算加密私钥。</translation>
-    </message>
-    <message>
         <source>Address:</source>
         <translation>地址：</translation>
-    </message>
-    <message>
-        <source>The BitcoinReal address to sign the message with</source>
-        <translation>该BitcoinReal地址签名的消息</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -279,16 +270,8 @@
         <translation>将当前签名复制到系统剪贴板</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this BitcoinReal address</source>
-        <translation>签署消息以证明您拥有此BitcoinReal地址</translation>
-    </message>
-    <message>
         <source>Encrypt &amp;Key</source>
         <translation>加密&amp;秘钥</translation>
-    </message>
-    <message>
-        <source>Reset all sign message fields</source>
-        <translation>重置所有签名信息</translation>
     </message>
     <message>
         <source>Clear &amp;All</source>
@@ -303,20 +286,8 @@
         <translation>输入BIP 38加密私钥。 在中间框中输入密码。 单击解密密钥计算私钥。 密钥解密后，单击“导入地址”将将该私钥添加到钱包中。</translation>
     </message>
     <message>
-        <source>The BitcoinReal address the message was signed with</source>
-        <translation>由BitcoinReal地址签名的消息</translation>
-    </message>
-    <message>
-        <source>Verify the message to ensure it was signed with the specified BitcoinReal address</source>
-        <translation>验证消息确保它已使用指定的BitcoinReal地址进行签名</translation>
-    </message>
-    <message>
         <source>Decrypt &amp;Key</source>
         <translation>解密&amp;秘钥</translation>
-    </message>
-    <message>
-        <source>Reset all verify message fields</source>
-        <translation>重置所有验证消息</translation>
     </message>
     <message>
         <source>Decrypted Key:</source>
@@ -573,10 +544,6 @@
         <source>&amp;Command-line options</source>
         <translation>&amp;C命令行选项</translation>
     </message>
-    <message numerus="yes">
-        <source>Processed %n blocks of transaction history.</source>
-        <translation><numerusform>处理的 %n个交易记录块。</numerusform></translation>
-    </message>
     <message>
         <source>Synchronizing additional data: %p%</source>
         <translation>同步其他数据：%p%</translation>
@@ -602,8 +569,8 @@
         <translation>标签工具栏</translation>
     </message>
     <message>
-        <source>BitcoinReal Core</source>
-        <translation>BitcoinReal Core</translation>
+        <source>BitcoinReal</source>
+        <translation>BitcoinReal</translation>
     </message>
     <message>
         <source>Send coins to a BitcoinReal address</source>
@@ -618,10 +585,6 @@
         <translation>&amp;P隐私</translation>
     </message>
     <message>
-        <source>Privacy Action for zBRCOIN and Obfuscation</source>
-        <translation>zBRCOIN和混淆的隐私操作</translation>
-    </message>
-    <message>
         <source>&amp;Masternodes</source>
         <translation>&amp;M主节点</translation>
     </message>
@@ -630,11 +593,11 @@
         <translation>浏览主节点</translation>
     </message>
     <message>
-        <source>&amp;About BitcoinReal Core</source>
-        <translation>&amp;A关于BitcoinReal Core</translation>
+        <source>&amp;About BitcoinReal</source>
+        <translation>&amp;A关于BitcoinReal</translation>
     </message>
     <message>
-        <source>Show information about BitcoinReal Core</source>
+        <source>Show information about BitcoinReal</source>
         <translation>显示BitcoinReal  Core的相关信息</translation>
     </message>
     <message>
@@ -690,17 +653,12 @@
         <translation>区块浏览窗口</translation>
     </message>
     <message>
-        <source>Show the BitcoinReal Core help message to get a list with possible BitcoinReal command-line options</source>
-        <translation>显示BitcoinReal Core帮助信息并获取BitcoinReal命令行选项列表</translation>
+        <source>Show the BitcoinReal help message to get a list with possible BitcoinReal command-line options</source>
+        <translation>显示BitcoinReal帮助信息并获取BitcoinReal命令行选项列表</translation>
     </message>
     <message>
-        <source>BitcoinReal Core client</source>
-        <translation>BitcoinReal Core 客户端</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n active connection(s) to BitcoinReal network</source>
-        <translation><numerusform>%n 活动连接到BitcoinReal网络
-</numerusform></translation>
+        <source>BitcoinReal client</source>
+        <translation>BitcoinReal 客户端</translation>
     </message>
     <message>
         <source>Synchronizing with network...</source>
@@ -721,26 +679,6 @@
     <message>
         <source>Up to date</source>
         <translation>最新</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n hour(s)</source>
-        <translation><numerusform>%n 小时</numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>%n day(s)</source>
-        <translation><numerusform>%n 天</numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>%n week(s)</source>
-        <translation><numerusform>%n 星期</numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>%n year(s)</source>
-        <translation><numerusform>%n 年</numerusform></translation>
-    </message>
-    <message>
-        <source>%1 behind</source>
-        <translation>%1 落后</translation>
     </message>
     <message>
         <source>Catching up...</source>
@@ -865,31 +803,31 @@ Address: %4
 <context>
     <name>HelpMessageDialog</name>
     <message>
-        <source>BitcoinReal Core</source>
-        <translation>BitcoinReal Core</translation>
+        <source>BitcoinReal</source>
+        <translation>BitcoinReal</translation>
     </message>
     <message>
-        <source>About BitcoinReal Core</source>
-        <translation>关于BitcoinReal Core</translation>
+        <source>About BitcoinReal</source>
+        <translation>关于BitcoinReal</translation>
     </message>
     </context>
 <context>
     <name>Intro</name>
     <message>
-        <source>Welcome to BitcoinReal Core.</source>
-        <translation>欢迎使用 BitcoinReal Core</translation>
+        <source>Welcome to BitcoinReal.</source>
+        <translation>欢迎使用 BitcoinReal</translation>
     </message>
     <message>
-        <source>As this is the first time the program is launched, you can choose where BitcoinReal Core will store its data.</source>
-        <translation>由于这是该程序第一次启动，您可以选择存储BitcoinReal Core 数据的位置。</translation>
+        <source>As this is the first time the program is launched, you can choose where BitcoinReal will store its data.</source>
+        <translation>由于这是该程序第一次启动，您可以选择存储BitcoinReal 数据的位置。</translation>
     </message>
     <message>
-        <source>BitcoinReal Core will download and store a copy of the BitcoinReal block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>BitcoinReal Core将下载并存储BitcoinReal区块链副本。 至少 %1 GB的数据将存储在此目录中，并且会随着时间的推移而增长。 钱包也将存储在此目录中。</translation>
+        <source>BitcoinReal will download and store a copy of the BitcoinReal block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>BitcoinReal将下载并存储BitcoinReal区块链副本。 至少 %1 GB的数据将存储在此目录中，并且会随着时间的推移而增长。 钱包也将存储在此目录中。</translation>
     </message>
     <message>
-        <source>BitcoinReal Core</source>
-        <translation>BitcoinReal Core</translation>
+        <source>BitcoinReal</source>
+        <translation>BitcoinReal</translation>
     </message>
     <message>
         <source>Error</source>
@@ -941,6 +879,17 @@ Address: %4
         <source>Address:</source>
         <translation>地址：</translation>
     </message>
+    <message>
+        <source>Enter a label for this address to add it to your address book</source>
+        <translation>输入此地址的标签，将其添加到您的地址列表中</translation>
+    </message>
+    <message>
+        <source>(no label)</source>
+        <translation>未设置标签</translation>
+    </message>
+    </context>
+<context>
+    <name>MultisigDialog</name>
     </context>
 <context>
     <name>ObfuscationConfig</name>
@@ -1102,7 +1051,7 @@ Address: %4
         <source>The supplied proxy address is invalid.</source>
         <translation>提供的代理地址无效。</translation>
     </message>
-</context>
+    </context>
 <context>
     <name>OverviewPage</name>
     <message>
@@ -1120,10 +1069,6 @@ Address: %4
     <message>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BitcoinReal network after a connection is established, but this process has not completed yet.</source>
         <translation>显示的信息可能已过期。建立连接后，您的钱包会自动与BitcoinReal网络同步，但此过程尚未完成。</translation>
-    </message>
-    <message>
-        <source>Your current total balance</source>
-        <translation>您当前的总余额</translation>
     </message>
     <message>
         <source>Your current balance in watch-only addresses</source>
@@ -1189,7 +1134,7 @@ Address: %4
     <name>RPCConsole</name>
     <message>
         <source>&amp;Information</source>
-        <translation>&amp;信息</translation>
+        <translation>&amp;I信息</translation>
     </message>
     <message>
         <source>&amp;Open</source>
@@ -1508,8 +1453,8 @@ Address: %4
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>BitcoinReal Core</source>
-        <translation>BitcoinReal Core</translation>
+        <source>BitcoinReal</source>
+        <translation>BitcoinReal</translation>
     </message>
     </context>
 <context>
@@ -1588,7 +1533,7 @@ Address: %4
     </message>
     </context>
 <context>
-    <name>ZPhrControlDialog</name>
+    <name>ZBrControlDialog</name>
     </context>
 <context>
     <name>bitcoinreal-core</name>
@@ -1597,8 +1542,8 @@ Address: %4
         <translation>在收到相关警报时执行命令，或者看到一个很长的分叉（cmd中的%s被消息替换）</translation>
     </message>
     <message>
-        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong BitcoinReal Core will not work properly.</source>
-        <translation>注意：请检查您的电脑的日期和时间是否正确！ 如果您的时间设置不正确，BitcoinReal Core将无法正常工作。</translation>
+        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong BitcoinReal will not work properly.</source>
+        <translation>注意：请检查您的电脑的日期和时间是否正确！ 如果您的时间设置不正确，BitcoinReal将无法正常工作。</translation>
     </message>
     <message>
         <source>Warning: wallet.dat corrupt, data salvaged! Original wallet.dat saved as wallet.{timestamp}.bak in %s; if your balance or transactions are incorrect you should restore from a backup.</source>

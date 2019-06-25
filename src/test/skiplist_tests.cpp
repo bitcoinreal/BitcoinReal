@@ -1,4 +1,6 @@
 // Copyright (c) 2014 The Bitcoin Core developers
+// Copyright (c) 2017-2018 The PIVX developers
+// Copyright (c) 2019 The BitcoinReal developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -43,7 +45,7 @@ BOOST_AUTO_TEST_CASE(skiplist_test)
     }
 }
 
-BOOST_AUTO_TEST_CASE(getlobitcoinrealr_test)
+BOOST_AUTO_TEST_CASE(getlocator_test)
 {
     // Build a main chain 100000 blocks long.
     std::vector<uint256> vHashMain(100000);
@@ -75,25 +77,25 @@ BOOST_AUTO_TEST_CASE(getlobitcoinrealr_test)
     CChain chain;
     chain.SetTip(&vBlocksMain.back());
 
-    // Test 100 random starting points for lobitcoinrealrs.
+    // Test 100 random starting points for locators.
     for (int n=0; n<100; n++) {
         int r = insecure_rand() % 150000;
         CBlockIndex* tip = (r < 100000) ? &vBlocksMain[r] : &vBlocksSide[r - 100000];
-        CBlockLobitcoinrealr lobitcoinrealr = chain.GetLobitcoinrealr(tip);
+        CBlockLocator locator = chain.GetLocator(tip);
 
         // The first result must be the block itself, the last one must be genesis.
-        BOOST_CHECK(lobitcoinrealr.vHave.front() == tip->GetBlockHash());
-        BOOST_CHECK(lobitcoinrealr.vHave.back() == vBlocksMain[0].GetBlockHash());
+        BOOST_CHECK(locator.vHave.front() == tip->GetBlockHash());
+        BOOST_CHECK(locator.vHave.back() == vBlocksMain[0].GetBlockHash());
 
         // Entries 1 through 11 (inclusive) go back one step each.
-        for (unsigned int i = 1; i < 12 && i < lobitcoinrealr.vHave.size() - 1; i++) {
-            BOOST_CHECK_EQUAL(lobitcoinrealr.vHave[i].GetLow64(), tip->nHeight - i);
+        for (unsigned int i = 1; i < 12 && i < locator.vHave.size() - 1; i++) {
+            BOOST_CHECK_EQUAL(locator.vHave[i].GetLow64(), tip->nHeight - i);
         }
 
         // The further ones (excluding the last one) go back with exponential steps.
         unsigned int dist = 2;
-        for (unsigned int i = 12; i < lobitcoinrealr.vHave.size() - 1; i++) {
-            BOOST_CHECK_EQUAL(lobitcoinrealr.vHave[i - 1].GetLow64() - lobitcoinrealr.vHave[i].GetLow64(), dist);
+        for (unsigned int i = 12; i < locator.vHave.size() - 1; i++) {
+            BOOST_CHECK_EQUAL(locator.vHave[i - 1].GetLow64() - locator.vHave[i].GetLow64(), dist);
             dist *= 2;
         }
     }

@@ -93,7 +93,11 @@
         <source>Exporting Failed</source>
         <translation>Vienti epäonnistui</translation>
     </message>
-    </context>
+    <message>
+        <source>There was an error trying to save the address list to %1. Please try again.</source>
+        <translation>Tapahtui virhe osoitelistan tallennuksessa %1. Yritä uudestaan.</translation>
+    </message>
+</context>
 <context>
     <name>AddressTableModel</name>
     <message>
@@ -132,10 +136,6 @@
         <translation>Ottaa pois käytöstä tavallisen sendmoneyn kun käyttöjärjestelmä on kompromisoitu. Ei tarjoa todellista turvaa.</translation>
     </message>
     <message>
-        <source>For anonymization and staking only</source>
-        <translation>Vain anonymisointiin ja panostukseen</translation>
-    </message>
-    <message>
         <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
         <translation>Syötä uusi salausavain lompakkoon &lt;br/&gt; Käytä salausavaimena &lt;b&gt;yli kymmentä satunnaista merkkiä&lt;/b&gt;, tai &lt;b&gt; kahdeksaa tai useampaa sanaa&lt;/b&gt;.</translation>
     </message>
@@ -172,16 +172,16 @@
         <translation>Vahvista lompakon salaus</translation>
     </message>
     <message>
-        <source>BitcoinReal will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BRCOINs from being stolen by malware infecting your computer.</source>
-        <translation>BitcoinReal sulkeutuu salausprosessin ajaksi. Muista, että lompakon salaus ei voi täysin suojella BRCOINien varkaudelta, jos tietokoneesi sisältää haittaohjelmia.</translation>
+        <source>BitcoinReal will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BRs from being stolen by malware infecting your computer.</source>
+        <translation>BitcoinReal sulkeutuu salausprosessin ajaksi. Muista, että lompakon salaus ei voi täysin suojella ICAien varkaudelta, jos tietokoneesi sisältää haittaohjelmia.</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
         <translation>Oletko varma että tahdot salata lompakkosi?</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BRCOIN&lt;/b&gt;!</source>
-        <translation>Varoitus: Jos salaat lompakkosi ja unohdat salausavaimesi, &lt;b&gt;menetät kaikki BRCOINisi&lt;/b&gt;</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BR&lt;/b&gt;!</source>
+            <translation>Varoitus: Jos salaat lompakkosi ja unohdat salausavaimesi, &lt; b &gt; menetät kaikki BRisi&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Wallet encrypted</source>
@@ -225,6 +225,9 @@
     </message>
 </context>
 <context>
+    <name>BanTableModel</name>
+    </context>
+<context>
     <name>Bip38ToolDialog</name>
     <message>
         <source>BIP 38 Tool</source>
@@ -235,17 +238,8 @@
         <translation>&amp;BIP 38 Salaus</translation>
     </message>
     <message>
-        <source>Enter a BitcoinReal Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
-        <translation>Syötä BitcoinReal osoite, jonnka tahtoisit salata käyttäen BIP 38.
-Syötä salausavain laatikon keskelle. Paina salaa tuottaaksesi salatun yksityisavaimen.</translation>
-    </message>
-    <message>
         <source>Address:</source>
         <translation>Osoite:</translation>
-    </message>
-    <message>
-        <source>The BitcoinReal address to sign the message with</source>
-        <translation>BitcoinReal osoite, jolla viesti allekirjoitetaan</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -276,16 +270,8 @@ Syötä salausavain laatikon keskelle. Paina salaa tuottaaksesi salatun yksityis
         <translation>Kopioi nykyinen allekirjoitus järjestelmän leikepöydälle</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this BitcoinReal address</source>
-        <translation>Allekirjoita viesti todistaaksesi, että omistat tämän BitcoinReal osoitteen</translation>
-    </message>
-    <message>
         <source>Encrypt &amp;Key</source>
         <translation>Salaus &amp;Avain</translation>
-    </message>
-    <message>
-        <source>Reset all sign message fields</source>
-        <translation>Tyhjennä kaikki allekirjoita viesti kentät</translation>
     </message>
     <message>
         <source>Clear &amp;All</source>
@@ -300,20 +286,8 @@ Syötä salausavain laatikon keskelle. Paina salaa tuottaaksesi salatun yksityis
         <translation>Syötä BIP 38 salattu yksityisavain. Syötä salausavain laatikkoon. Paina Avaa Salaus tuottaaksesi yksityisavaimen. Kun avain on dekryptattu, painamalla "Import osoite" lisää tämän yksityisavaimen lompakkoon.</translation>
     </message>
     <message>
-        <source>The BitcoinReal address the message was signed with</source>
-        <translation>BitcoinReal osoite, jolla viesti allekirjoitettiin</translation>
-    </message>
-    <message>
-        <source>Verify the message to ensure it was signed with the specified BitcoinReal address</source>
-        <translation>Vahvista että viesti on allekirjoitettu kyseessä olevalla BitcoinReal osoitteella.</translation>
-    </message>
-    <message>
         <source>Decrypt &amp;Key</source>
         <translation>Salauksen avaus &amp;Avain</translation>
-    </message>
-    <message>
-        <source>Reset all verify message fields</source>
-        <translation>Tyhjennä kaikki vahvista viesti kentät</translation>
     </message>
     <message>
         <source>Decrypted Key:</source>
@@ -591,7 +565,7 @@ Syötä salausavain laatikon keskelle. Paina salaa tuottaaksesi salatun yksityis
         <translation>&amp;Apua</translation>
     </message>
     <message>
-        <source>BitcoinReal Core</source>
+        <source>BitcoinReal</source>
         <translation>BitcoinReal Ydin</translation>
     </message>
     <message>
@@ -611,11 +585,11 @@ Syötä salausavain laatikon keskelle. Paina salaa tuottaaksesi salatun yksityis
         <translation>Selaa masternodeja</translation>
     </message>
     <message>
-        <source>&amp;About BitcoinReal Core</source>
-        <translation>BitcoinReal Core &amp;ytimestä</translation>
+        <source>&amp;About BitcoinReal</source>
+        <translation>BitcoinReal &amp;ytimestä</translation>
     </message>
     <message>
-        <source>Show information about BitcoinReal Core</source>
+        <source>Show information about BitcoinReal</source>
         <translation>Näytä tietoja BitcoinReal Ytimestä</translation>
     </message>
     <message>
@@ -671,11 +645,11 @@ Syötä salausavain laatikon keskelle. Paina salaa tuottaaksesi salatun yksityis
         <translation>Lohkon tutkija näkymä</translation>
     </message>
     <message>
-        <source>Show the BitcoinReal Core help message to get a list with possible BitcoinReal command-line options</source>
+        <source>Show the BitcoinReal help message to get a list with possible BitcoinReal command-line options</source>
         <translation>Näytä BitcoinReal Ydin apuviesti saadaksesi lista mahdollisista BitcoinReal komentolinja komennoista.</translation>
     </message>
     <message>
-        <source>BitcoinReal Core client</source>
+        <source>BitcoinReal client</source>
         <translation>BitcoinReal Ydin asiakasohjelma</translation>
     </message>
     <message>
@@ -701,10 +675,6 @@ Syötä salausavain laatikon keskelle. Paina salaa tuottaaksesi salatun yksityis
     <message>
         <source>%1 and %2</source>
         <translation>%1 ja %2</translation>
-    </message>
-    <message>
-        <source>%1 behind</source>
-        <translation>%1 takana</translation>
     </message>
     <message>
         <source>Catching up...</source>
@@ -811,6 +781,10 @@ Syötä salausavain laatikon keskelle. Paina salaa tuottaaksesi salatun yksityis
     <message>
         <source>Amount</source>
         <translation>Määrä</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Tyyppi</translation>
     </message>
     <message>
         <source>Date</source>
@@ -934,7 +908,7 @@ Syötä salausavain laatikon keskelle. Paina salaa tuottaaksesi salatun yksityis
 <context>
     <name>HelpMessageDialog</name>
     <message>
-        <source>BitcoinReal Core</source>
+        <source>BitcoinReal</source>
         <translation>BitcoinReal Ydin</translation>
     </message>
     <message>
@@ -953,11 +927,11 @@ Syötä salausavain laatikon keskelle. Paina salaa tuottaaksesi salatun yksityis
         <translation>Tervetuloa</translation>
     </message>
     <message>
-        <source>Welcome to BitcoinReal Core.</source>
+        <source>Welcome to BitcoinReal.</source>
         <translation>Tervetuloa BitcoinReal Ytimeen.</translation>
     </message>
     <message>
-        <source>BitcoinReal Core</source>
+        <source>BitcoinReal</source>
         <translation>BitcoinReal Ydin</translation>
     </message>
     <message>
@@ -1079,6 +1053,10 @@ Syötä salausavain laatikon keskelle. Paina salaa tuottaaksesi salatun yksityis
         <translation>Lähetä Masternode palkkioihin</translation>
     </message>
     <message>
+        <source>(no label)</source>
+        <translation>(ei nimikettä)</translation>
+    </message>
+    <message>
         <source>The entered address:
 </source>
         <translation>Syötetty osoite:</translation>
@@ -1113,6 +1091,21 @@ Please check the address and try again.</source>
     </message>
 </context>
 <context>
+    <name>MultisigDialog</name>
+    <message>
+        <source>Status:</source>
+        <translation>Tila:</translation>
+    </message>
+    <message>
+        <source>0</source>
+        <translation>0</translation>
+    </message>
+    <message>
+        <source>Amount:</source>
+        <translation>Määrä:</translation>
+    </message>
+    </context>
+<context>
     <name>ObfuscationConfig</name>
     <message>
         <source>Configure Obfuscation</source>
@@ -1135,11 +1128,11 @@ Please check the address and try again.</source>
         <translation>Valitse yksityisyyden taso.</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 10000 BRCOIN</source>
+        <source>Use 2 separate masternodes to mix funds up to 10000 BR</source>
         <translation>Käytä 2 erillistä masternodea sekoittaaksesi enintään 10000 BitcoinReal</translation>
     </message>
     <message>
-        <source>Use 8 separate masternodes to mix funds up to 10000 BRCOIN</source>
+        <source>Use 8 separate masternodes to mix funds up to 10000 BR</source>
         <translation>Käytä 8 erillistä masternodea sekoittaaksesi enintään 10000 BitcoinReal</translation>
     </message>
     <message>
@@ -1147,11 +1140,11 @@ Please check the address and try again.</source>
         <translation>Käytä 16 erillistä masternodea</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 BRCOIN to anonymize 10000 bitcoinrealCOIN</source>
-        <translation>Tämä vaihtoehto on nopein ja maksaa noin ~0.025 BRCOIN anonymoidaksesi 10000 BitcoinReal</translation>
+        <source>This option is the quickest and will cost about ~0.025 BR to anonymize 10000 BR</source>
+            <translation> Tämä vaihtoehto on nopein ja maksaa noin ~0.025 BR anonymoidaksesi 10000 BitcoinReal</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 BRCOIN to anonymize 10000 bitcoinrealCOIN</source>
+        <source>This option is moderately fast and will cost about 0.05 BR to anonymize 10000 BR</source>
         <translation>Tämä vaihtoehto on suhteellisen nopea ja maksaa 0.05 BitcoinReal anonymoidaksesi 10000 BitcoinReal</translation>
     </message>
     <message>
@@ -1159,7 +1152,7 @@ Please check the address and try again.</source>
         <translation>Tämä on hitain ja turvallisin vaihtoehto. Täydesti anonymisoiminen ei maksa mitään.</translation>
     </message>
     <message>
-        <source>0.1 BRCOIN per 10000 bitcoinrealCOIN you anonymize.</source>
+        <source>0.1 BR per 10000 BR you anonymize.</source>
         <translation>0.1 per 10000 BitcoinReal, jotka anonymisoit.</translation>
     </message>
     <message>
@@ -1340,7 +1333,7 @@ Please check the address and try again.</source>
         <source>The supplied proxy address is invalid.</source>
         <translation>Tarjottu proxy osoite on virheellinen.</translation>
     </message>
-</context>
+    </context>
 <context>
     <name>OverviewPage</name>
     <message>
@@ -1374,10 +1367,6 @@ Please check the address and try again.</source>
     <message>
         <source>Total:</source>
         <translation>Määrä:</translation>
-    </message>
-    <message>
-        <source>Your current total balance</source>
-        <translation>Sinun nykyinen kokonaissaldo</translation>
     </message>
     <message>
         <source>Spendable:</source>
@@ -1443,6 +1432,10 @@ Please check the address and try again.</source>
     <message>
         <source>Priority:</source>
         <translation>Tärkeys:</translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation>TekstiNimike</translation>
     </message>
     <message>
         <source>Fee:</source>
@@ -1673,10 +1666,6 @@ Please check the address and try again.</source>
         <source>Unknown</source>
         <translation>Tuntematon</translation>
     </message>
-    <message>
-        <source>Fetching...</source>
-        <translation>Haetaan...</translation>
-    </message>
 </context>
 <context>
     <name>ReceiveCoinsDialog</name>
@@ -1898,8 +1887,8 @@ Please check the address and try again.</source>
         <translation>Muutos:</translation>
     </message>
     <message>
-        <source>0 BRCOIN</source>
-        <translation>0 BRCOIN</translation>
+        <source>0 BR</source>
+        <translation>0 BR</translation>
     </message>
     <message>
         <source>Choose...</source>
@@ -1958,10 +1947,6 @@ Please check the address and try again.</source>
         <translation>Lisää &amp;Vastaanottaja</translation>
     </message>
     <message>
-        <source>SwiftTX</source>
-        <translation>SwiftTX</translation>
-    </message>
-    <message>
         <source>Balance:</source>
         <translation>Saldo:</translation>
     </message>
@@ -1976,10 +1961,6 @@ Please check the address and try again.</source>
     <message>
         <source>Copy fee</source>
         <translation>Kopioi taksa</translation>
-    </message>
-    <message>
-        <source>using</source>
-        <translation>käyttää</translation>
     </message>
     <message>
         <source>Warning: Invalid BitcoinReal address</source>
@@ -2016,6 +1997,10 @@ Please check the address and try again.</source>
     <message>
         <source>Error: The wallet was unlocked only to anonymize coins. Unlock canceled.</source>
         <translation>Virhe: Lompakko avattiin vain kolikoiden anonymisointiin. Avaus peruutettu.</translation>
+    </message>
+    <message>
+        <source>Pay only the minimum fee of %1</source>
+        <translation>Maksa vain %1 minimi taksa</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -2072,8 +2057,8 @@ Please check the address and try again.</source>
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>BitcoinReal Core is shutting down...</source>
-        <translation>BitcoinReal core sammuu...</translation>
+        <source>BitcoinReal is shutting down...</source>
+        <translation>BitcoinReal sammuu...</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -2214,7 +2199,7 @@ Please check the address and try again.</source>
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>BitcoinReal Core</source>
+        <source>BitcoinReal</source>
         <translation>BitcoinReal Ydin</translation>
     </message>
     <message>
@@ -2230,8 +2215,8 @@ Please check the address and try again.</source>
         <translation>Dash Core kehittäjät</translation>
     </message>
     <message>
-        <source>The BitcoinReal Core developers</source>
-        <translation>BitcoinReal core kehittäjät</translation>
+        <source>The BitcoinReal developers</source>
+        <translation>BitcoinReal kehittäjät</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -2336,10 +2321,6 @@ Please check the address and try again.</source>
     <message>
         <source>Payment to yourself</source>
         <translation>Maksut itsellesi</translation>
-    </message>
-    <message>
-        <source>Minted</source>
-        <translation>Luotu</translation>
     </message>
     <message>
         <source>Mined</source>
@@ -2480,6 +2461,10 @@ Please check the address and try again.</source>
         <source>Exporting Successful</source>
         <translation>Vienti onnistui</translation>
     </message>
+    <message>
+        <source>The transaction history was successfully saved to %1.</source>
+        <translation>Rahansiirto historia onnistuneesti tallennettu %1</translation>
+    </message>
     </context>
 <context>
     <name>UnitDisplayStatusBarControl</name>
@@ -2524,17 +2509,9 @@ Please check the address and try again.</source>
         <source>Wallet Data (*.dat)</source>
         <translation>Lompakko Data (*.dat)</translation>
     </message>
-    <message>
-        <source>Backup Failed</source>
-        <translation>Varmuuskopiointi epäonnistui</translation>
-    </message>
-    <message>
-        <source>Backup Successful</source>
-        <translation>Varmuuskopiointi onnistui</translation>
-    </message>
-    </context>
+</context>
 <context>
-    <name>ZPhrControlDialog</name>
+    <name>ZBrControlDialog</name>
     <message>
         <source>0</source>
         <translation>0</translation>
@@ -2591,8 +2568,8 @@ Please check the address and try again.</source>
         <translation>Virhe ladattaessa wallet.dat tiedostoa: Lompakko korruptoitunut</translation>
     </message>
     <message>
-        <source>Error loading wallet.dat: Wallet requires newer version of BitcoinReal Core</source>
-        <translation>Virhe ladattaessa wallet.dat tiedostoa: Lompakko vaatii uudemman version BitcoinReal Coresta</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of BitcoinReal</source>
+        <translation>Virhe ladattaessa wallet.dat tiedostoa: Lompakko vaatii uudemman version BitcoinRealsta</translation>
     </message>
     <message>
         <source>Error reading from database, shutting down.</source>

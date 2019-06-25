@@ -15,7 +15,7 @@
     </message>
     <message>
         <source>Copy the currently selected address to the system clipboard</source>
-        <translation>Kopírovat vybranou adresu do mezipaměti</translation>
+        <translation>Kopírovat vybranou adresu do schránky</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
@@ -62,12 +62,12 @@
         <translation>Adresy pro přijetí peněz</translation>
     </message>
     <message>
-        <source>These are your Bitcoin Real addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Toto jsou Vaše Bitcoin Real adresy pro poslání platby. Vždy si překontrolujte množství peněz a cílovou adresu než platbu odešlete.</translation>
+        <source>These are your BitcoinReal addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Toto jsou Vaše BitcoinReal adresy pro poslání platby. Vždy si překontrolujte množství peněz a cílovou adresu než platbu odešlete.</translation>
     </message>
     <message>
-        <source>These are your Bitcoin Real addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Toto jsou Vaše Bitcoin Real adresy pro přijetí plateb. Je doporučeno použít novou adresu pro každou novou transakci.</translation>
+        <source>These are your BitcoinReal addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Toto jsou Vaše BitcoinReal adresy pro přijetí plateb. Je doporučeno použít novou adresu pro každou novou transakci.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -136,10 +136,6 @@
         <translation>Slouží k neumožnění zaslání jednoduché platby, pokud je učet OS kompromitován. Neposkytuje tak reálné zabezpeční.</translation>
     </message>
     <message>
-        <source>For anonymization and staking only</source>
-        <translation>Pouze pro anonymizaci a sázení</translation>
-    </message>
-    <message>
         <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
         <translation>Zadejte nové frázové heslo pro Vaši peněženku &lt;br/&gt; Prosím, použijte frázové heslo z &lt;b&gt; nebo více náhodných znaků &lt;/b&gt;, nebo&lt;b&gt;z osmi nebo více slov&lt;/b&gt;  .</translation>
     </message>
@@ -176,16 +172,16 @@
         <translation>Potvrdit zašifrování peněženky</translation>
     </message>
     <message>
-        <source>Bitcoin Real will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BRCOINs from being stolen by malware infecting your computer.</source>
-        <translation>Bitcoin Real se teď zavře pro dokončení šifrovacího procesu. Prosím, vemte na vědomí, že zašifrování Vaší peněženky plně neochrání Vaše BRCOINy před krádží, pokud je Váš počítač infikován malwarem.</translation>
+        <source>BitcoinReal will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BRs from being stolen by malware infecting your computer.</source>
+            <translation> BitcoinReal se teď zavře pro dokončení šifrovacího procesu.Prosím, vemte na vědomí, že zašifrování Vaší peněženky plně neochrání Vaše BRy před krádží, pokud je Váš počítač infikován malwarem.</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
         <translation>Opravdu chcete zašifrovat Vaši peněženku?</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BRCOIN&lt;/b&gt;!</source>
-        <translation>Varování: Pokud zašifrujete svou peněženku a ztratíte frázové heslo, tak &lt;b&gt;ZTRATÍTE VŠECHNY VAŠE BRCOINy&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BR&lt;/b&gt;!</source>
+            <translation>Varování: Pokud zašifrujete svou peněženku a ztratíte frázové heslo, tak &lt; b &gt; ZTRATÍTE VŠECHNY VAŠE BRy&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Wallet encrypted</source>
@@ -229,6 +225,9 @@
     </message>
 </context>
 <context>
+    <name>BanTableModel</name>
+    </context>
+<context>
     <name>Bip38ToolDialog</name>
     <message>
         <source>BIP 38 Tool</source>
@@ -239,16 +238,8 @@
         <translation>&amp;BIP 38 Šifrovat</translation>
     </message>
     <message>
-        <source>Enter a Bitcoin Real Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
-        <translation>Zadejte Bitcoin Real adresu, kterou si přejete zašifrovat pomocí BIP38. Frázové heslo zadejte do prostředního boxu. Stiskněte šifrovat pro výpočet šifrovaného privátního klíče.</translation>
-    </message>
-    <message>
         <source>Address:</source>
         <translation>Adresa:</translation>
-    </message>
-    <message>
-        <source>The Bitcoin Real address to sign the message with</source>
-        <translation>Bitcoin Real adresa pro podepsání zprávy</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -279,16 +270,8 @@
         <translation>Kopírovat aktuální podpis do systémové mezipaměti</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this Bitcoin Real address</source>
-        <translation>Podepsat zprávu k prokázání, že vlastníte tuto Bitcoin Real adresu</translation>
-    </message>
-    <message>
         <source>Encrypt &amp;Key</source>
         <translation>Šifrovat &amp;Klíč</translation>
-    </message>
-    <message>
-        <source>Reset all sign message fields</source>
-        <translation>Resetovat všechny položky podepsání zprávy</translation>
     </message>
     <message>
         <source>Clear &amp;All</source>
@@ -303,20 +286,8 @@
         <translation>Vložte BIP 38 šifrovaný privítní klíc. Frázové heslo vložte do prostředního boxu. Kliknětě na Dešifrovat Klíč pro výpočet privátního klíče. Poté co bude klíč dešifrován, kliknutím na 'Importovat Adresu' přidáte privátní klíč do Vaší peněženky.</translation>
     </message>
     <message>
-        <source>The Bitcoin Real address the message was signed with</source>
-        <translation>Bitcoin Real adresa zprávy byla podpsána</translation>
-    </message>
-    <message>
-        <source>Verify the message to ensure it was signed with the specified Bitcoin Real address</source>
-        <translation>Verifikujte zprávu pro ujištění, že byla podepsána zmíněnou Bitcoin Real adresou</translation>
-    </message>
-    <message>
         <source>Decrypt &amp;Key</source>
         <translation>Dešifrovat &amp;Klíč</translation>
-    </message>
-    <message>
-        <source>Reset all verify message fields</source>
-        <translation>Resetovat všechny položky pro ověření zprávy</translation>
     </message>
     <message>
         <source>Decrypted Key:</source>
@@ -424,6 +395,10 @@
     <message>
         <source>Browse transaction history</source>
         <translation>Procházet historii transakcí</translation>
+    </message>
+    <message>
+        <source>Privacy Actions for zBR</source>
+        <translation>Řešení soukromí pro zBR</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
@@ -566,6 +541,30 @@
         <translation>Zobrazit seznam použitých adres  a popisků pro přijetí plateb</translation>
     </message>
     <message>
+        <source>&amp;Multisignature creation...</source>
+        <translation>&amp;Vytvoření multisignatury</translation>
+    </message>
+    <message>
+        <source>Create a new multisignature address and add it to this wallet</source>
+        <translation>Vytvořit novou multisignaturní adresu a přidat ji do této peněženky</translation>
+    </message>
+    <message>
+        <source>&amp;Multisignature spending...</source>
+        <translation>&amp;Multisignaturní výdaje...</translation>
+    </message>
+    <message>
+        <source>Spend from a multisignature address</source>
+        <translation>Uhradit z multisignaturní adresy</translation>
+    </message>
+    <message>
+        <source>&amp;Multisignature signing...</source>
+        <translation>&amp;Multisignaturní podepisování...</translation>
+    </message>
+    <message>
+        <source>Sign with a multisignature address</source>
+        <translation>Podepsat multisignaturní adresou</translation>
+    </message>
+    <message>
         <source>Open &amp;URI...</source>
         <translation>Otevřít &amp;URI...</translation>
     </message>
@@ -576,6 +575,10 @@
     <message>
         <source>Synchronizing additional data: %p%</source>
         <translation>Synchronizuji přídavná data: %p%</translation>
+    </message>
+    <message>
+        <source>%1 behind. Scanning block %2</source>
+        <translation>Zbývá %1 bloků. Skenuji blok %2</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -598,16 +601,20 @@
         <translation>Nástrojová lišta záložek</translation>
     </message>
     <message>
-        <source>Bitcoin Real Core</source>
-        <translation>Bitcoin Real Core</translation>
+        <source>BitcoinReal</source>
+        <translation>BitcoinReal</translation>
     </message>
     <message>
-        <source>Send coins to a Bitcoin Real address</source>
-        <translation>Odeslat platbuna Bitcoin Real adresu</translation>
+        <source>Send coins to a BitcoinReal address</source>
+        <translation>Odeslat platbuna BitcoinReal adresu</translation>
     </message>
     <message>
         <source>Request payments (generates QR codes and bitcoinreal: URIs)</source>
         <translation>Vyžádat platbu (generování QK kódu a bitcoinreal: URIs)</translation>
+    </message>
+    <message>
+        <source>&amp;Privacy</source>
+        <translation>&amp;Soukromí</translation>
     </message>
     <message>
         <source>&amp;Masternodes</source>
@@ -618,24 +625,24 @@
         <translation>Procházet masternody</translation>
     </message>
     <message>
-        <source>&amp;About Bitcoin Real Core</source>
-        <translation>&amp;O Bitcoin Real Core</translation>
+        <source>&amp;About BitcoinReal</source>
+        <translation>&amp;O BitcoinReal</translation>
     </message>
     <message>
-        <source>Show information about Bitcoin Real Core</source>
-        <translation>Zobraz informace o Bitcoin Real Core</translation>
+        <source>Show information about BitcoinReal</source>
+        <translation>Zobraz informace o BitcoinReal</translation>
     </message>
     <message>
-        <source>Modify configuration options for Bitcoin Real</source>
-        <translation>Upravit možnosti konfigurace pro Bitcoin Real</translation>
+        <source>Modify configuration options for BitcoinReal</source>
+        <translation>Upravit možnosti konfigurace pro BitcoinReal</translation>
     </message>
     <message>
-        <source>Sign messages with your Bitcoin Real addresses to prove you own them</source>
-        <translation>Podepsat zprávy Vaší Bitcoin Real adresou pro prokázaní, že jste jejich vlastníkem</translation>
+        <source>Sign messages with your BitcoinReal addresses to prove you own them</source>
+        <translation>Podepsat zprávy Vaší BitcoinReal adresou pro prokázaní, že jste jejich vlastníkem</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified Bitcoin Real addresses</source>
-        <translation>Ověřit zprávy k zajištění, že bylypodepsány vybranými Bitcoin Real adresami</translation>
+        <source>Verify messages to ensure they were signed with specified BitcoinReal addresses</source>
+        <translation>Ověřit zprávy k zajištění, že bylypodepsány vybranými BitcoinReal adresami</translation>
     </message>
     <message>
         <source>&amp;BIP38 tool</source>
@@ -666,8 +673,8 @@
         <translation>Otevřít Masternodový konfigurační soubor</translation>
     </message>
     <message>
-        <source>Open a Bitcoin Real: URI or payment request</source>
-        <translation>Otevřít Bitcoin Real: URI nebo platební žádost</translation>
+        <source>Open a BitcoinReal: URI or payment request</source>
+        <translation>Otevřít BitcoinReal: URI nebo platební žádost</translation>
     </message>
     <message>
         <source>&amp;Blockchain explorer</source>
@@ -678,12 +685,12 @@
         <translation>Okno blokového průzkumníka</translation>
     </message>
     <message>
-        <source>Show the Bitcoin Real Core help message to get a list with possible Bitcoin Real command-line options</source>
-        <translation>Zobrazit Bitcoin Real Core pomocnou zpráv pro získání seznamu možných parametrů Bitcoin Real pro příkazy do příkazové řádky</translation>
+        <source>Show the BitcoinReal help message to get a list with possible BitcoinReal command-line options</source>
+        <translation>Zobrazit BitcoinReal pomocnou zpráv pro získání seznamu možných parametrů BitcoinReal pro příkazy do příkazové řádky</translation>
     </message>
     <message>
-        <source>Bitcoin Real Core client</source>
-        <translation>Bitcoin Real Core klient</translation>
+        <source>BitcoinReal client</source>
+        <translation>BitcoinReal klient</translation>
     </message>
     <message>
         <source>Synchronizing with network...</source>
@@ -710,8 +717,8 @@
         <translation>%1 a %2</translation>
     </message>
     <message>
-        <source>%1 behind</source>
-        <translation>%1 za</translation>
+        <source>Catching up...</source>
+        <translation>Doháníme co se dá...</translation>
     </message>
     <message>
         <source>Last received block was generated %1 ago.</source>
@@ -782,10 +789,6 @@ MultiSend: %1</translation>
         <translation>Peněženka je &lt;b&gt;zašifrovaná&lt;/b&gt; a momentálně je &lt;b&gt;odemčená&lt;/b&gt;</translation>
     </message>
     <message>
-        <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt; for anonimization and staking only</source>
-        <translation>Peněženka je &lt;b&gt;zašifrovaná&lt;/b&gt; a momentálně je &lt;b&gt;odemčená&lt;/b&gt; pouze pro anonimizace a sázení</translation>
-    </message>
-    <message>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
         <translation>Peněženka je &lt;b&gt;zašifrovaná&lt;/b&gt; a momentálně je &lt;b&gt;zamčená&lt;/b&gt;</translation>
     </message>
@@ -795,6 +798,14 @@ MultiSend: %1</translation>
     <message>
         <source>Blockchain Explorer</source>
         <translation>Blockchainový průzkumník</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>Zpět</translation>
+    </message>
+    <message>
+        <source>Forward</source>
+        <translation>Dále</translation>
     </message>
     <message>
         <source>Address / Block / Transaction</source>
@@ -809,12 +820,16 @@ MultiSend: %1</translation>
         <translation>TextPopisku</translation>
     </message>
     <message>
-        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (bitcoinreal2.conf).</source>
-        <translation>Ne všechny transakce budou zobrazeny. Pro zobrazení všech transackí nastavte v konfiguračním souboru (bitcoinreal2.conf) txindex=1.</translation>
+        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (bitcoinreal.conf).</source>
+        <translation>Ne všechny transakce budou zobrazeny. Pro zobrazení všech transackí nastavte v konfiguračním souboru (bitcoinreal.conf) txindex=1.</translation>
     </message>
 </context>
 <context>
     <name>ClientModel</name>
+    <message>
+        <source>Total: %1 (IPv4: %2 / IPv6: %3 / Tor: %4 / Unknown: %5)</source>
+        <translation>Celkem: %1 (IPv4: %2 / IPv6: %3 / Tor: %4 / neznámé: %5)</translation>
+    </message>
     <message>
         <source>Network Alert</source>
         <translation>Upozornění sítě</translation>
@@ -1066,8 +1081,8 @@ MultiSend: %1</translation>
         <translation>Upravit adresu k odeslání platby</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid Bitcoin Real address.</source>
-        <translation>Zadaná adresa "%1" není validní Bitcoin Real adresa.</translation>
+        <source>The entered address "%1" is not a valid BitcoinReal address.</source>
+        <translation>Zadaná adresa "%1" není validní BitcoinReal adresa.</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -1112,12 +1127,12 @@ MultiSend: %1</translation>
         <translation>verze</translation>
     </message>
     <message>
-        <source>Bitcoin Real Core</source>
-        <translation>Bitcoin Real Core</translation>
+        <source>BitcoinReal</source>
+        <translation>BitcoinReal</translation>
     </message>
     <message>
-        <source>About Bitcoin Real Core</source>
-        <translation>O Bitcoin Real Core</translation>
+        <source>About BitcoinReal</source>
+        <translation>O BitcoinReal</translation>
     </message>
     <message>
         <source>Command-line options</source>
@@ -1151,16 +1166,16 @@ MultiSend: %1</translation>
         <translation>Vítejte</translation>
     </message>
     <message>
-        <source>Welcome to Bitcoin Real Core.</source>
-        <translation>Vítejte v Bitcoin Real Core.</translation>
+        <source>Welcome to BitcoinReal.</source>
+        <translation>Vítejte v BitcoinReal.</translation>
     </message>
     <message>
-        <source>As this is the first time the program is launched, you can choose where Bitcoin Real Core will store its data.</source>
-        <translation>Při prvním spuštění programu si můžete vybrat, kam bude Bitcoin Real Core ukládat svá data.</translation>
+        <source>As this is the first time the program is launched, you can choose where BitcoinReal will store its data.</source>
+        <translation>Při prvním spuštění programu si můžete vybrat, kam bude BitcoinReal ukládat svá data.</translation>
     </message>
     <message>
-        <source>Bitcoin Real Core will download and store a copy of the Bitcoin Real block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>Bitcoin Real Core stáhne a uloží kopii Bitcoin Real blockchainu. Nejméně %1GB dat bude do této složky uloženo a v průběhu času bude ukládat další data. Peněženka bude v této složce uložena také.</translation>
+        <source>BitcoinReal will download and store a copy of the BitcoinReal block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>BitcoinReal stáhne a uloží kopii BitcoinReal blockchainu. Nejméně %1GB dat bude do této složky uloženo a v průběhu času bude ukládat další data. Peněženka bude v této složce uložena také.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1171,8 +1186,8 @@ MultiSend: %1</translation>
         <translation>Použít vlastní složku pro data</translation>
     </message>
     <message>
-        <source>Bitcoin Real Core</source>
-        <translation>Bitcoin Real Core</translation>
+        <source>BitcoinReal</source>
+        <translation>BitcoinReal</translation>
     </message>
     <message>
         <source>Error: Specified data directory "%1" cannot be created.</source>
@@ -1196,10 +1211,6 @@ MultiSend: %1</translation>
     <message>
         <source>Form</source>
         <translation>Od</translation>
-    </message>
-    <message>
-        <source>My Masternodes</source>
-        <translation>Moje Masternody</translation>
     </message>
     <message>
         <source>Alias</source>
@@ -1377,6 +1388,10 @@ MultiSend: %1</translation>
         <translation>Poslat pro odměny masternodů</translation>
     </message>
     <message>
+        <source>(no label)</source>
+        <translation>(bez popisku)</translation>
+    </message>
+    <message>
         <source>The entered address:
 </source>
         <translation>Zadaná adresa:
@@ -1416,6 +1431,21 @@ Prosím zkontrolujte adresu a zkuste to znovu.</translation>
     </message>
 </context>
 <context>
+    <name>MultisigDialog</name>
+    <message>
+        <source>Status:</source>
+        <translation>Stav:</translation>
+    </message>
+    <message>
+        <source>0</source>
+        <translation>0</translation>
+    </message>
+    <message>
+        <source>Amount:</source>
+        <translation>Hodnota:</translation>
+    </message>
+    </context>
+<context>
     <name>ObfuscationConfig</name>
     <message>
         <source>Configure Obfuscation</source>
@@ -1438,24 +1468,24 @@ Prosím zkontrolujte adresu a zkuste to znovu.</translation>
         <translation>Vyberte úrpvěň ochrany soukromí</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 10000 BRCOIN</source>
-        <translation>Použí 2 oddělené masternody k promíchání prostředků až do 10000 BRCOIN</translation>
+        <source>Use 2 separate masternodes to mix funds up to 10000 BR</source>
+        <translation>Použí 2 oddělené masternody k promíchání prostředků až do 10000 BR</translation>
     </message>
     <message>
         <source>Use 16 separate masternodes</source>
         <translation>Použít 16 oddělených masternodů</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 BRCOIN to anonymize 10000 bitcoinrealCOIN</source>
-        <translation>Tato možnost je nejrychleší a bude stát zhruba ~0.025 BRCOIN pro anonymizaci 10000 bitcoinrealCOIN</translation>
+        <source>This option is the quickest and will cost about ~0.025 BR to anonymize 10000 BR</source>
+        <translation>Tato možnost je nejrychleší a bude stát zhruba ~0.025 BR pro anonymizaci 10000 BR</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>Toto je nejpomalejší a nejvíce bezpečná volba. Použití maximalní anonymity bude stát</translation>
     </message>
     <message>
-        <source>0.1 BRCOIN per 10000 bitcoinrealCOIN you anonymize.</source>
-        <translation>0.1 BRCOIN za 10000 bitcoinrealCOIN anonymizujete.</translation>
+        <source>0.1 BR per 10000 BR you anonymize.</source>
+        <translation>0.1 BR za 10000 BR anonymizujete.</translation>
     </message>
     <message>
         <source>Obfuscation Configuration</source>
@@ -1520,12 +1550,12 @@ Prosím zkontrolujte adresu a zkuste to znovu.</translation>
         <translation>Expert</translation>
     </message>
     <message>
-        <source>Automatically start Bitcoin Real after logging in to the system.</source>
-        <translation>Automaticky spustit Bitcoin Real po přihlášení do systému</translation>
+        <source>Automatically start BitcoinReal after logging in to the system.</source>
+        <translation>Automaticky spustit BitcoinReal po přihlášení do systému</translation>
     </message>
     <message>
-        <source>&amp;Start Bitcoin Real on system login</source>
-        <translation>&amp;Spusti Bitcoin Real při přihlášení do systému</translation>
+        <source>&amp;Start BitcoinReal on system login</source>
+        <translation>&amp;Spusti BitcoinReal při přihlášení do systému</translation>
     </message>
     <message>
         <source>Show Masternodes Tab</source>
@@ -1611,10 +1641,6 @@ Prosím zkontrolujte adresu a zkuste to znovu.</translation>
         <translation>Celkem:</translation>
     </message>
     <message>
-        <source>Your current total balance</source>
-        <translation>Vaše aktuální celková balance</translation>
-    </message>
-    <message>
         <source>Spendable:</source>
         <translation>Disponibilní:</translation>
     </message>
@@ -1682,6 +1708,10 @@ Prosím zkontrolujte adresu a zkuste to znovu.</translation>
     <message>
         <source>Priority:</source>
         <translation>Priorita:</translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation>TextPopisku</translation>
     </message>
     <message>
         <source>Fee:</source>
@@ -2057,8 +2087,8 @@ Prosím zkontrolujte adresu a zkuste to znovu.</translation>
         <translation>Změna:</translation>
     </message>
     <message>
-        <source>0 BRCOIN</source>
-        <translation>0 BRCOIN</translation>
+        <source>0 BR</source>
+        <translation>0 BR</translation>
     </message>
     <message>
         <source>Transaction Fee:</source>
@@ -2099,10 +2129,6 @@ Prosím zkontrolujte adresu a zkuste to znovu.</translation>
     <message>
         <source>Add &amp;Recipient</source>
         <translation>Přidat &amp;Příjemce</translation>
-    </message>
-    <message>
-        <source>SwiftTX</source>
-        <translation>SwiftTX</translation>
     </message>
     <message>
         <source>Balance:</source>
@@ -2186,8 +2212,8 @@ Prosím zkontrolujte adresu a zkuste to znovu.</translation>
 <context>
     <name>SignVerifyMessageDialog</name>
     <message>
-        <source>The Bitcoin Real address to sign the message with</source>
-        <translation>Bitcoin Real adresa pro podepsání zprávy</translation>
+        <source>The BitcoinReal address to sign the message with</source>
+        <translation>BitcoinReal adresa pro podepsání zprávy</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2214,16 +2240,16 @@ Prosím zkontrolujte adresu a zkuste to znovu.</translation>
         <translation>Kopírovat aktuální podpis do systémové mezipaměti</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this Bitcoin Real address</source>
-        <translation>Podepsat zprávu k prokázání, že vlastníte tuto Bitcoin Real adresu</translation>
+        <source>Sign the message to prove you own this BitcoinReal address</source>
+        <translation>Podepsat zprávu k prokázání, že vlastníte tuto BitcoinReal adresu</translation>
     </message>
     <message>
-        <source>The Bitcoin Real address the message was signed with</source>
-        <translation>Bitcoin Real adresa zprávy byla podpsána</translation>
+        <source>The BitcoinReal address the message was signed with</source>
+        <translation>BitcoinReal adresa zprávy byla podpsána</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified Bitcoin Real address</source>
-        <translation>Verifikujte zprávu pro ujištění, že byla podepsána zmíněnou Bitcoin Real adresou</translation>
+        <source>Verify the message to ensure it was signed with the specified BitcoinReal address</source>
+        <translation>Verifikujte zprávu pro ujištění, že byla podepsána zmíněnou BitcoinReal adresou</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2265,8 +2291,8 @@ Prosím zkontrolujte adresu a zkuste to znovu.</translation>
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>Bitcoin Real Core</source>
-        <translation>Bitcoin Real Core</translation>
+        <source>BitcoinReal</source>
+        <translation>BitcoinReal</translation>
     </message>
     </context>
 <context>
@@ -2369,7 +2395,7 @@ Prosím zkontrolujte adresu a zkuste to znovu.</translation>
     </message>
     </context>
 <context>
-    <name>ZPhrControlDialog</name>
+    <name>ZBrControlDialog</name>
     <message>
         <source>0</source>
         <translation>0</translation>
@@ -2384,10 +2410,6 @@ Prosím zkontrolujte adresu a zkuste to znovu.</translation>
     <message>
         <source>Information</source>
         <translation>Informace</translation>
-    </message>
-    <message>
-        <source>SwiftTX options:</source>
-        <translation>SwiftTx možnosti:</translation>
     </message>
     <message>
         <source>Synchronization failed</source>

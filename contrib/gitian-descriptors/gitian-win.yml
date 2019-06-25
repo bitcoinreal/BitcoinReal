@@ -1,5 +1,5 @@
 ---
-name: "bitcoinreal-win-1.2"
+name: "bitcoinreal-win-3.2"
 enable_cache: true
 suites:
 - "trusty"
@@ -22,13 +22,13 @@ packages:
 - "ca-certificates"
 - "python"
 remotes:
-- "url": "https://github.com/LiteSpeedDev/BTCR"
-  "dir": "BTCR"
+- "url": "https://github.com/bitcoinreal-project/bitcoinreal.git"
+  "dir": "bitcoinreal"
 files: []
 script: |
   WRAP_DIR=$HOME/wrapped
   HOSTS="i686-w64-mingw32 x86_64-w64-mingw32"
-  CONFIGFLAGS="--enable-reduce-exports --disable-bench --disable-tests --disable-gui-tests"
+  CONFIGFLAGS="--enable-reduce-exports --disable-bench --disable-gui-tests"
   FAKETIME_HOST_PROGS="g++ ar ranlib nm windres strip objcopy"
   FAKETIME_PROGS="date makensis zip"
   HOST_CFLAGS="-O2 -g"
@@ -101,7 +101,7 @@ script: |
   create_per-host_linker_wrapper "2000-01-01 12:00:00"
   export PATH=${WRAP_DIR}:${PATH}
 
-  cd BTCR
+  cd bitcoinreal
   BASEPREFIX=`pwd`/depends
   # Build dependencies for each host
   for i in $HOSTS; do
@@ -117,7 +117,7 @@ script: |
 
   # Create the release tarball using (arbitrarily) the first host
   ./autogen.sh
-  CONFIG_SITE=${BASEPREFIX}/`echo "${HOSTS}" | awk '{print $1;}'`/share/config.site ./configure --prefix=/ --disable-bench --disable-tests
+  CONFIG_SITE=${BASEPREFIX}/`echo "${HOSTS}" | awk '{print $1;}'`/share/config.site ./configure --prefix=/
   make dist
   SOURCEDIST=`echo bitcoinreal-*.tar.gz`
   DISTNAME=`echo ${SOURCEDIST} | sed 's/.tar.*//'`
@@ -141,7 +141,7 @@ script: |
     mkdir -p ${INSTALLPATH}
     tar --strip-components=1 -xf ../$SOURCEDIST
 
-    CONFIG_SITE=${BASEPREFIX}/${i}/share/config.site ./configure --prefix=/ --disable-ccache --disable-bench --disable-tests --disable-maintainer-mode --disable-dependency-tracking ${CONFIGFLAGS} CFLAGS="${HOST_CFLAGS}" CXXFLAGS="${HOST_CXXFLAGS}"
+    CONFIG_SITE=${BASEPREFIX}/${i}/share/config.site ./configure --prefix=/ --disable-ccache --disable-maintainer-mode --disable-dependency-tracking ${CONFIGFLAGS} CFLAGS="${HOST_CFLAGS}" CXXFLAGS="${HOST_CXXFLAGS}"
     make ${MAKEOPTS}
     make deploy
     make install DESTDIR=${INSTALLPATH}

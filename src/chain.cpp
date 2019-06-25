@@ -1,5 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
+// Copyright (c) 2016-2018 The PIVX developers
+// Copyright (c) 2019 The BitcoinReal developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -23,7 +25,7 @@ void CChain::SetTip(CBlockIndex* pindex)
     }
 }
 
-CBlockLobitcoinrealr CChain::GetLobitcoinrealr(const CBlockIndex* pindex) const
+CBlockLocator CChain::GetLocator(const CBlockIndex* pindex) const
 {
     int nStep = 1;
     std::vector<uint256> vHave;
@@ -49,7 +51,7 @@ CBlockLobitcoinrealr CChain::GetLobitcoinrealr(const CBlockIndex* pindex) const
             nStep *= 2;
     }
 
-    return CBlockLobitcoinrealr(vHave);
+    return CBlockLocator(vHave);
 }
 
 const CBlockIndex* CChain::FindFork(const CBlockIndex* pindex) const

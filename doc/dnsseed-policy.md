@@ -1,7 +1,7 @@
 Expectations for DNS Seed operators
 ====================================
 
-BitcoinReal Core attempts to minimize the level of trust in DNS seeds,
+BitcoinReal attempts to minimize the level of trust in DNS seeds,
 but DNS seeds still pose a small amount of risk for the network.
 As such, DNS seeds must be run by entities which have some minimum
 level of trust within the BitcoinReal community.
@@ -46,7 +46,7 @@ related to the DNS seed operation.
 If these expectations cannot be satisfied the operator should
 discontinue providing services and contact the active BitcoinReal
 Core development team as well as posting on the
-[BitcoinReal Forum](https://bitcoinrealcoin.com).
+[BitcoinReal Forum](https://forum.bitcoinreal.org).
 
 Behavior outside of these expectations may be reasonable in some
 situations but should be discussed in public in advance.

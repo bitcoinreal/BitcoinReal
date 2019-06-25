@@ -168,16 +168,16 @@
         <translation>Confirma l'encriptació del moneder</translation>
     </message>
     <message>
-        <source>BitcoinReal will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BRCOINs from being stolen by malware infecting your computer.</source>
-        <translation>BitcoinReal es tancarà per finalitzar el procés d'encriptació. Recorda que encriptant el teu moneder no protegeix els teus BRCOIN de ser robats si el teu ordinador està infectat amb programari maliciós.</translation>
+        <source>BitcoinReal will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BRs from being stolen by malware infecting your computer.</source>
+        <translation>BitcoinReal es tancarà per finalitzar el procés d'encriptació. Recorda que encriptant el teu moneder no protegeix els teus BR de ser robats si el teu ordinador està infectat amb programari maliciós.</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
         <translation>Estàs segur que vols encriptar el moneder?</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BRCOIN&lt;/b&gt;!</source>
-        <translation>Avís: Si encripteu el vostre moneder i perdeu la contrasenya, &lt;b&gt;PERDREU TOTS ELS VOSTRES BRCOINS&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BR&lt;/b&gt;!</source>
+        <translation>Avís: Si encripteu el vostre moneder i perdeu la contrasenya, &lt;b&gt;PERDREU TOTS ELS VOSTRES ICAS&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Wallet encrypted</source>
@@ -207,6 +207,9 @@
         <source>Wallet passphrase was successfully changed.</source>
         <translation>La contrasenya del moneder ha estat canviada amb èxit.</translation>
     </message>
+    </context>
+<context>
+    <name>BanTableModel</name>
     </context>
 <context>
     <name>Bip38ToolDialog</name>
@@ -418,8 +421,8 @@
         <translation>A&amp;juda</translation>
     </message>
     <message>
-        <source>BitcoinReal Core</source>
-        <translation>BitcoinReal Core</translation>
+        <source>BitcoinReal</source>
+        <translation>BitcoinReal</translation>
     </message>
     <message>
         <source>Send coins to a BitcoinReal address</source>
@@ -434,8 +437,8 @@
         <translation>&amp;Masternodes</translation>
     </message>
     <message>
-        <source>&amp;About BitcoinReal Core</source>
-        <translation>&amp;Sobre BitcoinReal Core</translation>
+        <source>&amp;About BitcoinReal</source>
+        <translation>&amp;Sobre BitcoinReal</translation>
     </message>
     <message>
         <source>&amp;BIP38 tool</source>
@@ -458,12 +461,8 @@
         <translation>Obre el fitxer de configuració del Masternode</translation>
     </message>
     <message>
-        <source>BitcoinReal Core client</source>
-        <translation>Client BitcoinReal core</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n active connection(s) to BitcoinReal network</source>
-        <translation><numerusform>%n connexió activa a la xarxa BitcoinReal</numerusform><numerusform>%n connexions actives a la xarxa BitcoinReal</numerusform></translation>
+        <source>BitcoinReal client</source>
+        <translation>Client BitcoinReal</translation>
     </message>
     <message>
         <source>Synchronizing with network...</source>
@@ -473,25 +472,9 @@
         <source>Up to date</source>
         <translation>Actualitzat</translation>
     </message>
-    <message numerus="yes">
-        <source>%n hour(s)</source>
-        <translation><numerusform>%n hora</numerusform><numerusform>%n hores</numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>%n day(s)</source>
-        <translation><numerusform>%n dia</numerusform><numerusform>%n dies</numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>%n week(s)</source>
-        <translation><numerusform>%n setmana</numerusform><numerusform>%n setmanes</numerusform></translation>
-    </message>
     <message>
         <source>%1 and %2</source>
         <translation>%1 i %2</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n year(s)</source>
-        <translation><numerusform>%n any</numerusform><numerusform>%n anys</numerusform></translation>
     </message>
     <message>
         <source>Error</source>
@@ -635,6 +618,10 @@
         <translation>Rebut amb l'adreça</translation>
     </message>
     <message>
+        <source>Type</source>
+        <translation>Tipus</translation>
+    </message>
+    <message>
         <source>Date</source>
         <translation>Data</translation>
     </message>
@@ -767,6 +754,10 @@
         <translation>Aquesta etiqueta es posa vermella si la prioritat és més petita que "mitjana"</translation>
     </message>
     <message>
+        <source>This label turns red, if any recipient receives an amount smaller than %1.</source>
+        <translation>Aquesta etiqueta es posa vermella si algun destinatari rep un import inferior a l' %1.</translation>
+    </message>
+    <message>
         <source>(no label)</source>
         <translation>(sense etiqueta)</translation>
     </message>
@@ -860,16 +851,16 @@
         <translation>versió</translation>
     </message>
     <message>
-        <source>BitcoinReal Core</source>
-        <translation>BitcoinReal Core</translation>
+        <source>BitcoinReal</source>
+        <translation>BitcoinReal</translation>
     </message>
     <message>
         <source>(%1-bit)</source>
         <translation>(%1-bit)</translation>
     </message>
     <message>
-        <source>About BitcoinReal Core</source>
-        <translation>Sobre BitcoinReal Core</translation>
+        <source>About BitcoinReal</source>
+        <translation>Sobre BitcoinReal</translation>
     </message>
     <message>
         <source>Command-line options</source>
@@ -915,12 +906,12 @@
         <translation>Benvingut</translation>
     </message>
     <message>
-        <source>Welcome to BitcoinReal Core.</source>
-        <translation>Benvingut a BitcoinReal Core.</translation>
+        <source>Welcome to BitcoinReal.</source>
+        <translation>Benvingut a BitcoinReal.</translation>
     </message>
     <message>
-        <source>As this is the first time the program is launched, you can choose where BitcoinReal Core will store its data.</source>
-        <translation>Al ser el primer cop que s'inicia el programa, pots escollir on es desaran les dades del BitcoinReal Core.</translation>
+        <source>As this is the first time the program is launched, you can choose where BitcoinReal will store its data.</source>
+        <translation>Al ser el primer cop que s'inicia el programa, pots escollir on es desaran les dades del BitcoinReal.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -931,8 +922,8 @@
         <translation>Usar una carpeta de dades personalitzada:</translation>
     </message>
     <message>
-        <source>BitcoinReal Core</source>
-        <translation>BitcoinReal Core</translation>
+        <source>BitcoinReal</source>
+        <translation>BitcoinReal</translation>
     </message>
     <message>
         <source>Error: Specified data directory "%1" cannot be created.</source>
@@ -956,10 +947,6 @@
     <message>
         <source>Form</source>
         <translation>Formulari</translation>
-    </message>
-    <message>
-        <source>My Masternodes</source>
-        <translation>Els meus Masternodes</translation>
     </message>
     <message>
         <source>Alias</source>
@@ -1093,6 +1080,10 @@
         <translation>Activa</translation>
     </message>
     <message>
+        <source>(no label)</source>
+        <translation>(sense etiqueta)</translation>
+    </message>
+    <message>
         <source>The entered address:
 </source>
         <translation>L'adreça introduïda:
@@ -1120,6 +1111,21 @@
     </message>
 </context>
 <context>
+    <name>MultisigDialog</name>
+    <message>
+        <source>Status:</source>
+        <translation>Estat:</translation>
+    </message>
+    <message>
+        <source>0</source>
+        <translation>0</translation>
+    </message>
+    <message>
+        <source>Amount:</source>
+        <translation>Import:</translation>
+    </message>
+    </context>
+<context>
     <name>ObfuscationConfig</name>
     <message>
         <source>Configure Obfuscation</source>
@@ -1142,24 +1148,24 @@
         <translation>Si us plau, selecciona un nivell de privacitat.</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 10000 BRCOIN</source>
-        <translation>Utilitza 2 masternodes diferents per mesclar fons de fins a 10000 BRCOIN</translation>
+        <source>Use 2 separate masternodes to mix funds up to 10000 BR</source>
+        <translation>Utilitza 2 masternodes diferents per mesclar fons de fins a 10000 BR</translation>
     </message>
     <message>
-        <source>Use 8 separate masternodes to mix funds up to 10000 BRCOIN</source>
-        <translation>Utilitza 8 masternodes diferents per mesclar fons de fins a 10000 BRCOIN</translation>
+        <source>Use 8 separate masternodes to mix funds up to 10000 BR</source>
+        <translation>Utilitza 8 masternodes diferents per mesclar fons de fins a 10000 BR</translation>
     </message>
     <message>
         <source>Use 16 separate masternodes</source>
         <translation>Utilitza 16 masternodes diferents</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 BRCOIN to anonymize 10000 bitcoinrealCOIN</source>
-        <translation>Aquesta opció és la més ràpida i té un cost d'uns ~0.025 BRCOIN per anonimitzar 10000 bitcoinrealCOIN</translation>
+        <source>This option is the quickest and will cost about ~0.025 BR to anonymize 10000 BR</source>
+        <translation>Aquesta opció és la més ràpida i té un cost d'uns ~0.025 BR per anonimitzar 10000 BR</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 BRCOIN to anonymize 10000 bitcoinrealCOIN</source>
-        <translation>Aquesta opció és moderadament ràpida i té un cost d'uns 0.05 BRCOIN per anonimitzar 10000 bitcoinrealCOIN</translation>
+        <source>This option is moderately fast and will cost about 0.05 BR to anonymize 10000 BR</source>
+        <translation>Aquesta opció és moderadament ràpida i té un cost d'uns 0.05 BR per anonimitzar 10000 BR</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
@@ -1271,18 +1277,6 @@
         <translation>Total:</translation>
     </message>
     <message>
-        <source>BRCOIN:</source>
-        <translation>BRCOIN:</translation>
-    </message>
-    <message>
-        <source>zBRCOIN:</source>
-        <translation>zBRCOIN:</translation>
-    </message>
-    <message>
-        <source>0 %</source>
-        <translation>0 %</translation>
-    </message>
-    <message>
         <source>Recent transactions</source>
         <translation>Transaccions recents</translation>
     </message>
@@ -1304,20 +1298,16 @@
 <context>
     <name>PrivacyDialog</name>
     <message>
-        <source>Zerocoin BRCOIN (zbitcoinrealCOIN)</source>
-        <translation>Zerocoin BRCOIN (zbitcoinrealCOIN)</translation>
-    </message>
-    <message>
         <source>0</source>
         <translation>0</translation>
     </message>
     <message>
-        <source>zBRCOIN</source>
-        <translation>zBRCOIN</translation>
+        <source>zBR</source>
+        <translation>zBR</translation>
     </message>
     <message>
-        <source>0.000 000 00 BRCOIN</source>
-        <translation>0.000 000 00 BRCOIN</translation>
+        <source>0.000 000 00 BR</source>
+        <translation>0.000 000 00 BR</translation>
     </message>
     <message>
         <source>Reset</source>
@@ -1332,8 +1322,8 @@
         <translation>Import:</translation>
     </message>
     <message>
-        <source>0 zBRCOIN</source>
-        <translation>0 zBRCOIN</translation>
+        <source>0 zBR</source>
+        <translation>0 zBR</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -1350,6 +1340,10 @@
     <message>
         <source>Priority:</source>
         <translation>Prioritat:</translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation>EtiquetaDeText</translation>
     </message>
     <message>
         <source>Fee:</source>
@@ -1630,7 +1624,7 @@
     </message>
     <message>
         <source>After Fee:</source>
-        <translation>Després de la comissió:</translation>
+        <translation>Amb comissió:</translation>
     </message>
     <message>
         <source>Change:</source>
@@ -1719,8 +1713,8 @@
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>BitcoinReal Core is shutting down...</source>
-        <translation>BitcoinReal Core s'està tancant...</translation>
+        <source>BitcoinReal is shutting down...</source>
+        <translation>BitcoinReal s'està tancant...</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -1785,8 +1779,8 @@
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>BitcoinReal Core</source>
-        <translation>BitcoinReal Core</translation>
+        <source>BitcoinReal</source>
+        <translation>BitcoinReal</translation>
     </message>
     <message>
         <source>Version %1</source>
@@ -1892,10 +1886,6 @@
         <translation>Aquest any</translation>
     </message>
     <message>
-        <source>Obfuscated</source>
-        <translation>Ofuscat</translation>
-    </message>
-    <message>
         <source>Copy address</source>
         <translation>Copia l'adreça</translation>
     </message>
@@ -1969,7 +1959,7 @@
     </message>
     </context>
 <context>
-    <name>ZPhrControlDialog</name>
+    <name>ZBrControlDialog</name>
     <message>
         <source>Quantity</source>
         <translation>Quantitat</translation>
@@ -1979,8 +1969,8 @@
         <translation>0</translation>
     </message>
     <message>
-        <source>zPhr</source>
-        <translation>zPhr</translation>
+        <source>zBR</source>
+        <translation>zBR</translation>
     </message>
     </context>
 <context>

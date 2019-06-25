@@ -1,9 +1,9 @@
-Bitcoin Real Core
+BitcoinReal
 =====================
 
 Setup
 ---------------------
-[Bitcoin Real Core](http://BitcoinRealcoin.com) is the original BitcoinReal client and it builds the backbone of the network. However, it downloads and stores the entire history of BitcoinReal transactions; depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more. Thankfully you only have to do this once.
+[BitcoinReal](http://bitcoinreal.org/wallet) is the original BitcoinReal client and it builds the backbone of the network. However, it downloads and stores the entire history of BitcoinReal transactions; depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more. Thankfully you only have to do this once.
 
 Running
 ---------------------
@@ -24,6 +24,13 @@ Unpack the files into a directory, and then run bitcoinreal-qt.exe.
 
 Drag BitcoinReal-Qt to your applications folder, and then run BitcoinReal-Qt.
 
+### Need Help?
+
+* See the documentation at the [BitcoinReal Wiki](https://en.bitcoin.it/wiki/Main_Page) ***TODO***
+for help and more information.
+* Ask for help on [BitcoinTalk](https://bitcointalk.org/index.php?topic=1262920.0) or on the [BitcoinReal Forum](http://forum.bitcoinreal.org/).
+* Join our Discord server [Discord Server](https://discord.bitcoinreal.org)
+* Join one of our Slack groups [BitcoinReal Slack Groups](https://bitcoinreal.org/slack-logins/) (Main community is replaced by Discord).
 
 Building
 ---------------------
@@ -35,7 +42,7 @@ The following are developer notes on how to build BitcoinReal on your native pla
 
 Development
 ---------------------
-The BitcoinReal repo's [root README](https://github.com/eastcoastcrypto/BitcoinReal/blob/master/README.md) contains relevant information on the development process and automated testing.
+The BitcoinReal repo's [root README](https://github.com/BitcoinReal-Project/BitcoinReal/blob/master/README.md) contains relevant information on the development process and automated testing.
 
 - [Developer Notes](developer-notes.md)
 - [Multiwallet Qt Development](multiwallet-qt.md)
@@ -49,8 +56,8 @@ The BitcoinReal repo's [root README](https://github.com/eastcoastcrypto/BitcoinR
 
 ### Resources
 
-* Discuss on the [BitcoinTalk](https://bitcointalk.org/index.php?topic=1262920.0) .
-* Join the [BitcoinReal-Dev] Discord groups [BitcoinReal Discord Groups](https://discord.gg/YcnvMqt).
+* Discuss on the [BitcoinTalk](https://bitcointalk.org/index.php?topic=1262920.0) or the [BitcoinReal](http://forum.bitcoinreal.org/) forum.
+* Join the [BitcoinReal-Dev](https://bitcoinreal-dev.slack.com/) Slack group ([Sign-Up](https://bitcoinreal-dev.herokuapp.com/)).
 
 ### Miscellaneous
 - [Assets Attribution](assets-attribution.md)

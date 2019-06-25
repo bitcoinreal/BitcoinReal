@@ -1,6 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
-// Copyright (c) 2015-2017 The PIVX developers
+// Copyright (c) 2015-2018 The PIVX developers
+// Copyright (c) 2019 The BitcoinReal developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -347,7 +348,7 @@ public:
     unsigned int GetStakeEntropyBit() const
     {
         unsigned int nEntropyBit = ((GetBlockHash().Get64()) & 1);
-        if (fDebug || GetBoolArg("-printstakemodifier", false))
+        if (GetBoolArg("-printstakemodifier", false))
             LogPrintf("GetStakeEntropyBit: nHeight=%u hashBlock=%s nEntropyBit=%u\n", nHeight, GetBlockHash().ToString().c_str(), nEntropyBit);
 
         return nEntropyBit;
@@ -577,8 +578,8 @@ public:
     /** Set/initialize a chain with a given tip. */
     void SetTip(CBlockIndex* pindex);
 
-    /** Return a CBlockLobitcoinrealr that refers to a block in this chain (by default the tip). */
-    CBlockLobitcoinrealr GetLobitcoinrealr(const CBlockIndex* pindex = NULL) const;
+    /** Return a CBlockLocator that refers to a block in this chain (by default the tip). */
+    CBlockLocator GetLocator(const CBlockIndex* pindex = NULL) const;
 
     /** Find the last common block between this chain and a block index entry. */
     const CBlockIndex* FindFork(const CBlockIndex* pindex) const;

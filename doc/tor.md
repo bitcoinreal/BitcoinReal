@@ -38,7 +38,7 @@ outgoing connections be anonymized, but more is possible.
 An example how to start the client if the Tor proxy is running on local host on
 port 9050 and only allows .onion nodes to connect:
 ```
-./bitcoinreald -onion=127.0.0.1:9050 -onlynet=tor -listen=0 -addnode=dnetzj6l4cvo2fxy.onion:888
+./bitcoinreald -onion=127.0.0.1:9050 -onlynet=tor -listen=0 -addnode=dnetzj6l4cvo2fxy.onion:989
 ```
 
 In a typical situation, this suffices to run behind a Tor proxy:
@@ -59,17 +59,17 @@ SOCKSPolicy accept 127.0.0.1/8
 Log notice file /var/log/tor/notices.log
 ControlPort 9051
 HiddenServiceDir /var/lib/tor/dnet/
-HiddenServicePort 989 127.0.0.1:6080
+HiddenServicePort 989 127.0.0.1:13319
 HiddenServiceStatistics 0
 ORPort 9001
-LongLivedPorts 888
+LongLivedPorts 989
 ExitPolicy reject *:*
 DisableDebuggerAttachment 0
 NumEntryGuards 8
 ```
 
 The directory can be different of course, but (both) port numbers should be equal to
-your bitcoinreald's P2P listen port (6080 by default).
+your bitcoinreald's P2P listen port (13319 by default).
 ```
 -externalip=X   You can tell bitcoinreal about its publicly reachable address using
                 this option, and this can be a .onion address. Given the above
@@ -92,7 +92,7 @@ your bitcoinreald's P2P listen port (6080 by default).
 
 In a typical situation, where you're only reachable via Tor, this should suffice:
 ```
-./bitcoinreald -proxy=127.0.0.1:9050 -externalip=dnetzj6l4cvo2fxy.onion:888 -listen
+./bitcoinreald -proxy=127.0.0.1:9050 -externalip=dnetzj6l4cvo2fxy.onion:989 -listen
 ```
 
 (obviously, replace the Onion address with your own). If you don't care too much
@@ -102,16 +102,25 @@ specify:
 ./bitcoinreald ... -discover
 ```
 
-and open port 6080 on your firewall (or use -upnp).
+and open port 13319 on your firewall (or use -upnp).
 
 If you only want to use Tor to reach onion addresses, but not use it as a proxy
 for normal IPv4/IPv6 communication, use:
 ```
-./bitcoinreald -onion=127.0.0.1:9050 -externalip=dnetzj6l4cvo2fxy.onion:888 -discover
+./bitcoinreald -onion=127.0.0.1:9050 -externalip=dnetzj6l4cvo2fxy.onion:989 -discover
 ```
 
 List of known BitcoinReal Tor relays
 ------------------------------------
 ```
-onion:
+y5kcscnhpygvvnjn.onion:989
+5bmhtjvn2jvwpiej.onion:989
+pyfdxkazur3iib7y.onion:989
+ok3ym5zy6m5klimk.onion:989
+i6vpvzk2jxuqqs5f.onion:989
+bgdhpb76fkbw5fmg.onion:989
+gtlqzb5zbws5di7g.onion:989
+f7j2m26rptm5f7af.onion:989
+dnetzj6l4cvo2fxy.onion:989
+s3v3n7xhqafg6sb7.onion:989
 ```

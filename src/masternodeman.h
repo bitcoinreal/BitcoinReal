@@ -1,5 +1,6 @@
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2017 The PIVX developers
+// Copyright (c) 2015-2018 The PIVX developers
+// Copyright (c) 2019 The BitcoinReal developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -65,8 +66,7 @@ private:
     std::map<CNetAddr, int64_t> mWeAskedForMasternodeList;
     // which Masternodes we've asked for
     std::map<COutPoint, int64_t> mWeAskedForMasternodeListEntry;
-    //masternode tier map
-  //  std::map<std::string, int64_t> masternodeTiers;
+
 public:
     // Keep track of all broadcasts I've seen
     map<uint256, CMasternodeBroadcast> mapSeenMasternodeBroadcast;
@@ -86,7 +86,6 @@ public:
         READWRITE(mAskedUsForMasternodeList);
         READWRITE(mWeAskedForMasternodeList);
         READWRITE(mWeAskedForMasternodeListEntry);
-	//READWRITE(masternodeTiers);
         READWRITE(nDsqCount);
 
         READWRITE(mapSeenMasternodeBroadcast);
@@ -98,8 +97,7 @@ public:
 
     /// Add an entry
     bool Add(CMasternode& mn);
-    //void addtomap(const std::string& payee);
-    //int64_t gettier(const std::string& payee);
+
     /// Ask (source) node for mnb
     void AskForMN(CNode* pnode, CTxIn& vin);
 
@@ -137,10 +135,6 @@ public:
         Check();
         return vMasternodes;
     }
-//    std::map<std::string, int64_t> getmntiermap()
-//	{
-//	return masternodeTiers;
-//	}
 
     std::vector<pair<int, CMasternode> > GetMasternodeRanks(int64_t nBlockHeight, int minProtocol = 0);
     int GetMasternodeRank(const CTxIn& vin, int64_t nBlockHeight, int minProtocol = 0, bool fOnlyActive = true);
@@ -159,6 +153,8 @@ public:
     std::string ToString() const;
 
     void Remove(CTxIn vin);
+
+    int GetEstimatedMasternodes(int nBlock);
 
     /// Update masternode list and maps using provided CMasternodeBroadcast
     void UpdateMasternodeList(CMasternodeBroadcast mnb);

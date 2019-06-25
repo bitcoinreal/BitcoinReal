@@ -449,7 +449,7 @@
      <property name="columnCount">
       <number>13</number>
      </property>
-     <attribute name="headerShowSortIndibitcoinrealr" stdset="0">
+     <attribute name="headerShowSortIndicator" stdset="0">
       <bool>true</bool>
      </attribute>
      <attribute name="headerStretchLastSection">
@@ -477,11 +477,11 @@
      </column>
      <column>
       <property name="text">
-	<string>Type</string>
+       <string>Type</string>
       </property>
      </column>
      <column>
-      <property name="text">	 
+      <property name="text">
        <string>Date</string>
       </property>
      </column>

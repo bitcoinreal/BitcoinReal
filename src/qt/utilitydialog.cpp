@@ -1,6 +1,7 @@
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2017 The PIVX developers
+// Copyright (c) 2015-2018 The PIVX developers
+// Copyright (c) 2019 The BitcoinReal developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -28,13 +29,13 @@
 #include <QVBoxLayout>
 
 /** "Help message" or "About" dialog box */
-HelpMessageDialog::HelpMessageDialog(QWidget* parent, bool about) : QDialog(parent),
+HelpMessageDialog::HelpMessageDialog(QWidget* parent, bool about) : QDialog(parent, Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint),
                                                                     ui(new Ui::HelpMessageDialog)
 {
     ui->setupUi(this);
     GUIUtil::restoreWindowGeometry("nHelpMessageDialogWindow", this->size(), this);
 
-    QString version = tr("Bitcoin Real Core") + " " + tr("version") + " " + QString::fromStdString(FormatFullVersion());
+    QString version = tr("BitcoinReal") + " " + tr("version") + " " + QString::fromStdString(FormatFullVersion());
 /* On x86 add a bit specifier to the version so that users can distinguish between
      * 32 and 64 bit builds. On other architectures, 32/64 bit may be more ambigious.
      */
@@ -45,7 +46,7 @@ HelpMessageDialog::HelpMessageDialog(QWidget* parent, bool about) : QDialog(pare
 #endif
 
     if (about) {
-        setWindowTitle(tr("About BitcoinReal Core"));
+        setWindowTitle(tr("About BitcoinReal"));
 
         /// HTML-format the license message from the core
         QString licenseInfo = QString::fromStdString(LicenseInfo());
@@ -65,28 +66,10 @@ HelpMessageDialog::HelpMessageDialog(QWidget* parent, bool about) : QDialog(pare
         ui->aboutMessage->setWordWrap(true);
         ui->helpMessage->setVisible(false);
     } else {
-        setWindowTitle("ROI and Stats Information");
+        setWindowTitle(tr("Command-line options"));
         QString header = tr("Usage:") + "\n" +
                          "  bitcoinreal-qt [" + tr("command-line options") + "]                     " + "\n";
         QTextCursor cursor(ui->helpMessage->document());
-		cursor.insertBlock();
-		cursor.insertText("90% Masternode / 5% POS");cursor.insertBlock();
-		cursor.insertText("Locked coins do not stake");cursor.insertBlock();
-		cursor.insertText("15 confirmations required");cursor.insertBlock();
-		cursor.insertText("Coins need to mature for 2 hours before staking");cursor.insertBlock();
-		cursor.insertText("Masternodes do not earn rewards until 2 hours after start");cursor.insertBlock();
-        cursor.insertBlock();
-        cursor.insertBlock();
-        cursor.insertBlock();
-        cursor.insertBlock();
-        cursor.insertBlock();
-        cursor.insertBlock();
-        cursor.insertBlock();
-        cursor.insertBlock();
-        cursor.insertBlock();
-        cursor.insertBlock();
-        cursor.insertBlock();
-        cursor.insertBlock();
         cursor.insertText(version);
         cursor.insertBlock();
         cursor.insertText(header);

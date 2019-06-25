@@ -1,6 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2013 The Bitcoin developers
-// Copyright (c) 2015-2017 The PIVX developers
+// Copyright (c) 2015-2018 The PIVX developers
+// Copyright (c) 2019 The BitcoinReal developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -150,8 +151,7 @@ public:
         return !IsProofOfStake();
     }
 
-    bool SignBlock(const CKeyStore& keystore);
-    bool CheckBlockSignature() const;
+    bool IsZerocoinStake() const;
 
     std::pair<COutPoint, unsigned int> GetProofOfStake() const
     {
@@ -175,13 +175,13 @@ public:
  * other node doesn't have the same branch, it can find a recent common trunk.
  * The further back it is, the further before the fork it may be.
  */
-struct CBlockLobitcoinrealr
+struct CBlockLocator
 {
     std::vector<uint256> vHave;
 
-    CBlockLobitcoinrealr() {}
+    CBlockLocator() {}
 
-    CBlockLobitcoinrealr(const std::vector<uint256>& vHaveIn)
+    CBlockLocator(const std::vector<uint256>& vHaveIn)
     {
         vHave = vHaveIn;
     }

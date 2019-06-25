@@ -6,8 +6,12 @@ ACLOCAL_AMFLAGS = -I build-aux/m4
 SUBDIRS = src
 .PHONY: deploy FORCE
 
-GZIP_ENV="-9n"
 export PYTHONPATH
+
+if BUILD_BITCOIN_LIBS
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = libbitcoinconsensus.pc
+endif
 
 BITCOIND_BIN=$(top_builddir)/src/$(BITCOIN_DAEMON_NAME)$(EXEEXT)
 BITCOIN_QT_BIN=$(top_builddir)/src/qt/$(BITCOIN_GUI_NAME)$(EXEEXT)
@@ -17,7 +21,7 @@ BITCOIN_WIN_INSTALLER=$(PACKAGE)-$(PACKAGE_VERSION)-win$(WINDOWS_BITS)-setup$(EX
 empty :=
 space := $(empty) $(empty)
 
-OSX_APP=bitcoinreal-Qt.app
+OSX_APP=BitcoinReal-Qt.app
 OSX_VOLNAME = $(subst $(space),-,$(PACKAGE_NAME))
 OSX_DMG = $(OSX_VOLNAME).dmg
 OSX_BACKGROUND_SVG=background.svg
@@ -86,7 +90,7 @@ $(OSX_APP)/Contents/Resources/bitcoin.icns: $(OSX_INSTALLER_ICONS)
 	$(MKDIR_P) $(@D)
 	$(INSTALL_DATA) $< $@
 
-$(OSX_APP)/Contents/MacOS/bitcoinreal-Qt: $(BITCOIN_QT_BIN)
+$(OSX_APP)/Contents/MacOS/BitcoinReal-Qt: $(BITCOIN_QT_BIN)
 	$(MKDIR_P) $(@D)
 	STRIPPROG="$(STRIP)" $(INSTALL_STRIP_PROGRAM)  $< $@
 
@@ -96,7 +100,7 @@ $(OSX_APP)/Contents/Resources/Base.lproj/InfoPlist.strings:
 
 OSX_APP_BUILT=$(OSX_APP)/Contents/PkgInfo $(OSX_APP)/Contents/Resources/empty.lproj \
   $(OSX_APP)/Contents/Resources/bitcoin.icns $(OSX_APP)/Contents/Info.plist \
-  $(OSX_APP)/Contents/MacOS/bitcoinreal-Qt $(OSX_APP)/Contents/Resources/Base.lproj/InfoPlist.strings
+  $(OSX_APP)/Contents/MacOS/BitcoinReal-Qt $(OSX_APP)/Contents/Resources/Base.lproj/InfoPlist.strings
 
 osx_volname:
 	echo $(OSX_VOLNAME) >$@
@@ -121,7 +125,7 @@ $(APP_DIST_DIR)/Applications:
 	@rm -f $@
 	@cd $(@D); $(LN_S) /Applications $(@F)
 
-$(APP_DIST_EXTRAS): $(APP_DIST_DIR)/$(OSX_APP)/Contents/MacOS/bitcoinreal-Qt
+$(APP_DIST_EXTRAS): $(APP_DIST_DIR)/$(OSX_APP)/Contents/MacOS/BitcoinReal-Qt
 
 $(OSX_DMG): $(APP_DIST_EXTRAS)
 	$(GENISOIMAGE) -no-cache-inodes -D -l -probe -V "$(OSX_VOLNAME)" -no-pad -r -dir-mode 0755 -apple -o $@ dist
@@ -136,7 +140,7 @@ $(APP_DIST_DIR)/.background/$(OSX_BACKGROUND_IMAGE): $(OSX_BACKGROUND_IMAGE_DPIF
 $(APP_DIST_DIR)/.DS_Store: $(OSX_DSSTORE_GEN)
 	$(PYTHON) $< "$@" "$(OSX_VOLNAME)"
 
-$(APP_DIST_DIR)/$(OSX_APP)/Contents/MacOS/bitcoinreal-Qt: $(OSX_APP_BUILT) $(OSX_PACKAGING)
+$(APP_DIST_DIR)/$(OSX_APP)/Contents/MacOS/BitcoinReal-Qt: $(OSX_APP_BUILT) $(OSX_PACKAGING)
 	INSTALLNAMETOOL=$(INSTALLNAMETOOL)  OTOOL=$(OTOOL) STRIP=$(STRIP) $(PYTHON) $(OSX_DEPLOY_SCRIPT) $(OSX_APP) -translations-dir=$(QT_TRANSLATION_DIR) -add-qt-tr $(OSX_QT_TRANSLATIONS) -verbose 2
 
 deploydir: $(APP_DIST_EXTRAS)
@@ -185,6 +189,12 @@ test_bitcoinreal.info: baseline_filtered_combined.info
 test_bitcoinreal_filtered.info: test_bitcoinreal.info
 	$(LCOV) -r $< "/usr/include/*" -o $@
 
+block_test.info: test_bitcoinreal_filtered.info
+	$(MKDIR_P) qa/tmp
+	-@TIMEOUT=15 qa/pull-tester/run-bitcoind-for-test.sh $(JAVA) -jar $(JAVA_COMPARISON_TOOL) qa/tmp/compTool 0
+	$(LCOV) -c -d $(abs_builddir)/src --t BitcoinJBlockTest -o $@
+	$(LCOV) -z -d $(abs_builddir)/src
+	$(LCOV) -z -d $(abs_builddir)/src/leveldb
 
 block_test_filtered.info: block_test.info
 	$(LCOV) -r $< "/usr/include/*" -o $@
@@ -209,7 +219,7 @@ endif
 
 dist_noinst_SCRIPTS = autogen.sh
 
-EXTRA_DIST = $(top_srcdir)/share/genbuild.sh  $(DIST_DOCS) $(WINDOWS_PACKAGING) $(OSX_PACKAGING)
+EXTRA_DIST = $(top_srcdir)/share/genbuild.sh qa/pull-tester/rpc-tests.sh qa/pull-tester/run-bitcoin-cli qa/rpc-tests $(DIST_DOCS) $(WINDOWS_PACKAGING) $(OSX_PACKAGING)
 
 CLEANFILES = $(OSX_DMG) $(BITCOIN_WIN_INSTALLER)
 

@@ -1,12 +1,14 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2013 The Bitcoin developers
+// Copyright (c) 2009-2014 The Bitcoin developers
+// Copyright (c) 2017-2018 The PIVX developers
+// Copyright (c) 2019 The BitcoinReal developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BITCOIN_STREAMS_H
 #define BITCOIN_STREAMS_H
 
-#include "allobitcoinrealrs.h"
+#include "allocators.h"
 #include "serialize.h"
 
 #include <algorithm>
@@ -37,7 +39,7 @@ public:
     int nType;
     int nVersion;
 
-    typedef vector_type::allobitcoinrealr_type allobitcoinrealr_type;
+    typedef vector_type::allocator_type allocator_type;
     typedef vector_type::size_type size_type;
     typedef vector_type::difference_type difference_type;
     typedef vector_type::reference reference;

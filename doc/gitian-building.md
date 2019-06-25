@@ -281,7 +281,7 @@ Clone the git repositories for bitcoinreal and gitian and then checkout the bitc
 
 ```bash
 git clone https://github.com/devrandom/gitian-builder.git
-git clone https://github.com/eastcoastcrypto/BitcoinReal.git
+git clone https://github.com/bitcoinreal-crypto/bitcoinreal.git
 cd bitcoinreal
 git checkout v${VERSION}
 cd ..
@@ -350,7 +350,7 @@ Output from `gbuild` will look something like
     remote: Total 35606 (delta 0), reused 0 (delta 0)
     Receiving objects: 100% (35606/35606), 26.52 MiB | 4.28 MiB/s, done.
     Resolving deltas: 100% (25724/25724), done.
-    From https://github.com/eastcoastcrypto/BitcoinReal
+    From https://github.com/bitcoinreal-crypto/bitcoinreal
     ... (new tags, new branch etc)
     --- Building for precise x86_64 ---
     Stopping target if it is up
@@ -377,11 +377,11 @@ and inputs.
 
 For example:
 ```bash
-URL=https://github.com/eastcoastcrypto/BitcoinReal.git
+URL=https://github.com/crowning-/bitcoinreal.git
 COMMIT=b616fb8ef0d49a919b72b0388b091aaec5849b96
-./bin/gbuild --commit bitcoinreal=${COMMIT} --url bitcoinreal=${URL} ../BitcoinReal/contrib/gitian-descriptors/gitian-linux.yml
-./bin/gbuild --commit bitcoinreal=${COMMIT} --url bitcoinreal=${URL} ../BitcoinReal/contrib/gitian-descriptors/gitian-win.yml
-./bin/gbuild --commit bitcoinreal=${COMMIT} --url bitcoinreal=${URL} ../BitcoinReal/contrib/gitian-descriptors/gitian-osx.yml
+./bin/gbuild --commit bitcoinreal=${COMMIT} --url bitcoinreal=${URL} ../bitcoinreal/contrib/gitian-descriptors/gitian-linux.yml
+./bin/gbuild --commit bitcoinreal=${COMMIT} --url bitcoinreal=${URL} ../bitcoinreal/contrib/gitian-descriptors/gitian-win.yml
+./bin/gbuild --commit bitcoinreal=${COMMIT} --url bitcoinreal=${URL} ../bitcoinreal/contrib/gitian-descriptors/gitian-osx.yml
 ```
 
 Signing externally
@@ -408,6 +408,6 @@ Uploading signatures (not yet implemented)
 ---------------------
 
 In the future it will be possible to push your signatures (both the `.assert` and `.assert.sig` files) to the
-[eastcoastcrypto/gitian.sigs](https://github.com/eastcoastcrypto/gitian.sigs/) repository, or if that's not possible to create a pull
+[bitcoinreal/gitian.sigs](https://github.com/bitcoinreal-crypto/gitian.sigs/) repository, or if that's not possible to create a pull
 request.
 There will be an official announcement when this repository is online.

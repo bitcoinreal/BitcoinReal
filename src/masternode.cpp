@@ -1,5 +1,6 @@
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2017 The PIVX developers
+// Copyright (c) 2015-2018 The PIVX developers
+// Copyright (c) 2019 The BitcoinReal developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -10,9 +11,7 @@
 #include "sync.h"
 #include "util.h"
 #include <boost/lexical_cast.hpp>
-#include "base58.h"
-#include "main.h"
-#include "spork.h"
+
 // keep track of the scanning errors I've seen
 map<uint256, int> mapSeenMasternodeScanningErrors;
 // cache block hashes as we calculate them
@@ -74,7 +73,6 @@ CMasternode::CMasternode()
     cacheInputAgeBlock = 0;
     unitTest = false;
     allowFreeTx = true;
-    //tier = 0;
     nActiveState = MASTERNODE_ENABLED,
     protocolVersion = PROTOCOL_VERSION;
     nLastDsq = 0;
@@ -100,7 +98,6 @@ CMasternode::CMasternode(const CMasternode& other)
     cacheInputAgeBlock = other.cacheInputAgeBlock;
     unitTest = other.unitTest;
     allowFreeTx = other.allowFreeTx;
-    //tier = other.tier;
     nActiveState = MASTERNODE_ENABLED,
     protocolVersion = other.protocolVersion;
     nLastDsq = other.nLastDsq;
@@ -125,7 +122,6 @@ CMasternode::CMasternode(const CMasternodeBroadcast& mnb)
     cacheInputAge = 0;
     cacheInputAgeBlock = 0;
     unitTest = false;
-    //tier = 0;
     allowFreeTx = true;
     nActiveState = MASTERNODE_ENABLED,
     protocolVersion = mnb.protocolVersion;
@@ -213,165 +209,15 @@ void CMasternode::Check(bool forceCheck)
         return;
     }
 
+    if(lastPing.sigTime - sigTime < MASTERNODE_MIN_MNP_SECONDS){
+    	activeState = MASTERNODE_PRE_ENABLED;
+    	return;
+    }
+
     if (!unitTest) {
-//runs every time you make a new MN
-//if (tier == 0){
-//UpdateTier(mnodeman.CountEnabled()+1);
-//}
         CValidationState state;
         CMutableTransaction tx = CMutableTransaction();
-   CAmount collat_required = 39999.99 * COIN;
-//CBitcoinAddress address(pubKeyCollateralAddress.GetID());
-  //      std::string strPayee = address.ToString();
-//if (tier <= 0)
-//{
-//collat_required = 59999 * COIN;
-/*
- if (chainActive.Height() > SPORK_18_LAST_2000_COLLAT_BLOCK) {
-    collat_required = 1999.99 * COIN;
-} else if (chainActive.Height() > SPORK_18_LAST_2000_COLLAT_BLOCK && ) {
-    collat_required = 2099.99 * COIN;
-} else if (tier <= 61) {
-	collat_required = 2399.99 * COIN;
-} else if (tier <= 91) {
-        collat_required = 2549.99 * COIN;
-} else if (tier <= 121) {
-        collat_required = 2749.99 * COIN;
-} else if (tier <= 151) {
-        collat_required = 2949.99 * COIN;
-} else if (tier <= 181) {
-        collat_required =  3149.99* COIN;
-
-} else if (tier <= 211) {
-        collat_required = 3349.99 * COIN;
-
-} else if (tier <= 241) {
-        collat_required = 3599.99 * COIN;
-} else if (tier <= 271) {
-        collat_required = 3849.99 * COIN;
-} else if (tier <= 301) {
-        collat_required = 4149.99 * COIN;
-} else if (tier <= 331) {
-        collat_required = 4399.99 * COIN;
-} else if (tier <= 361) {
-        collat_required = 4749.99 * COIN;
-} else if (tier <= 391) {
-        collat_required = 5049.99 * COIN;
-
-} else if (tier <= 421) {
-        collat_required = 5399.99 * COIN;
-
-} else if (tier <= 451) {
-        collat_required = 5799.99 * COIN;
-} else if (tier <= 481) {
-        collat_required = 6199.99 * COIN;
-
-} else if (tier <= 511) {
-        collat_required = 6599.99 * COIN;
-} else if (tier > 511) {
-        collat_required = 7099.99 * COIN;
-
-}
-
-*/
-
-
-
-
-
-
-  /*  int active_nodes = mnodeman.CountEnabled();
-    if (active_nodes <= 30) {
-	collat_required = 999.99 * COIN;
-    } else if (active_nodes <= 60) {
-	collat_required = 1199.99 * COIN;
-    } else if (active_nodes <= 90) {
-	collat_required = 1299.99 * COIN;
-    } else if (active_nodes <= 120) {
-        collat_required = 1399.99 * COIN;
-    } else if (active_nodes <= 150) {
-        collat_required = 1424.99 * COIN;
-    } else if (active_nodes <= 180) {
-        collat_required = 1549.99 * COIN;
-    } else if (active_nodes <= 210) {
-        collat_required = 1674.99 * COIN;
-    } else if (active_nodes <= 240) {
-        collat_required = 1799.99 * COIN;
-    } else if (active_nodes <= 270) {
-        collat_required = 1924.99 * COIN;
-    } else if (active_nodes <= 300) {
-        collat_required = 2074.99 * COIN;
-    } else if (active_nodes <= 330) {
-        collat_required = 2274.99 * COIN;
-    } else if (active_nodes <= 360) {
-        collat_required = 2449.99 * COIN;
-    } else if (active_nodes <= 390) {
-        collat_required = 2674.99 * COIN;
-    } else if (active_nodes <= 420) {
-        collat_required = 2899.99 * COIN;
-    } else if (active_nodes <= 450) {
-        collat_required = 3099.99 * COIN;
-    } else if (active_nodes <= 480) {
-        collat_required = 3374.99 * COIN;
-    } else if (active_nodes <= 510) {
-        collat_required = 3674.99 * COIN;
-    } else if (active_nodes >= 511) {
-        collat_required = 3999.99 * COIN;
-    }*/
-CTransaction wtx2;
-uint256 hashBlock2;
-if(GetTransaction(vin.prevout.hash, wtx2, hashBlock2, true)) {
-//hashblock2 now has the block hash
-BlockMap::iterator iter = mapBlockIndex.find(hashBlock2);
-if (iter != mapBlockIndex.end()) {
-int txnheight = iter->second->nHeight;
-//block height of txn
-if (txnheight <= GetSporkValue(SPORK_18_LAST_2000_COLLAT_BLOCK)){
-collat_required = 1999.99 * COIN;
-} else if (txnheight <= GetSporkValue(SPORK_36_LAST_2200_COLLAT_BLOCK)) {
-collat_required = 2199.99 * COIN;
-} else if (txnheight <= GetSporkValue(SPORK_19_LAST_2400_COLLAT_BLOCK)){
-collat_required = 2399.99 * COIN;
-} else if (txnheight <= GetSporkValue(SPORK_20_LAST_2550_COLLAT_BLOCK)){
-collat_required = 2549.99 * COIN;
-} else if (txnheight <= GetSporkValue(SPORK_21_LAST_2750_COLLAT_BLOCK)){
-collat_required = 2749.99 * COIN;
-} else if (txnheight <= GetSporkValue(SPORK_22_LAST_2950_COLLAT_BLOCK)){
-collat_required = 2949.99 * COIN;
-} else if (txnheight <= GetSporkValue(SPORK_23_LAST_3150_COLLAT_BLOCK)){
-collat_required = 3149.99 * COIN;
-} else if (txnheight <= GetSporkValue(SPORK_24_LAST_3350_COLLAT_BLOCK)){
-collat_required = 3349.99 * COIN;
-} else if (txnheight <= GetSporkValue(SPORK_25_LAST_3600_COLLAT_BLOCK)){
-collat_required = 3599.99 * COIN;
-} else if (txnheight <= GetSporkValue(SPORK_26_LAST_3850_COLLAT_BLOCK)){
-collat_required = 3849.99 * COIN;
-} else if (txnheight <= GetSporkValue(SPORK_27_LAST_4150_COLLAT_BLOCK)){
-collat_required = 4149.99 * COIN;
-} else if (txnheight <= GetSporkValue(SPORK_28_LAST_4400_COLLAT_BLOCK)){
-collat_required = 4399.99 * COIN;
-} else if (txnheight <= GetSporkValue(SPORK_29_LAST_4750_COLLAT_BLOCK)){
-collat_required = 4749.99 * COIN;
-} else if (txnheight <= GetSporkValue(SPORK_30_LAST_5050_COLLAT_BLOCK)){
-collat_required = 5049.99 * COIN;
-} else if (txnheight <= GetSporkValue(SPORK_31_LAST_5400_COLLAT_BLOCK)){
-collat_required = 5399.99 * COIN;
-} else if (txnheight <= GetSporkValue(SPORK_32_LAST_5800_COLLAT_BLOCK)){
-collat_required = 5799.99 * COIN;
-} else if (txnheight <= GetSporkValue(SPORK_33_LAST_6200_COLLAT_BLOCK)){
-collat_required = 6199.99 * COIN;
-} else if (txnheight <= GetSporkValue(SPORK_34_LAST_6600_COLLAT_BLOCK)){
-collat_required = 6599.99 * COIN;
-} else {
-collat_required = 7099.99 * COIN;
-}
-} else {
-collat_required = 7099.99 * COIN;
-}
-} else {
-collat_required = 7099.99 * COIN;
-}
-        CTxOut vout = CTxOut(collat_required, obfuScationPool.collateralPubKey);
+        CTxOut vout = CTxOut(999999.99 * COIN, obfuScationPool.collateralPubKey);
         tx.vin.push_back(vin);
         tx.vout.push_back(vout);
 
@@ -385,9 +231,6 @@ collat_required = 7099.99 * COIN;
             }
         }
     }
-//CBitcoinAddress address(pubKeyCollateralAddress.GetID());
-  //      std::string strPayee = address.ToString();
-//if (gettier(strPayee) < 30 )
 
     activeState = MASTERNODE_ENABLED; // OK
 }
@@ -440,7 +283,7 @@ int64_t CMasternode::GetLastPaid()
 
         if (masternodePayments.mapMasternodeBlocks.count(BlockReading->nHeight)) {
             /*
-                Search for this payee, with at least 2 votes. This will aid in consensus allowing the network 
+                Search for this payee, with at least 2 votes. This will aid in consensus allowing the network
                 to converge on the same payees quickly, then keep the same schedule.
             */
             if (masternodePayments.mapMasternodeBlocks[BlockReading->nHeight].HasPayeeWithVotes(mnpayee, 2)) {
@@ -501,7 +344,6 @@ CMasternodeBroadcast::CMasternodeBroadcast()
     cacheInputAge = 0;
     cacheInputAgeBlock = 0;
     unitTest = false;
-    //tier = 0;
     allowFreeTx = true;
     protocolVersion = PROTOCOL_VERSION;
     nLastDsq = 0;
@@ -522,7 +364,6 @@ CMasternodeBroadcast::CMasternodeBroadcast(CService newAddr, CTxIn newVin, CPubK
     cacheInputAge = 0;
     cacheInputAgeBlock = 0;
     unitTest = false;
-    //tier = 0;
     allowFreeTx = true;
     protocolVersion = protocolVersionIn;
     nLastDsq = 0;
@@ -544,7 +385,6 @@ CMasternodeBroadcast::CMasternodeBroadcast(const CMasternode& mn)
     cacheInputAgeBlock = mn.cacheInputAgeBlock;
     unitTest = mn.unitTest;
     allowFreeTx = mn.allowFreeTx;
-    //tier = mn.tier;
     protocolVersion = mn.protocolVersion;
     nLastDsq = mn.nLastDsq;
     nScanningErrorCount = mn.nScanningErrorCount;
@@ -578,19 +418,9 @@ bool CMasternodeBroadcast::Create(std::string strService, std::string strKeyMast
         return false;
     }
 
-    CService service = CService(strService);
-    int mainnetDefaultPort = Params(CBaseChainParams::MAIN).GetDefaultPort();
-    if (Params().NetworkID() == CBaseChainParams::MAIN) {
-        if (service.GetPort() != mainnetDefaultPort) {
-            strErrorRet = strprintf("Invalid port %u for masternode %s, only %d is supported on mainnet.", service.GetPort(), strService, mainnetDefaultPort);
-            LogPrint("masternode","CMasternodeBroadcast::Create -- %s\n", strErrorRet);
-            return false;
-        }
-    } else if (service.GetPort() == mainnetDefaultPort) {
-        strErrorRet = strprintf("Invalid port %u for masternode %s, %d is the only supported on mainnet.", service.GetPort(), strService, mainnetDefaultPort);
-        LogPrint("masternode","CMasternodeBroadcast::Create -- %s\n", strErrorRet);
+    // The service needs the correct default port to work properly
+    if(!CheckDefaultPort(strService, strErrorRet, "CMasternodeBroadcast::Create"))
         return false;
-    }
 
     return Create(txin, CService(strService), keyCollateralAddressNew, pubKeyCollateralAddressNew, keyMasternodeNew, pubKeyMasternodeNew, strErrorRet, mnbRet);
 }
@@ -632,6 +462,21 @@ bool CMasternodeBroadcast::Create(CTxIn txin, CService service, CKey keyCollater
     return true;
 }
 
+bool CMasternodeBroadcast::CheckDefaultPort(std::string strService, std::string& strErrorRet, std::string strContext)
+{
+    CService service = CService(strService);
+    int nDefaultPort = Params().GetDefaultPort();
+
+    if (service.GetPort() != nDefaultPort) {
+        strErrorRet = strprintf("Invalid port %u for masternode %s, only %d is supported on %s-net.",
+                                        service.GetPort(), strService, nDefaultPort, Params().NetworkIDString());
+        LogPrint("masternode", "%s - %s\n", strContext, strErrorRet);
+        return false;
+    }
+
+    return true;
+}
+
 bool CMasternodeBroadcast::CheckAndUpdate(int& nDos)
 {
     // make sure signature isn't in the future (past is OK)
@@ -641,9 +486,9 @@ bool CMasternodeBroadcast::CheckAndUpdate(int& nDos)
         return false;
     }
 
-    std::string vchPubKey(pubKeyCollateralAddress.begin(), pubKeyCollateralAddress.end());
-    std::string vchPubKey2(pubKeyMasternode.begin(), pubKeyMasternode.end());
-    std::string strMessage = addr.ToString() + boost::lexical_cast<std::string>(sigTime) + vchPubKey + vchPubKey2 + boost::lexical_cast<std::string>(protocolVersion);
+    // incorrect ping or its sigTime
+    if(lastPing == CMasternodePing() || !lastPing.CheckAndUpdate(nDos, false, true))
+    return false;
 
     if (protocolVersion < masternodePayments.GetMinMasternodePaymentsProto()) {
         LogPrint("masternode","mnb - ignoring outdated Masternode %s protocol version %d\n", vin.prevout.hash.ToString(), protocolVersion);
@@ -674,33 +519,35 @@ bool CMasternodeBroadcast::CheckAndUpdate(int& nDos)
     }
 
     std::string errorMessage = "";
-    if (!obfuScationSigner.VerifyMessage(pubKeyCollateralAddress, sig, strMessage, errorMessage)) {
-        LogPrint("masternode","mnb - Got bad Masternode address signature\n");
-        nDos = 100;
-        return false;
+    if (!obfuScationSigner.VerifyMessage(pubKeyCollateralAddress, sig, GetNewStrMessage(), errorMessage)
+    		&& !obfuScationSigner.VerifyMessage(pubKeyCollateralAddress, sig, GetOldStrMessage(), errorMessage))
+    {
+        // don't ban for old masternodes, their sigs could be broken because of the bug
+        nDos = protocolVersion < MIN_PEER_MNANNOUNCE ? 0 : 100;
+        return error("CMasternodeBroadcast::CheckAndUpdate - Got bad Masternode address signature : %s", errorMessage);
     }
 
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
-        if (addr.GetPort() != 34888) return false;
-    } else if (addr.GetPort() == 34888)
+        if (addr.GetPort() != 13319) return false;
+    } else if (addr.GetPort() == 13319)
         return false;
 
     //search existing Masternode list, this is where we update existing Masternodes with new mnb broadcasts
     CMasternode* pmn = mnodeman.Find(vin);
 
     // no such masternode, nothing to update
-    if (pmn == NULL)
-        return true;
-    else {
-        // this broadcast older than we have, it's bad.
-        if (pmn->sigTime > sigTime) {
-            LogPrint("masternode","mnb - Bad sigTime %d for Masternode %s (existing broadcast is at %d)\n",
-                sigTime, vin.prevout.hash.ToString(), pmn->sigTime);
-            return false;
-        }
-        // masternode is not enabled yet/already, nothing to update
-        if (!pmn->IsEnabled()) return true;
+    if (pmn == NULL) return true;
+
+    // this broadcast is older or equal than the one that we already have - it's bad and should never happen
+	// unless someone is doing something fishy
+	// (mapSeenMasternodeBroadcast in CMasternodeMan::ProcessMessage should filter legit duplicates)
+	if(pmn->sigTime >= sigTime) {
+		return error("CMasternodeBroadcast::CheckAndUpdate - Bad sigTime %d for Masternode %20s %105s (existing broadcast is at %d)",
+					  sigTime, addr.ToString(), vin.ToString(), pmn->sigTime);
     }
+
+    // masternode is not enabled yet/already, nothing to update
+    if (!pmn->IsEnabled()) return true;
 
     // mn.pubkey = pubkey, IsVinAssociatedWithPubkey is validated once below,
     //   after that they just need to match
@@ -724,6 +571,9 @@ bool CMasternodeBroadcast::CheckInputsAndAdd(int& nDoS)
     if (fMasterNode && vin.prevout == activeMasternode.vin.prevout && pubKeyMasternode == activeMasternode.pubKeyMasternode)
         return true;
 
+    // incorrect ping or its sigTime
+    if(lastPing == CMasternodePing() || !lastPing.CheckAndUpdate(nDoS, false, true)) return false;
+
     // search existing Masternode list
     CMasternode* pmn = mnodeman.Find(vin);
 
@@ -737,48 +587,7 @@ bool CMasternodeBroadcast::CheckInputsAndAdd(int& nDoS)
 
     CValidationState state;
     CMutableTransaction tx = CMutableTransaction();
-    //check outputs by MN enabled
-    CAmount collat_required;
-    collat_required = 999.99 * COIN;
-    int active_nodes = mnodeman.CountEnabled();
-    if (active_nodes <= 30) {
-	collat_required = 999.99 * COIN;
-    } else if (active_nodes <= 60) {
-	collat_required = 1199.99 * COIN;
-    } else if (active_nodes <= 90) {
-	collat_required = 1299.99 * COIN;
-    } else if (active_nodes <= 120) {
-        collat_required = 1399.99 * COIN;
-    } else if (active_nodes <= 150) {
-        collat_required = 1424.99 * COIN;
-    } else if (active_nodes <= 180) {
-        collat_required = 1549.99 * COIN;
-    } else if (active_nodes <= 210) {
-        collat_required = 1674.99 * COIN;
-    } else if (active_nodes <= 240) {
-        collat_required = 1799.99 * COIN;
-    } else if (active_nodes <= 270) {
-        collat_required = 1924.99 * COIN;
-    } else if (active_nodes <= 300) {
-        collat_required = 2074.99 * COIN;
-    } else if (active_nodes <= 330) {
-        collat_required = 2274.99 * COIN;
-    } else if (active_nodes <= 360) {
-        collat_required = 2449.99 * COIN;
-    } else if (active_nodes <= 390) {
-        collat_required = 2674.99 * COIN;
-    } else if (active_nodes <= 420) {
-        collat_required = 2899.99 * COIN;
-    } else if (active_nodes <= 450) {
-        collat_required = 3099.99 * COIN;
-    } else if (active_nodes <= 480) {
-        collat_required = 3374.99 * COIN;
-    } else if (active_nodes <= 510) {
-        collat_required = 3674.99 * COIN;
-    } else if (active_nodes >= 511) {
-        collat_required = 3999.99 * COIN;
-    }
-    CTxOut vout = CTxOut(collat_required, obfuScationPool.collateralPubKey);
+    CTxOut vout = CTxOut(999999.99 * COIN, obfuScationPool.collateralPubKey);
     tx.vin.push_back(vin);
     tx.vout.push_back(vout);
 
@@ -809,13 +618,13 @@ bool CMasternodeBroadcast::CheckInputsAndAdd(int& nDoS)
     }
 
     // verify that sig time is legit in past
-    // should be at least not earlier than block when 50000 BR tx got MASTERNODE_MIN_CONFIRMATIONS
+    // should be at least not earlier than block when 1000 BR tx got MASTERNODE_MIN_CONFIRMATIONS
     uint256 hashBlock = 0;
     CTransaction tx2;
     GetTransaction(vin.prevout.hash, tx2, hashBlock, true);
     BlockMap::iterator mi = mapBlockIndex.find(hashBlock);
     if (mi != mapBlockIndex.end() && (*mi).second) {
-        CBlockIndex* pMNIndex = (*mi).second;                                                        // block for 50000 BR tx -> 1 confirmation
+        CBlockIndex* pMNIndex = (*mi).second;                                                        // block for 1000 BitcoinReal tx -> 1 confirmation
         CBlockIndex* pConfIndex = chainActive[pMNIndex->nHeight + MASTERNODE_MIN_CONFIRMATIONS - 1]; // block where tx got MASTERNODE_MIN_CONFIRMATIONS
         if (pConfIndex->GetBlockTime() > sigTime) {
             LogPrint("masternode","mnb - Bad sigTime %d for Masternode %s (%i conf block is at %d)\n",
@@ -850,25 +659,53 @@ void CMasternodeBroadcast::Relay()
 bool CMasternodeBroadcast::Sign(CKey& keyCollateralAddress)
 {
     std::string errorMessage;
+    sigTime = GetAdjustedTime();
+
+    std::string strMessage;
+    if(chainActive.Height() < Params().Zerocoin_Block_V2_Start())
+    	strMessage = GetOldStrMessage();
+    else
+    	strMessage = GetNewStrMessage();
+
+    if (!obfuScationSigner.SignMessage(strMessage, errorMessage, sig, keyCollateralAddress))
+    	return error("CMasternodeBroadcast::Sign() - Error: %s", errorMessage);
+
+    if (!obfuScationSigner.VerifyMessage(pubKeyCollateralAddress, sig, strMessage, errorMessage))
+    	return error("CMasternodeBroadcast::Sign() - Error: %s", errorMessage);
+
+    return true;
+}
+
+
+bool CMasternodeBroadcast::VerifySignature()
+{
+    std::string errorMessage;
+
+    if(!obfuScationSigner.VerifyMessage(pubKeyCollateralAddress, sig, GetNewStrMessage(), errorMessage)
+            && !obfuScationSigner.VerifyMessage(pubKeyCollateralAddress, sig, GetOldStrMessage(), errorMessage))
+        return error("CMasternodeBroadcast::VerifySignature() - Error: %s", errorMessage);
+
+    return true;
+}
+
+std::string CMasternodeBroadcast::GetOldStrMessage()
+{
+    std::string strMessage;
 
     std::string vchPubKey(pubKeyCollateralAddress.begin(), pubKeyCollateralAddress.end());
     std::string vchPubKey2(pubKeyMasternode.begin(), pubKeyMasternode.end());
+    strMessage = addr.ToString() + boost::lexical_cast<std::string>(sigTime) + vchPubKey + vchPubKey2 + boost::lexical_cast<std::string>(protocolVersion);
 
-    sigTime = GetAdjustedTime();
+    return strMessage;
+}
 
-    std::string strMessage = addr.ToString() + boost::lexical_cast<std::string>(sigTime) + vchPubKey + vchPubKey2 + boost::lexical_cast<std::string>(protocolVersion);
+std:: string CMasternodeBroadcast::GetNewStrMessage()
+{
+    std::string strMessage;
 
-    if (!obfuScationSigner.SignMessage(strMessage, errorMessage, sig, keyCollateralAddress)) {
-        LogPrint("masternode","CMasternodeBroadcast::Sign() - Error: %s\n", errorMessage);
-        return false;
-    }
+    strMessage = addr.ToString() + boost::lexical_cast<std::string>(sigTime) + pubKeyCollateralAddress.GetID().ToString() + pubKeyMasternode.GetID().ToString() + boost::lexical_cast<std::string>(protocolVersion);
 
-    if (!obfuScationSigner.VerifyMessage(pubKeyCollateralAddress, sig, strMessage, errorMessage)) {
-        LogPrint("masternode","CMasternodeBroadcast::Sign() - Error: %s\n", errorMessage);
-        return false;
-    }
-
-    return true;
+    return strMessage;
 }
 
 CMasternodePing::CMasternodePing()
@@ -909,7 +746,18 @@ bool CMasternodePing::Sign(CKey& keyMasternode, CPubKey& pubKeyMasternode)
     return true;
 }
 
-bool CMasternodePing::CheckAndUpdate(int& nDos, bool fRequireEnabled)
+bool CMasternodePing::VerifySignature(CPubKey& pubKeyMasternode, int &nDos) {
+	std::string strMessage = vin.ToString() + blockHash.ToString() + boost::lexical_cast<std::string>(sigTime);
+	std::string errorMessage = "";
+
+	if(!obfuScationSigner.VerifyMessage(pubKeyMasternode, vchSig, strMessage, errorMessage)){
+		nDos = 33;
+		return error("CMasternodePing::VerifySignature - Got bad Masternode ping signature %s Error: %s", vin.ToString(), errorMessage);
+	}
+	return true;
+}
+
+bool CMasternodePing::CheckAndUpdate(int& nDos, bool fRequireEnabled, bool fCheckSigTimeOnly)
 {
     if (sigTime > GetAdjustedTime() + 60 * 60) {
         LogPrint("masternode","CMasternodePing::CheckAndUpdate - Signature rejected, too far into the future %s\n", vin.prevout.hash.ToString());
@@ -923,7 +771,13 @@ bool CMasternodePing::CheckAndUpdate(int& nDos, bool fRequireEnabled)
         return false;
     }
 
-    LogPrint("masternode","CMasternodePing::CheckAndUpdate - New Ping - %s - %lli\n", blockHash.ToString(), sigTime);
+    if(fCheckSigTimeOnly) {
+    	CMasternode* pmn = mnodeman.Find(vin);
+    	if(pmn) return VerifySignature(pmn->pubKeyMasternode, nDos);
+    	return true;
+    }
+
+    LogPrint("masternode", "CMasternodePing::CheckAndUpdate - New Ping - %s - %s - %lli\n", GetHash().ToString(), blockHash.ToString(), sigTime);
 
     // see if we have this Masternode
     CMasternode* pmn = mnodeman.Find(vin);
@@ -934,14 +788,8 @@ bool CMasternodePing::CheckAndUpdate(int& nDos, bool fRequireEnabled)
         // update only if there is no known ping for this masternode or
         // last ping was more then MASTERNODE_MIN_MNP_SECONDS-60 ago comparing to this one
         if (!pmn->IsPingedWithin(MASTERNODE_MIN_MNP_SECONDS - 60, sigTime)) {
-            std::string strMessage = vin.ToString() + blockHash.ToString() + boost::lexical_cast<std::string>(sigTime);
-
-            std::string errorMessage = "";
-            if (!obfuScationSigner.VerifyMessage(pmn->pubKeyMasternode, vchSig, strMessage, errorMessage)) {
-                LogPrint("masternode","CMasternodePing::CheckAndUpdate - Got bad Masternode address signature %s\n", vin.prevout.hash.ToString());
-                nDos = 33;
+        	if (!VerifySignature(pmn->pubKeyMasternode, nDos))
                 return false;
-            }
 
             BlockMap::iterator mi = mapBlockIndex.find(blockHash);
             if (mi != mapBlockIndex.end() && (*mi).second) {

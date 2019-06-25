@@ -1,5 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
+// Copyright (c) 2017-2018 The PIVX developers
+// Copyright (c) 2019 The BitcoinReal developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -9,7 +11,7 @@
 #ifndef BITCOIN_UTILSTRENCODINGS_H
 #define BITCOIN_UTILSTRENCODINGS_H
 
-#include "allobitcoinrealrs.h"
+#include "allocators.h"
 #include <stdint.h>
 #include <string>
 #include <vector>
@@ -102,7 +104,7 @@ inline std::string ReverseEndianString(std::string in)
     return out;
 }
 
-/** 
+/**
  * Format a paragraph of text to a fixed width, adding spaces for
  * indentation to any added line.
  */

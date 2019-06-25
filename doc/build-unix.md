@@ -5,7 +5,7 @@ Some notes on how to build BitcoinReal in Unix.
 Note
 ---------------------
 Always use absolute paths to configure and compile bitcoinreal and the dependencies,
-for example, when specifying the the path of the dependency:
+for example, when specifying the path of the dependency:
 
 	../dist/configure --enable-cxx --disable-shared --with-pic --prefix=$BDB_PREFIX
 
@@ -33,6 +33,7 @@ These dependencies are required:
  ------------|------------------|----------------------
  libssl      | SSL Support      | Secure communications
  libboost    | Boost            | C++ Library
+ libevent    | Events           | Asynchronous event notification
 
 Optional dependencies:
 
@@ -43,6 +44,7 @@ Optional dependencies:
  qt          | GUI              | GUI toolkit (only needed when GUI enabled)
  protobuf    | Payments in GUI  | Data interchange format used for payment protocol (only needed when GUI enabled)
  libqrencode | QR codes in GUI  | Optional for generating QR codes (only needed when GUI enabled)
+ univalue    | Utility          | JSON parsing and encoding (bundled version will be used unless --with-system-univalue passed to configure)
 
 For the versions used in the release, see [release-process.md](release-process.md) under *Fetch and build inputs*.
 
@@ -50,14 +52,14 @@ System requirements
 --------------------
 
 C++ compilers are memory-hungry. It is recommended to have at least 1 GB of
-memory available when compiling BitcoinReal Core. With 512MB of memory or less
+memory available when compiling BitcoinReal. With 512MB of memory or less
 compilation will take much longer due to swap thrashing.
 
 Dependency Build Instructions: Ubuntu & Debian
 ----------------------------------------------
 Build requirements:
 
-	sudo apt-get install build-essential libtool autotools-dev autoconf pkg-config libssl-dev
+	sudo apt-get install build-essential libtool autotools-dev autoconf pkg-config libssl-dev libevent-dev automake
 
 For Ubuntu 12.04 and later or Debian 7 and later libboost-all-dev has to be installed:
 
@@ -148,7 +150,7 @@ cd db-4.8.30.NC/build_unix/
 ../dist/configure --enable-cxx --disable-shared --with-pic --prefix=$BDB_PREFIX
 make install
 
-# Configure BitcoinReal Core to use our own-built instance of BDB
+# Configure BitcoinReal to use our own-built instance of BDB
 cd $BitcoinReal_ROOT
 ./configure (other args...) LDFLAGS="-L${BDB_PREFIX}/lib/" CPPFLAGS="-I${BDB_PREFIX}/include/"
 ```

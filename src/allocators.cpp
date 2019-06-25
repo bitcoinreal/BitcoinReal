@@ -2,7 +2,7 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "allobitcoinrealrs.h"
+#include "allocators.h"
 
 #ifdef WIN32
 #ifdef _WIN32_WINNT

@@ -1,11 +1,13 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
+// Copyright (c) 2017-2018 The PIVX developers
+// Copyright (c) 2019 The BitcoinReal developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BITCOIN_CRYPTER_H
 #define BITCOIN_CRYPTER_H
 
-#include "allobitcoinrealrs.h"
+#include "allocators.h"
 #include "keystore.h"
 #include "serialize.h"
 
@@ -65,7 +67,7 @@ public:
     }
 };
 
-typedef std::vector<unsigned char, secure_allobitcoinrealr<unsigned char> > CKeyingMaterial;
+typedef std::vector<unsigned char, secure_allocator<unsigned char> > CKeyingMaterial;
 
 /** Encryption/decryption context with key information */
 class CCrypter
@@ -191,6 +193,10 @@ public:
             mi++;
         }
     }
+
+    bool GetDeterministicSeed(const uint256& hashSeed, uint256& seed);
+    bool AddDeterministicSeed(const uint256& seed);
+
 
     /**
      * Wallet status (encrypted, locked) changed.

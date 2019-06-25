@@ -1,5 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
+// Copyright (c) 2017-2018 The PIVX developers
+// Copyright (c) 2019 The BitcoinReal developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -80,7 +82,7 @@ protected:
     std::vector<unsigned char> vchVersion;
 
     //! the actually encoded data
-    typedef std::vector<unsigned char, zero_after_free_allobitcoinrealr<unsigned char> > vector_uchar;
+    typedef std::vector<unsigned char, zero_after_free_allocator<unsigned char> > vector_uchar;
     vector_uchar vchData;
 
     CBase58Data();

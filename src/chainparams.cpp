@@ -1,8 +1,8 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2018 The Bitcoin Real developers
+// Copyright (c) 2015-2018 The PIVX developers
+// Copyright (c) 2019 The BitcoinReal developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -54,20 +54,28 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 // + Contains no strange transactions
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-    (0, uint256("0x000086ee7783e59841673a78dda8d782354d881a6f029db0611d5ca69d88ad63"));
+    (0, uint256("0x00000866d1973dac0aad6186ceafea7fbb5ef7173c62e2d4b67cb51f7f2159d1"))
+    (1, uint256("0x000007dfeaa41b426fe58fe76ac7b9149502523c2e7a5583e3a2e01e74a0c930"))
+    (792, uint256("0xcc815471544e3f3436fa311e2240eb30106357966f1c7fa0e1d53b8a1db71d89"))
+    (2241, uint256("0x36ef2f4937ace6dcd8c6673860cf3a243b92e2981a6a7efba19f13e1260b6a75"))
+    (5902, uint256("0x43fa26ac0048a6c06be8ccc6b4b582adf2167d9a602d34323112fad8d04ab63b"))
+    (8437, uint256("0x20cfd51099c7498dd2f642ccf5d02e01fe9507b1dd3569a6fbb6a81172b262f6"))
+    (11728, uint256("0xb2b6207e658a374ab85a5e400ee878b1f6a3b03430f8433196c4a5356683d94e"))
+    (32829, uint256("0x658c2c33e00a4cbcbbcb18b9b9837a5b74c74e9b952e8528778533c0cfaecf3a"))
+;
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
-    1540321102, // * UNIX timestamp of last checkpoint block
-    0,    // * total number of transactions between genesis and last checkpoint
+	1555563296, // * UNIX timestamp of last checkpoint block
+    65569,		// * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the SetBestChain debug.log lines)
-    2000        // * estimated number of transactions per day after checkpoint
+    2500        // * estimated number of transactions per day after checkpoint
 };
 
 static Checkpoints::MapCheckpoints mapCheckpointsTestnet =
     boost::assign::map_list_of(0, uint256("0x001"));
 static const Checkpoints::CCheckpointData dataTestnet = {
     &mapCheckpointsTestnet,
-    1540321102,
+    1740710,
     0,
     250};
 
@@ -75,17 +83,26 @@ static Checkpoints::MapCheckpoints mapCheckpointsRegtest =
     boost::assign::map_list_of(0, uint256("0x001"));
 static const Checkpoints::CCheckpointData dataRegtest = {
     &mapCheckpointsRegtest,
-    1454124731,
+    1553542200,
     0,
     100};
 
-libzerocoin::ZerocoinParams* CChainParams::Zerocoin_Params() const
+libzerocoin::ZerocoinParams* CChainParams::Zerocoin_Params(bool useModulusV1) const
 {
     assert(this);
-    static CBigNum bnTrustedModulus(zerocoinModulus);
-    static libzerocoin::ZerocoinParams ZCParams = libzerocoin::ZerocoinParams(bnTrustedModulus);
+    static CBigNum bnHexModulus = 0;
+    if (!bnHexModulus)
+        bnHexModulus.SetHex(zerocoinModulus);
+    static libzerocoin::ZerocoinParams ZCParamsHex = libzerocoin::ZerocoinParams(bnHexModulus);
+    static CBigNum bnDecModulus = 0;
+    if (!bnDecModulus)
+        bnDecModulus.SetDec(zerocoinModulus);
+    static libzerocoin::ZerocoinParams ZCParamsDec = libzerocoin::ZerocoinParams(bnDecModulus);
 
-    return &ZCParams;
+    if (useModulusV1)
+        return &ZCParamsHex;
+
+    return &ZCParamsDec;
 }
 
 class CMainParams : public CChainParams
@@ -100,80 +117,182 @@ public:
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
          * a large 4-byte int at any alignment.
          */
-        pchMessageStart[0] = 0x79;
-        pchMessageStart[1] = 0x51;
-        pchMessageStart[2] = 0x53;
-        pchMessageStart[3] = 0x64;
-        vAlertPubKey = ParseHex("04c32c8ab64b43228550115a862847deb294b776a71d6395e9c49477d13eac413f022e40462770dbc665f8a32aeec2a5d87839239f9a0b91a85269f90e79ab0ccc");
-        nDefaultPort = 2332;
-        //bnProofOfWorkLimit = ~uint256(0) >> 1; // Bitcoin Real starting difficulty is 1 / 2^12
-        bnProofOfWorkLimit = ~uint256(0) >> 20; // Trittium starting difficulty is 1 / 2^20
-        nSubsidyHalvingInterval = 2100000000;
+        pchMessageStart[0] = 0xce;
+        pchMessageStart[1] = 0x6d;
+        pchMessageStart[2] = 0x4a;
+        pchMessageStart[3] = 0xe8;
+        vAlertPubKey = ParseHex("0000098d3ba6ba6e7423fa5cbd6a89e0a9a5348f88d332b44a5cb1a8b7ed2c1eaa335fc8dc4f012cb8241cc0bdafd6ca70c5f5448916e4e6f511bcd746ed57dc50");
+        nDefaultPort = 13319;
+        bnProofOfWorkLimit = ~uint256(0) >> 20; // BitcoinReal starting difficulty is 1 / 2^12
+        //nSubsidyHalvingInterval = 210000;
         nMaxReorganizationDepth = 100;
         nEnforceBlockUpgradeMajority = 750;
         nRejectBlockOutdatedMajority = 950;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 0;
-        nTargetTimespan = 1 * 60; // Bitcoin Real: 1 day
-        nTargetSpacing = 1 * 60; //Bitcoin Real: 1 minute
-        nMaturity = 15;
+        nTargetTimespan = 1 * 60; // BR: 1 day
+        nTargetSpacing = 1 * 90;  // BR: 1.5 minute
+        nMaturity = 90;
         nMasternodeCountDrift = 20;
-        nMaxMoneyOut = 10000000000 * COIN; // 10,000,000,000 BR
+        nMaxMoneyOut = 100000000 * COIN;
 
         /** Height or Time Based Activations **/
-        nLastPOWBlock = 10000000;
+        nLastPOWBlock = 500;
         nModifierUpdateBlock = 999999999;
-        nZerocoinStartHeight = 361;
-        nAccumulatorStartHeight = 1;
-        nZerocoinStartTime = 1527811200; // Friday, June 1, 2018 12:00:00 AM - GMT
-        nBlockEnforceSerialRange = 1; //Enforce serial range starting this block
+        nZerocoinStartHeight = 9999999;
+        nZerocoinStartTime = 2081097200;
+        nBlockEnforceSerialRange = 253; //Enforce serial range starting this block
         nBlockRecalculateAccumulators = ~1; //Trigger a recalculation of accumulators
         nBlockFirstFraudulent = ~1; //First block that bad serials emerged
         nBlockLastGoodCheckpoint = ~1; //Last valid accumulator checkpoint
+        nBlockEnforceInvalidUTXO = 999999999; //Start enforcing the invalid UTXO's
+        nInvalidAmountFiltered = 0 * COIN; //Amount of invalid coins filtered through exchanges, that should be considered valid
+        nBlockZerocoinV2 = 9999999; //!> The block that zerocoin v2 becomes active - roughly Tuesday, May 8, 2018 4:00:00 AM GMT
+        nEnforceNewSporkKey = 1553563800; //!> Sporks signed after (GMT):   Tuesday, March 26, 2019 1:30:00 AM GMT must use the new spork key
+        nRejectOldSporkKey = 1553581800; //!> Fully reject old spork key after (GMT): Tuesday, March 26, 2019 6:30:00 AM
 
-
-        const char* pszTimestamp = "Bitcoin Real Rerelease";
+        /**
+         * Build the genesis block. Note that the output of the genesis coinbase cannot
+         * be spent as it did not originally exist in the database.
+         *
+         * CBlock(hash=00000ffd590b14, ver=1, hashPrevBlock=00000000000000, hashMerkleRoot=e0028e, nTime=1390095618, nBits=1e0ffff0, nNonce=28917698, vtx=1)
+         *   CTransaction(hash=e0028e, ver=1, vin.size=1, vout.size=1, nLockTime=0)
+         *     CTxIn(COutPoint(000000, -1), coinbase 04ffff001d01044c5957697265642030392f4a616e2f3230313420546865204772616e64204578706572696d656e7420476f6573204c6976653a204f76657273746f636b2e636f6d204973204e6f7720416363657074696e6720426974636f696e73)
+         *     CTxOut(nValue=50.00000000, scriptPubKey=0xA9037BAC7050C479B121CF)
+         *   vMerkleTree: e0028e
+         */
+        const char* pszTimestamp = "First Person On Mars Likely To Be A Woman: NASA.";
         CMutableTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 486604799 << CScriptNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
-        txNew.vout[0].nValue = 1 * COIN;
-        txNew.vout[0].scriptPubKey = CScript() << ParseHex("04bcfbea59ec97482475f554db08f7f67c5c5a95a52a356b052d0ed87862815796fe6022c33a0baf09fcd8d3ee98ebb6aa6a77fb43d716641242cfd45369a88e7c") << OP_CHECKSIG;
+		txNew.vout[0].SetEmpty();
+        txNew.vout[0].scriptPubKey = CScript() << ParseHex("04b10e83b2703ccf321f7dbd62dd5845ac7c10bd055814ce121ba32607d573b8810c02c0582aed05b4deb9a4b77b26d92428c61256cd42774babea0a073b2ed0c9") << OP_CHECKSIG;
         genesis.vtx.push_back(txNew);
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime = 1543584557;  // Sat, 20 Oct 2018 07:12:23 GMT
+        genesis.nTime = 1553542200;
         genesis.nBits = 0x1e0ffff0;
-        genesis.nNonce = 122881;
+        genesis.nNonce = 2130510;
 
         hashGenesisBlock = genesis.GetHash();
-    		assert(hashGenesisBlock == uint256("0x000086ee7783e59841673a78dda8d782354d881a6f029db0611d5ca69d88ad63"));
-    		assert(genesis.hashMerkleRoot == uint256("0x171532272da41fafd27572b255922871a2d71f1a52745cfcc342cc13aef52ef3"));
+        assert(hashGenesisBlock == uint256("0x00000866d1973dac0aad6186ceafea7fbb5ef7173c62e2d4b67cb51f7f2159d1"));
+        assert(genesis.hashMerkleRoot == uint256("0x8f27a130ffdb1436a54bf8321a9cc2218d472e583753877f9049f85ae5a99936"));
 
-    		// IP Nodes
+        vSeeds.push_back(CDNSSeedData("explorer.bitcoinreal.org", "explorer.bitcoinreal.org"));     // Primary DNS Seeder from Fuzzbawls
+		vSeeds.push_back(CDNSSeedData("node-1.bitcoinreal.org", "node-1.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-2.bitcoinreal.org", "node-2.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-3.bitcoinreal.org", "node-3.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-4.bitcoinreal.org", "node-4.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-5.bitcoinreal.org", "node-5.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-6.bitcoinreal.org", "node-6.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-7.bitcoinreal.org", "node-7.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-8.bitcoinreal.org", "node-8.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-9.bitcoinreal.org", "node-9.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-10.bitcoinreal.org", "node-10.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-11.bitcoinreal.org", "node-11.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-12.bitcoinreal.org", "node-12.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-13.bitcoinreal.org", "node-13.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-14.bitcoinreal.org", "node-14.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-15.bitcoinreal.org", "node-15.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-16.bitcoinreal.org", "node-16.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-17.bitcoinreal.org", "node-17.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-18.bitcoinreal.org", "node-18.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-19.bitcoinreal.org", "node-19.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-20.bitcoinreal.org", "node-20.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-21.bitcoinreal.org", "node-21.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-22.bitcoinreal.org", "node-22.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-23.bitcoinreal.org", "node-23.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-24.bitcoinreal.org", "node-24.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-25.bitcoinreal.org", "node-25.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-26.bitcoinreal.org", "node-26.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-27.bitcoinreal.org", "node-27.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-28.bitcoinreal.org", "node-28.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-29.bitcoinreal.org", "node-29.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-30.bitcoinreal.org", "node-30.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-31.bitcoinreal.org", "node-31.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-32.bitcoinreal.org", "node-32.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-33.bitcoinreal.org", "node-33.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-34.bitcoinreal.org", "node-34.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-35.bitcoinreal.org", "node-35.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-36.bitcoinreal.org", "node-36.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-37.bitcoinreal.org", "node-37.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-38.bitcoinreal.org", "node-38.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-39.bitcoinreal.org", "node-39.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-40.bitcoinreal.org", "node-40.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-41.bitcoinreal.org", "node-41.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-42.bitcoinreal.org", "node-42.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-43.bitcoinreal.org", "node-43.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-44.bitcoinreal.org", "node-44.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-45.bitcoinreal.org", "node-45.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-46.bitcoinreal.org", "node-46.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-47.bitcoinreal.org", "node-47.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-48.bitcoinreal.org", "node-48.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-49.bitcoinreal.org", "node-49.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-50.bitcoinreal.org", "node-50.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-51.bitcoinreal.org", "node-51.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-52.bitcoinreal.org", "node-52.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-53.bitcoinreal.org", "node-53.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-54.bitcoinreal.org", "node-54.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-55.bitcoinreal.org", "node-55.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-56.bitcoinreal.org", "node-56.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-57.bitcoinreal.org", "node-57.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-58.bitcoinreal.org", "node-58.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-59.bitcoinreal.org", "node-59.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-60.bitcoinreal.org", "node-60.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-61.bitcoinreal.org", "node-61.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-62.bitcoinreal.org", "node-62.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-63.bitcoinreal.org", "node-63.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-64.bitcoinreal.org", "node-64.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-65.bitcoinreal.org", "node-65.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-66.bitcoinreal.org", "node-66.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-67.bitcoinreal.org", "node-67.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-68.bitcoinreal.org", "node-68.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-69.bitcoinreal.org", "node-69.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-70.bitcoinreal.org", "node-70.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-71.bitcoinreal.org", "node-71.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-72.bitcoinreal.org", "node-72.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-73.bitcoinreal.org", "node-73.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-74.bitcoinreal.org", "node-74.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-75.bitcoinreal.org", "node-75.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-76.bitcoinreal.org", "node-76.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-77.bitcoinreal.org", "node-77.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-78.bitcoinreal.org", "node-78.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-79.bitcoinreal.org", "node-79.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-80.bitcoinreal.org", "node-80.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-81.bitcoinreal.org", "node-81.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-82.bitcoinreal.org", "node-82.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-83.bitcoinreal.org", "node-83.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-84.bitcoinreal.org", "node-84.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-85.bitcoinreal.org", "node-85.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-86.bitcoinreal.org", "node-86.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-87.bitcoinreal.org", "node-87.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-88.bitcoinreal.org", "node-88.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-89.bitcoinreal.org", "node-89.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-90.bitcoinreal.org", "node-90.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-91.bitcoinreal.org", "node-91.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-92.bitcoinreal.org", "node-92.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-93.bitcoinreal.org", "node-93.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-94.bitcoinreal.org", "node-94.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-95.bitcoinreal.org", "node-95.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-96.bitcoinreal.org", "node-96.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-97.bitcoinreal.org", "node-97.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-98.bitcoinreal.org", "node-98.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-99.bitcoinreal.org", "node-99.bitcoinreal.org"));
+		vSeeds.push_back(CDNSSeedData("node-100.bitcoinreal.org", "node-100.bitcoinreal.org"));
 
-    		vSeeds.push_back(CDNSSeedData("206.189.26.96", "206.189.26.96")); // EU01
-    		vSeeds.push_back(CDNSSeedData("46.101.36.130", "46.101.36.130")); // EU02
-    		vSeeds.push_back(CDNSSeedData("206.189.19.145", " 206.189.19.145")); // EU03
-    		vSeeds.push_back(CDNSSeedData("178.128.54.63", "178.128.54.63")); // ASIA1
-    		vSeeds.push_back(CDNSSeedData("178.128.60.56", "178.128.60.56")); // ASIA2
-    		vSeeds.push_back(CDNSSeedData("178.128.210.43", " 178.128.210.43")); // ASIA3
-    		vSeeds.push_back(CDNSSeedData("178.128.243.17", "178.128.243.17 ")); // SA1
-    		vSeeds.push_back(CDNSSeedData("142.93.115.88", "142.93.115.88")); // NA1
-    		vSeeds.push_back(CDNSSeedData("142.93.123.217", "142.93.123.217")); // NA2
-    		vSeeds.push_back(CDNSSeedData("142.93.123.238", " 142.93.123.238")); // NA3
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 25);
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 13);
+        base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 212);
+        base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x02)(0x2D)(0x25)(0x33).convert_to_container<std::vector<unsigned char> >();
+        base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x02)(0x21)(0x31)(0x2B).convert_to_container<std::vector<unsigned char> >();
+        // 	BIP44 coin type is from https://github.com/satoshilabs/slips/blob/master/slip-0044.md
+        base58Prefixes[EXT_COIN_TYPE] = boost::assign::list_of(0x80)(0x00)(0x00)(0x77).convert_to_container<std::vector<unsigned char> >();
 
+        convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
 
-		    base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 25);
-		    base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 4);
-		    base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 28+128);
-        base58Prefixes[EXT_PUBLIC_KEY] = {0x06, 0x89, 0xB2, 0x1E};
-        base58Prefixes[EXT_SECRET_KEY] = {0x06, 0x89, 0xAC, 0xE9};
-        base58Prefixes[EXT_COIN_TYPE] = boost::assign::list_of(0x81)(0x01)(0x00)(0xbc).convert_to_container<std::vector<unsigned char> >();
-
-        fRequireRPCPassword = true;
-        fMiningRequiresPeers = true;
+        fMiningRequiresPeers = false;
         fAllowMinDifficultyBlocks = false;
         fDefaultConsistencyChecks = false;
         fRequireStandard = true;
@@ -181,17 +300,28 @@ public:
         fSkipProofOfWorkCheck = false;
         fTestnetToBeDeprecatedFieldRPC = false;
         fHeadersFirstSyncingActive = false;
+
         nPoolMaxTransactions = 3;
-        strSporkKey = "0437EF172051D18387D5777C5216B1E28A49336FFBC4A691F5F8E69A162E0B005432BB37837C1CEB4ADAF53E1D5051FC0869058C0FC82DFE6D5EC8630CD58938BE";
-        strObfuscationPoolDummyAddress = "D87q2gC9j6nNrnzCsg4aY6bHMLsT9nUhEw";
-        nStartMasternodePayments = 1403728576; //Wed, 25 Jun 2014 20:36:16 GMT
-        zerocoinModulus = "c95577b6dce0049b0a20c779af38079355abadde1a1d80c353f6cb697a7ae5a087bad39caa5798478551d0f9d91e6267716506f32412de1d19d17588765eb9502b85c6a18abdb05791cfd8b734e960281193705eeece210920cc922b3af3ceb178bf12c22eb565d5767fbf19545639be8953c2c38ffad41f3371e4aac750ac2d7bd614b3faabb453081d5d88fdbb803657a980bc93707e4b14233a2358c97763bf28f7c933206071477e8b371f229bc9ce7d6ef0ed7163aa5dfe13bc15f7816348b328fa2c1e69d5c88f7b94cee7829d56d1842d77d7bb8692e9fc7b7db059836500de8d57eb43c345feb58671503b932829112941367996b03871300f25efb5";
+        strSporkKey = "04241fc6b4569625447d87839890afa5343c3dae5c22226ad94a4b46634fc4c3914750b0fbd7264e3ee0f902cf3efbc6968c519ce5c4e53fd155381ceb99bf77f0";
+        strSporkKeyOld = "04241fc6b4569625447d87839890afa5343c3dae5c22226ad94a4b46634fc4c3914750b0fbd7264e3ee0f902cf3efbc6968c519ce5c4e53fd155381ceb99bf77f0";
+        strObfuscationPoolDummyAddress = "B2Rf2gC9k1EniQCsg4aY8bHPLsT9nPhEt";
+        nStartMasternodePayments = 1553668200; // Wednesday, March 27, 2019 6:30:00 AM GMT
+
+        /** Zerocoin */
+        zerocoinModulus = "25195908475657893494027183240048398571429282126204032027777137836043662020707595556264018525880784"
+            "4069182906412495150821892985591491761845028084891200728449926873928072877767359714183472702618963750149718246911"
+            "6507761337985909570009733045974880842840179742910064245869181719511874612151517265463228221686998754918242243363"
+            "7259085141865462043576798423387184774447920739934236584823824281198163815010674810451660377306056201619676256133"
+            "8441436038339044149526344321901146575444541784240209246165157233507787077498171257724679629263863563732899121548"
+            "31438167899885040445364023527381951378636564391212010397122822120720357";
         nMaxZerocoinSpendsPerTransaction = 7; // Assume about 20kb each
-        nMinZerocoinMintFee = 1 * ZCENT; //high fee required for zerocoin mints
+        nMinZerocoinMintFee = 1 * CENT; //high fee required for zerocoin mints
         nMintRequiredConfirmations = 20; //the maximum amount of confirmations until accumulated in 19
         nRequiredAccumulation = 1;
         nDefaultSecurityLevel = 100; //full security level for accumulators
         nZerocoinHeaderVersion = 4; //Block headers must be this version once zerocoin is active
+        nZerocoinRequiredStakeDepth = 200; //The required confirmations for a zbr to be stakable
+
         nBudget_Fee_Confirmations = 6; // Number of confirmations for the finalization fee
     }
 
@@ -212,60 +342,72 @@ public:
     {
         networkID = CBaseChainParams::TESTNET;
         strNetworkID = "test";
-        pchMessageStart[0] = 0x83;
-        pchMessageStart[1] = 0x63;
-        pchMessageStart[2] = 0x69;
-        pchMessageStart[3] = 0x78;
-        vAlertPubKey = ParseHex("04c32c8ab64b43228550115a862847deb294b776a71d6395e9c49477d13eac413f022e40462770dbc665f8a32aeec2a5d87839239f9a0b91a85269f90e79ab0ccc");
-        nDefaultPort = 40001;
+        pchMessageStart[0] = 0x45;
+        pchMessageStart[1] = 0x76;
+        pchMessageStart[2] = 0x65;
+        pchMessageStart[3] = 0xba;
+        vAlertPubKey = ParseHex("000010e83b2703ccf322f7dbd62dd5855ac7c10bd055814ce121ba32607d573b8810c02c0582aed05b4deb9c4b77b26d92428c61256cd42774babea0a073b2ed0c9");
+        nDefaultPort = 51474;
         nEnforceBlockUpgradeMajority = 51;
         nRejectBlockOutdatedMajority = 75;
         nToCheckBlockUpgradeMajority = 100;
         nMinerThreads = 0;
-        nTargetTimespan = 1 * 60; // Bitcoin Real: 1 day
-        nTargetSpacing = 1 * 60;  // Bitcoin Real: 1 minute
-        nLastPOWBlock = 10000;
+        nTargetTimespan = 1 * 60; // BitcoinReal: 1 day
+        nTargetSpacing = 1 * 60;  // BitcoinReal: 1 minute
+        nLastPOWBlock = 200;
         nMaturity = 15;
         nMasternodeCountDrift = 4;
         nModifierUpdateBlock = 51197; //approx Mon, 17 Apr 2017 04:00:00 GMT
-        nMaxMoneyOut = 10000000000 * COIN;
+        nMaxMoneyOut = 43199500 * COIN;
         nZerocoinStartHeight = 201576;
         nZerocoinStartTime = 1501776000;
         nBlockEnforceSerialRange = 1; //Enforce serial range starting this block
         nBlockRecalculateAccumulators = 9908000; //Trigger a recalculation of accumulators
         nBlockFirstFraudulent = 9891737; //First block that bad serials emerged
         nBlockLastGoodCheckpoint = 9891730; //Last valid accumulator checkpoint
+        nBlockEnforceInvalidUTXO = 9902850; //Start enforcing the invalid UTXO's
+        nInvalidAmountFiltered = 0; //Amount of invalid coins filtered through exchanges, that should be considered valid
+        nBlockZerocoinV2 = 444020; //!> The block that zerocoin v2 becomes active
+        nEnforceNewSporkKey = 1521604800; //!> Sporks signed after Wednesday, March 21, 2018 4:00:00 AM GMT must use the new spork key
+        nRejectOldSporkKey = 1522454400; //!> Reject old spork key after Saturday, March 31, 2018 12:00:00 AM GMT
 
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
-        genesis.nTime = 1525345200;  // Thursday, May 3, 2018 11:00:00 AM
-        genesis.nBits = 0x1e0ffff0;
-        genesis.nNonce = 0x1d8a;
+        genesis.nTime = 1553542200;
+        genesis.nNonce = 2402015;
 
-	    hashGenesisBlock = genesis.GetHash();
-        //assert(hashGenesisBlock == uint256("0x000007cff63ef602a51bf074e384b3516f0dd202f14d52f7c8c9b1af9423ab2e"));
+        hashGenesisBlock = genesis.GetHash();
+        //assert(hashGenesisBlock == uint256("0x0000041e482b9b9691d98eefb48473405c0b8ec31b76df3797c74a78680ef818"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
+        vSeeds.push_back(CDNSSeedData("fuzzbawls.pw", "bitcoinreal-testnet.seed.fuzzbawls.pw"));
+        vSeeds.push_back(CDNSSeedData("fuzzbawls.pw", "bitcoinreal-testnet.seed2.fuzzbawls.pw"));
+        vSeeds.push_back(CDNSSeedData("s3v3nh4cks.ddns.net", "s3v3nh4cks.ddns.net"));
+        vSeeds.push_back(CDNSSeedData("88.198.192.110", "88.198.192.110"));
 
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 139); // Testnet bitcoinreal addresses start with 'x' or 'y'
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 19);  // Testnet bitcoinreal script addresses start with '8' or '9'
+        base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 239);     // Testnet private keys start with '9' or 'c' (Bitcoin defaults)
+        // Testnet bitcoinreal BIP32 pubkeys start with 'DRKV'
+        base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x3a)(0x80)(0x61)(0xa0).convert_to_container<std::vector<unsigned char> >();
+        // Testnet bitcoinreal BIP32 prvkeys start with 'DRKP'
+        base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x3a)(0x80)(0x58)(0x37).convert_to_container<std::vector<unsigned char> >();
+        // Testnet bitcoinreal BIP44 coin type is '1' (All coin's testnet default)
+        base58Prefixes[EXT_COIN_TYPE] = boost::assign::list_of(0x80)(0x00)(0x00)(0x01).convert_to_container<std::vector<unsigned char> >();
 
-
-		base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 60);
-		base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 16);
-        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,33);
-        base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x35)(0x87)(0xCF).convert_to_container<std::vector<unsigned char> >();
-        base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x35)(0x83)(0x94).convert_to_container<std::vector<unsigned char> >();
-        base58Prefixes[EXT_COIN_TYPE]  = boost::assign::list_of(0x80)(0x00)(0x00)(0x01).convert_to_container<std::vector<unsigned char> >();
         convertSeed6(vFixedSeeds, pnSeed6_test, ARRAYLEN(pnSeed6_test));
-        fRequireRPCPassword = true;
+
         fMiningRequiresPeers = true;
         fAllowMinDifficultyBlocks = true;
         fDefaultConsistencyChecks = false;
-        fRequireStandard = false;
+        fRequireStandard = true;
         fMineBlocksOnDemand = false;
         fTestnetToBeDeprecatedFieldRPC = true;
+
         nPoolMaxTransactions = 2;
-        strSporkKey = "04fc640bba80713c0666acda4d3ffce670307a55f90b703995c830a1e9110b07244508724b7106395f8336c78d3691ae5ba05abe3840f3a7e18d6b95acdd0de71d";
-        strObfuscationPoolDummyAddress = "xp87cG8UEQgzs1Bk67Yk884C7pnQfAeo7q";
+        strSporkKey = "04A8B319388C0F8588D238B9941DC26B26D3F9465266B368A051C5C100F79306A557780101FE2192FE170D7E6DEFDCBEE4C8D533396389C0DAFFDBC842B002243C";
+        strSporkKeyOld = "04348C2F50F90267E64FACC65BFDC9D0EB147D090872FB97ABAE92E9A36E6CA60983E28E741F8E7277B11A7479B626AC115BA31463AC48178A5075C5A9319D4A38";
+        strObfuscationPoolDummyAddress = "y57cqfGRkekRyDRNeJiLtYVEbvhXrNbmox";
         nStartMasternodePayments = 1420837558; //Fri, 09 Jan 2015 21:05:58 GMT
         nBudget_Fee_Confirmations = 3; // Number of confirmations for the finalization fee. We have to make this very short
                                        // here because we only have a 8 block finalization window on testnet
@@ -288,30 +430,29 @@ public:
         networkID = CBaseChainParams::REGTEST;
         strNetworkID = "regtest";
         strNetworkID = "regtest";
-        pchMessageStart[0] = 0x69;
+        pchMessageStart[0] = 0xa1;
         pchMessageStart[1] = 0xcf;
         pchMessageStart[2] = 0x7e;
         pchMessageStart[3] = 0xac;
-        nSubsidyHalvingInterval = 150;
+        //nSubsidyHalvingInterval = 150;
         nEnforceBlockUpgradeMajority = 750;
         nRejectBlockOutdatedMajority = 950;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 1;
-        nTargetTimespan = 24 * 60 * 60; // Bitcoin Real: 1 day
-        nTargetSpacing = 1 * 60;        // Bitcoin Real: 1 minutes
+        nTargetTimespan = 24 * 60 * 60; // BitcoinReal: 1 day
+        nTargetSpacing = 1 * 60;        // BitcoinReal: 1 minutes
         bnProofOfWorkLimit = ~uint256(0) >> 1;
-        genesis.nTime = 1515524400;
-        genesis.nBits = 0x1e0ffff0;
-        genesis.nNonce = 732084;
+        genesis.nTime = 1553542200;
+        genesis.nBits = 0x207fffff;
+        genesis.nNonce = 12345;
 
         hashGenesisBlock = genesis.GetHash();
-        nDefaultPort = 51436;
-        //assert(hashGenesisBlock == uint256("0x000008415bdca132b70cf161ecc548e5d0150fd6634a381ee2e99bb8bb77dbb3"));
+        nDefaultPort = 51476;
+        //assert(hashGenesisBlock == uint256("0x4f023a2120d9127b21bbad01724fdb79b519f593f2a85b60d3d79160ec5f29df"));
 
         vFixedSeeds.clear(); //! Testnet mode doesn't have any fixed seeds.
         vSeeds.clear();      //! Testnet mode doesn't have any DNS seeds.
 
-        fRequireRPCPassword = false;
         fMiningRequiresPeers = false;
         fAllowMinDifficultyBlocks = true;
         fDefaultConsistencyChecks = true;
@@ -340,7 +481,6 @@ public:
         vFixedSeeds.clear(); //! Unit test mode doesn't have any fixed seeds.
         vSeeds.clear();      //! Unit test mode doesn't have any DNS seeds.
 
-        fRequireRPCPassword = false;
         fMiningRequiresPeers = false;
         fDefaultConsistencyChecks = true;
         fAllowMinDifficultyBlocks = false;
@@ -354,7 +494,7 @@ public:
     }
 
     //! Published setters to allow changing values in unit test cases
-    virtual void setSubsidyHalvingInterval(int anSubsidyHalvingInterval) { nSubsidyHalvingInterval = anSubsidyHalvingInterval; }
+    //virtual void setSubsidyHalvingInterval(int anSubsidyHalvingInterval) { nSubsidyHalvingInterval = anSubsidyHalvingInterval; }
     virtual void setEnforceBlockUpgradeMajority(int anEnforceBlockUpgradeMajority) { nEnforceBlockUpgradeMajority = anEnforceBlockUpgradeMajority; }
     virtual void setRejectBlockOutdatedMajority(int anRejectBlockOutdatedMajority) { nRejectBlockOutdatedMajority = anRejectBlockOutdatedMajority; }
     virtual void setToCheckBlockUpgradeMajority(int anToCheckBlockUpgradeMajority) { nToCheckBlockUpgradeMajority = anToCheckBlockUpgradeMajority; }
@@ -362,8 +502,17 @@ public:
     virtual void setAllowMinDifficultyBlocks(bool afAllowMinDifficultyBlocks) { fAllowMinDifficultyBlocks = afAllowMinDifficultyBlocks; }
     virtual void setSkipProofOfWorkCheck(bool afSkipProofOfWorkCheck) { fSkipProofOfWorkCheck = afSkipProofOfWorkCheck; }
 };
+static CUnitTestParams unitTestParams;
+
 
 static CChainParams* pCurrentParams = 0;
+
+CModifiableParams* ModifiableParams()
+{
+    assert(pCurrentParams);
+    assert(pCurrentParams == &unitTestParams);
+    return (CModifiableParams*)&unitTestParams;
+}
 
 const CChainParams& Params()
 {
@@ -380,6 +529,8 @@ CChainParams& Params(CBaseChainParams::Network network)
         return testNetParams;
     case CBaseChainParams::REGTEST:
         return regTestParams;
+    case CBaseChainParams::UNITTEST:
+        return unitTestParams;
     default:
         assert(false && "Unimplemented network");
         return mainParams;

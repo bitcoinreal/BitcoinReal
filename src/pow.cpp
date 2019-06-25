@@ -1,7 +1,8 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
-// Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2018 The Bitcoin Real developers
+// Copyright (c) 2014-2015 The Dash developers
+// Copyright (c) 2015-2018 The PIVX developers
+// Copyright (c) 2019 The BitcoinReal developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -16,7 +17,8 @@
 
 #include <math.h>
 
-unsigned int static DarkGravityWave(const CBlockIndex* pindexLast) 
+
+unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader* pblock)
 {
     /* current difficulty formula, bitcoinreal - DarkGravity v3, written by Evan Duffield - evan@dashpay.io */
     const CBlockIndex* BlockLastSolved = pindexLast;
@@ -35,8 +37,8 @@ unsigned int static DarkGravityWave(const CBlockIndex* pindexLast)
 
     if (pindexLast->nHeight > Params().LAST_POW_BLOCK()) {
         uint256 bnTargetLimit = (~uint256(0) >> 24);
-        int64_t nTargetSpacing = 1 * 60;
-        int64_t nTargetTimespan = 1 * 60 * 40;
+        int64_t nTargetSpacing = 60;
+        int64_t nTargetTimespan = 60 * 40;
 
         int64_t nActualSpacing = 0;
         if (pindexLast->nHeight != 0)
@@ -105,12 +107,7 @@ unsigned int static DarkGravityWave(const CBlockIndex* pindexLast)
         bnNew = Params().ProofOfWorkLimit();
     }
 
-    return bnNew.GetCompact();	
-}
-	
-unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader* pblock)
-{
-	return DarkGravityWave(pindexLast);
+    return bnNew.GetCompact();
 }
 
 bool CheckProofOfWork(uint256 hash, unsigned int nBits)
@@ -129,8 +126,8 @@ bool CheckProofOfWork(uint256 hash, unsigned int nBits)
         return error("CheckProofOfWork() : nBits below minimum work");
 
     // Check proof of work matches claimed amount
-    // if (hash > bnTarget)
-    //     return error("CheckProofOfWork() : hash doesn't match nBits");
+    if (hash > bnTarget)
+        return error("CheckProofOfWork() : hash doesn't match nBits");
 
     return true;
 }

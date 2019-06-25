@@ -19,14 +19,14 @@ BEGIN
     BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
-            VALUE "CompanyName",        "Bitcoin Real"
-            VALUE "FileDescription",    "Bitcoin Real - GUI"
+            VALUE "CompanyName",        "BitcoinReal"
+            VALUE "FileDescription",    "BitcoinReal (OSS GUI client for BitcoinReal)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
             VALUE "InternalName",       "bitcoinreal-qt"
             VALUE "LegalCopyright",     COPYRIGHT_STR
             VALUE "LegalTrademarks1",   "Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
             VALUE "OriginalFilename",   "bitcoinreal-qt.exe"
-            VALUE "ProductName",        "Bitcoin Real Core"
+            VALUE "ProductName",        "BitcoinReal"
             VALUE "ProductVersion",     VER_PRODUCTVERSION_STR
         END
     END

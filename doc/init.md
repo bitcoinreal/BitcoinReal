@@ -89,7 +89,7 @@ use old versions of Upstart and do not supply the start-stop-daemon uitility.
 Copy bitcoinreald.init to /etc/init.d/bitcoinreald. Test by running "service bitcoinreald start".
 
 Using this script, you can adjust the path and flags to the bitcoinreald program by
-setting the bitcoinrealD and FLAGS environment variables in the file
+setting the BitcoinRealD and FLAGS environment variables in the file
 /etc/sysconfig/bitcoinreald. You can also use the DAEMONOPTS environment variable here.
 
 5. Auto-respawn

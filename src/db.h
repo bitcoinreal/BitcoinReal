@@ -23,7 +23,7 @@
 class CDiskBlockIndex;
 class COutPoint;
 
-struct CBlockLobitcoinrealr;
+struct CBlockLocator;
 
 extern unsigned int nWalletDBUpdated;
 

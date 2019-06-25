@@ -4,11 +4,11 @@
 
 #include "util.h"
 
-#include "allobitcoinrealrs.h"
+#include "allocators.h"
 
 #include <boost/test/unit_test.hpp>
 
-BOOST_AUTO_TEST_SUITE(allobitcoinrealr_tests)
+BOOST_AUTO_TEST_SUITE(allocator_tests)
 
 // Dummy memory page locker for platform independent tests
 static const void *last_lock_addr, *last_unlock_addr;

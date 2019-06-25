@@ -1,8 +1,10 @@
 // Copyright (c) 2011-2013 The Bitcoin developers
+// Copyright (c) 2017-2018 The PIVX developers
+// Copyright (c) 2019 The BitcoinReal developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "notifibitcoinrealr.h"
+#include "notificator.h"
 
 #include <QApplication>
 #include <QByteArray>
@@ -33,7 +35,7 @@
 const int FREEDESKTOP_NOTIFICATION_ICON_SIZE = 128;
 #endif
 
-Notifibitcoinrealr::Notifibitcoinrealr(const QString& programName, QSystemTrayIcon* trayicon, QWidget* parent) : QObject(parent),
+Notificator::Notificator(const QString& programName, QSystemTrayIcon* trayicon, QWidget* parent) : QObject(parent),
                                                                                                    parent(parent),
                                                                                                    programName(programName),
                                                                                                    mode(None),
@@ -57,26 +59,11 @@ Notifibitcoinrealr::Notifibitcoinrealr(const QString& programName, QSystemTrayIc
     // check if users OS has support for NSUserNotification
     if (MacNotificationHandler::instance()->hasUserNotificationCenterSupport()) {
         mode = UserNotificationCenter;
-    } else {
-        // Check if Growl is installed (based on Qt's tray icon implementation)
-        CFURLRef cfurl;
-        OSStatus status = LSGetApplicationForInfo(kLSUnknownType, kLSUnknownCreator, CFSTR("growlTicket"), kLSRolesAll, 0, &cfurl);
-        if (status != kLSApplicationNotFoundErr) {
-            CFBundleRef bundle = CFBundleCreate(0, cfurl);
-            if (CFStringCompare(CFBundleGetIdentifier(bundle), CFSTR("com.Growl.GrowlHelperApp"), kCFCompareCaseInsensitive | kCFCompareBackwards) == kCFCompareEqualTo) {
-                if (CFStringHasSuffix(CFURLGetString(cfurl), CFSTR("/Growl.app/")))
-                    mode = Growl13;
-                else
-                    mode = Growl12;
-            }
-            CFRelease(cfurl);
-            CFRelease(bundle);
-        }
     }
 #endif
 }
 
-Notifibitcoinrealr::~Notifibitcoinrealr()
+Notificator::~Notificator()
 {
 #ifdef USE_DBUS
     delete interface;
@@ -164,7 +151,7 @@ QVariant FreedesktopImage::toVariant(const QImage& img)
     return QVariant(FreedesktopImage::metaType(), &fimg);
 }
 
-void Notifibitcoinrealr::notifyDBus(Class cls, const QString& title, const QString& text, const QIcon& icon, int millisTimeout)
+void Notificator::notifyDBus(Class cls, const QString& title, const QString& text, const QIcon& icon, int millisTimeout)
 {
     Q_UNUSED(cls);
     // Arguments for DBus call:
@@ -224,7 +211,7 @@ void Notifibitcoinrealr::notifyDBus(Class cls, const QString& title, const QStri
 }
 #endif
 
-void Notifibitcoinrealr::notifySystray(Class cls, const QString& title, const QString& text, const QIcon& icon, int millisTimeout)
+void Notificator::notifySystray(Class cls, const QString& title, const QString& text, const QIcon& icon, int millisTimeout)
 {
     Q_UNUSED(icon);
     QSystemTrayIcon::MessageIcon sicon = QSystemTrayIcon::NoIcon;
@@ -245,56 +232,7 @@ void Notifibitcoinrealr::notifySystray(Class cls, const QString& title, const QS
 
 // Based on Qt's tray icon implementation
 #ifdef Q_OS_MAC
-void Notifibitcoinrealr::notifyGrowl(Class cls, const QString& title, const QString& text, const QIcon& icon)
-{
-    const QString script(
-        "tell application \"%5\"\n"
-        "  set the allNotificationsList to {\"Notification\"}\n"                                                                   // -- Make a list of all the notification types (all)
-        "  set the enabledNotificationsList to {\"Notification\"}\n"                                                               // -- Make a list of the notifications (enabled)
-        "  register as application \"%1\" all notifications allNotificationsList default notifications enabledNotificationsList\n" // -- Register our script with Growl
-        "  notify with name \"Notification\" title \"%2\" description \"%3\" application name \"%1\"%4\n"                          // -- Send a Notification
-        "end tell");
-
-    QString notificationApp(QApplication::applicationName());
-    if (notificationApp.isEmpty())
-        notificationApp = "Application";
-
-    QPixmap notificationIconPixmap;
-    if (icon.isNull()) { // If no icon specified, set icon based on class
-        QStyle::StandardPixmap sicon = QStyle::SP_MessageBoxQuestion;
-        switch (cls) {
-        case Information:
-            sicon = QStyle::SP_MessageBoxInformation;
-            break;
-        case Warning:
-            sicon = QStyle::SP_MessageBoxWarning;
-            break;
-        case Critical:
-            sicon = QStyle::SP_MessageBoxCritical;
-            break;
-        }
-        notificationIconPixmap = QApplication::style()->standardPixmap(sicon);
-    } else {
-        QSize size = icon.actualSize(QSize(48, 48));
-        notificationIconPixmap = icon.pixmap(size);
-    }
-
-    QString notificationIcon;
-    QTemporaryFile notificationIconFile;
-    if (!notificationIconPixmap.isNull() && notificationIconFile.open()) {
-        QImageWriter writer(&notificationIconFile, "PNG");
-        if (writer.write(notificationIconPixmap.toImage()))
-            notificationIcon = QString(" image from location \"file://%1\"").arg(notificationIconFile.fileName());
-    }
-
-    QString quotedTitle(title), quotedText(text);
-    quotedTitle.replace("\\", "\\\\").replace("\"", "\\");
-    quotedText.replace("\\", "\\\\").replace("\"", "\\");
-    QString growlApp(this->mode == Notifibitcoinrealr::Growl13 ? "Growl" : "GrowlHelperApp");
-    MacNotificationHandler::instance()->sendAppleScript(script.arg(notificationApp, quotedTitle, quotedText, notificationIcon, growlApp));
-}
-
-void Notifibitcoinrealr::notifyMacUserNotificationCenter(Class cls, const QString& title, const QString& text, const QIcon& icon)
+void Notificator::notifyMacUserNotificationCenter(Class cls, const QString& title, const QString& text, const QIcon& icon)
 {
     // icon is not supported by the user notification center yet. OSX will use the app icon.
     MacNotificationHandler::instance()->showNotification(title, text);
@@ -302,7 +240,7 @@ void Notifibitcoinrealr::notifyMacUserNotificationCenter(Class cls, const QStrin
 
 #endif
 
-void Notifibitcoinrealr::notify(Class cls, const QString& title, const QString& text, const QIcon& icon, int millisTimeout)
+void Notificator::notify(Class cls, const QString& title, const QString& text, const QIcon& icon, int millisTimeout)
 {
     switch (mode) {
 #ifdef USE_DBUS
@@ -316,10 +254,6 @@ void Notifibitcoinrealr::notify(Class cls, const QString& title, const QString& 
 #ifdef Q_OS_MAC
     case UserNotificationCenter:
         notifyMacUserNotificationCenter(cls, title, text, icon);
-        break;
-    case Growl12:
-    case Growl13:
-        notifyGrowl(cls, title, text, icon);
         break;
 #endif
     default:

@@ -1,5 +1,6 @@
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2017 The PIVX developers
+// Copyright (c) 2015-2018 The PIVX developers
+// Copyright (c) 2019 The BitcoinReal developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -37,7 +38,7 @@ map<uint256, CObfuscationBroadcastTx> mapObfuscationBroadcastTxes;
 // Keep track of the active Masternode
 CActiveMasternode activeMasternode;
 
-/* *** BEGIN OBFUSCATION MAGIC - zBR **********
+/* *** BEGIN OBFUSCATION MAGIC - BR **********
     Copyright (c) 2014-2015, Dash Developers
         eduffield - evan@dashpay.io
         udjinm6   - udjinm6@dashpay.io
@@ -779,7 +780,7 @@ void CObfuscationPool::ChargeRandomFees()
                 with using it to stop abuse. Otherwise it could serve as an attack vector and
                 allow endless transaction that would bloat BitcoinReal and make it unusable. To
                 stop these kinds of attacks 1 in 10 successful transactions are charged. This
-                adds up to a cost of 0.001 zBR per transaction on average.
+                adds up to a cost of 0.001 BR per transaction on average.
             */
             if (r <= 10) {
                 LogPrintf("CObfuscationPool::ChargeRandomFees -- charging random fees. %u\n", i);
@@ -802,7 +803,7 @@ void CObfuscationPool::ChargeRandomFees()
 //
 void CObfuscationPool::CheckTimeout()
 {
-    if (!fEnableZeromint && !fMasterNode) return;
+    if (/*!fEnableZeromint &&*/ !fMasterNode) return;
 
     // catching hanging sessions
     if (!fMasterNode) {
@@ -887,7 +888,7 @@ void CObfuscationPool::CheckTimeout()
 //
 void CObfuscationPool::CheckForCompleteQueue()
 {
-    if (!fEnableZeromint && !fMasterNode) return;
+    if (/*!fEnableZeromint &&*/ !fMasterNode) return;
 
     /* Check to see if we're ready for submissions from clients */
     //
@@ -1146,7 +1147,6 @@ void CObfuscationPool::SendObfuscationDenominate(std::vector<CTxIn>& vin, std::v
     if (!CheckDiskSpace()) {
         UnlockCoins();
         SetNull();
-        fEnableZeromint = false;
         LogPrintf("CObfuscationPool::SendObfuscationDenominate() - Not enough disk space, disabling Obfuscation.\n");
         return;
     }
@@ -1382,7 +1382,6 @@ bool CObfuscationPool::DoAutomaticDenominating(bool fDryRun)
 {
     return false;  // Disabled until Obfuscation is completely removed
 
-    if (!fEnableZeromint) return false;
     if (fMasterNode) return false;
     if (state == POOL_STATUS_ERROR || state == POOL_STATUS_SUCCESS) return false;
     if (GetEntriesCount() > 0) {
@@ -1434,7 +1433,7 @@ bool CObfuscationPool::DoAutomaticDenominating(bool fDryRun)
         // should have some additional amount for them
         nLowestDenom += OBFUSCATION_COLLATERAL * 4;
 
-    CAmount nBalanceNeedsAnonymized = nAnonymizeBitcoinrealAmount * COIN - pwalletMain->GetAnonymizedBalance();
+    CAmount nBalanceNeedsAnonymized = nAnonymizeBitcoinRealAmount * COIN - pwalletMain->GetAnonymizedBalance();
 
     // if balanceNeedsAnonymized is more than pool max, take the pool max
     if (nBalanceNeedsAnonymized > OBFUSCATION_POOL_MAX) nBalanceNeedsAnonymized = OBFUSCATION_POOL_MAX;
@@ -1917,10 +1916,10 @@ void CObfuscationPool::GetDenominationsToString(int nDenom, std::string& strDeno
 {
     // Function returns as follows:
     //
-    // bit 0 - 100zBR+1 ( bit on if present )
-    // bit 1 - 10zBR+1
-    // bit 2 - 1zBR+1
-    // bit 3 - .1zBR+1
+    // bit 0 - 100BR +1 ( bit on if present )
+    // bit 1 - 10BR +1
+    // bit 2 - 1BR +1
+    // bit 3 - .1BR +1
     // bit 3 - non-denom
 
 
@@ -1990,10 +1989,10 @@ int CObfuscationPool::GetDenominations(const std::vector<CTxOut>& vout, bool fSi
 
     // Function returns as follows:
     //
-    // bit 0 - 100zBR+1 ( bit on if present )
-    // bit 1 - 10zBR+1
-    // bit 2 - 1zBR+1
-    // bit 3 - .1zBR+1
+    // bit 0 - 100BR +1 ( bit on if present )
+    // bit 1 - 10BR +1
+    // bit 2 - 1BR +1
+    // bit 3 - .1BR +1
 
     return denom;
 }
@@ -2109,68 +2108,9 @@ bool CObfuScationSigner::IsVinAssociatedWithPubkey(CTxIn& vin, CPubKey& pubkey)
 
     CTransaction txVin;
     uint256 hash;
-    //check outputs by MN enabled
-    CAmount collat_required;
-    collat_required = 1000 * COIN;
-    int active_nodes = mnodeman.CountEnabled();
-    if (active_nodes <= 1) {
-	collat_required = 1000 * COIN;
-    } else if (active_nodes <= 2) {
-	collat_required = 1200 * COIN;
-    } else if (active_nodes <= 90) {
-	collat_required = 1300 * COIN;
-    } else if (active_nodes <= 120) {
-        collat_required = 1400 * COIN;
-    } else if (active_nodes <= 150) {
-        collat_required = 1425 * COIN;
-    } else if (active_nodes <= 180) {
-        collat_required = 1550 * COIN;
-    } else if (active_nodes <= 210) {
-        collat_required = 1675 * COIN;
-    } else if (active_nodes <= 240) {
-        collat_required = 1800 * COIN;
-    } else if (active_nodes <= 270) {
-        collat_required = 1925 * COIN;
-    } else if (active_nodes <= 300) {
-        collat_required = 2075 * COIN;
-    } else if (active_nodes <= 330) {
-        collat_required = 2275 * COIN;
-    } else if (active_nodes <= 360) {
-        collat_required = 2450 * COIN;
-    } else if (active_nodes <= 390) {
-        collat_required = 2675 * COIN;
-    } else if (active_nodes <= 420) {
-        collat_required = 2900 * COIN;
-    } else if (active_nodes <= 450) {
-        collat_required = 3100 * COIN;
-    } else if (active_nodes <= 480) {
-        collat_required = 3375 * COIN;
-    } else if (active_nodes <= 510) {
-        collat_required = 3675 * COIN;
-    } else if (active_nodes >= 511) {
-        collat_required = 4000 * COIN;
-    }
     if (GetTransaction(vin.prevout.hash, txVin, hash, true)) {
         BOOST_FOREACH (CTxOut out, txVin.vout) {
-            if (out.nValue == 2000 * COIN ||
-		out.nValue == 2400 * COIN ||
-		out.nValue == 2550 * COIN ||
-		out.nValue == 2750 * COIN ||
-		out.nValue == 2950 * COIN ||
-		out.nValue == 3150 * COIN ||
-		out.nValue == 3350 * COIN ||
-		out.nValue == 3600 * COIN ||
-		out.nValue == 3850 * COIN ||
-		out.nValue == 4150 * COIN ||
-		out.nValue == 4400 * COIN ||
-		out.nValue == 4750 * COIN ||
-		out.nValue == 5050 * COIN ||
-		out.nValue == 5400 * COIN ||
-		out.nValue == 5800 * COIN ||
-		out.nValue == 6200 * COIN ||
-		out.nValue == 6600 * COIN ||
-                out.nValue == 2200 * COIN ||
-		out.nValue == 7100 * COIN ) {
+            if (out.nValue == 1000000 * COIN) {
                 if (out.scriptPubKey == payee2) return true;
             }
         }
@@ -2235,7 +2175,7 @@ bool CObfuScationSigner::VerifyMessage(CPubKey pubkey, vector<unsigned char>& vc
 
     if (fDebug && pubkey2.GetID() != pubkey.GetID())
         LogPrintf("CObfuScationSigner::VerifyMessage -- keys don't match: %s %s\n", pubkey2.GetID().ToString(), pubkey.GetID().ToString());
-        
+
     return (pubkey2.GetID() == pubkey.GetID());
 }
 

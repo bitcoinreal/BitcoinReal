@@ -1,4 +1,6 @@
 // Copyright (c) 2014 The Bitcoin developers
+// Copyright (c) 2017-2018 The PIVX developers
+// Copyright (c) 2019 The BitcoinReal developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -10,7 +12,7 @@
 
 /**
  * CBaseChainParams defines the base parameters (shared between bitcoinreal-cli and bitcoinreald)
- * of a given instance of the bitcoinreal system.
+ * of a given instance of the BitcoinReal system.
  */
 class CBaseChainParams
 {

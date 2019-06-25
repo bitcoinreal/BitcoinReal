@@ -1,4 +1,6 @@
 // Copyright (c) 2011-2013 The Bitcoin developers
+// Copyright (c) 2017-2018 The PIVX developers
+// Copyright (c) 2019 The BitcoinReal developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -86,35 +88,31 @@ TransactionView::TransactionView(QWidget* parent) : QWidget(parent), model(0), t
     typeWidget->addItem(tr("Most Common"), TransactionFilterProxy::COMMON_TYPES);
     typeWidget->addItem(tr("Received with"), TransactionFilterProxy::TYPE(TransactionRecord::RecvWithAddress) | TransactionFilterProxy::TYPE(TransactionRecord::RecvFromOther));
     typeWidget->addItem(tr("Sent to"), TransactionFilterProxy::TYPE(TransactionRecord::SendToAddress) | TransactionFilterProxy::TYPE(TransactionRecord::SendToOther));
+
+/* Obsolete Obfuscation entries. Remove once the corresponding TYPES are removed:
+ *
     typeWidget->addItem(tr("Obfuscated"), TransactionFilterProxy::TYPE(TransactionRecord::Obfuscated));
     typeWidget->addItem(tr("Obfuscation Make Collateral Inputs"), TransactionFilterProxy::TYPE(TransactionRecord::ObfuscationMakeCollaterals));
     typeWidget->addItem(tr("Obfuscation Create Denominations"), TransactionFilterProxy::TYPE(TransactionRecord::ObfuscationCreateDenominations));
     typeWidget->addItem(tr("Obfuscation Denominate"), TransactionFilterProxy::TYPE(TransactionRecord::ObfuscationDenominate));
     typeWidget->addItem(tr("Obfuscation Collateral Payment"), TransactionFilterProxy::TYPE(TransactionRecord::ObfuscationCollateralPayment));
+ */
+
     typeWidget->addItem(tr("To yourself"), TransactionFilterProxy::TYPE(TransactionRecord::SendToSelf));
     typeWidget->addItem(tr("Mined"), TransactionFilterProxy::TYPE(TransactionRecord::Generated));
-    typeWidget->addItem(tr("Minted"), TransactionFilterProxy::TYPE(TransactionRecord::StakeMint));
+    typeWidget->addItem(tr("Minted"), TransactionFilterProxy::TYPE(TransactionRecord::StakeMint) | TransactionFilterProxy::TYPE(TransactionRecord::StakeZBR));
     typeWidget->addItem(tr("Masternode Reward"), TransactionFilterProxy::TYPE(TransactionRecord::MNReward));
-    typeWidget->addItem(tr("Received BitconReal from zBitconReal"), TransactionFilterProxy::TYPE(TransactionRecord::RecvFromZerocoinSpend));
-    typeWidget->addItem(tr("Zerocoin Mint"), TransactionFilterProxy::TYPE(TransactionRecord::ZerocoinMint));
-    typeWidget->addItem(tr("Zerocoin Spend"), TransactionFilterProxy::TYPE(TransactionRecord::ZerocoinSpend));
-    typeWidget->addItem(tr("Zerocoin Spend, Change in zBitconReal"), TransactionFilterProxy::TYPE(TransactionRecord::ZerocoinSpend_Change_zBitcoinReal));
-    typeWidget->addItem(tr("Zerocoin Spend to Self"), TransactionFilterProxy::TYPE(TransactionRecord::ZerocoinSpend_FromMe));
     typeWidget->addItem(tr("Other"), TransactionFilterProxy::TYPE(TransactionRecord::Other));
     typeWidget->setCurrentIndex(settings.value("transactionType").toInt());
 
     hlayout->addWidget(typeWidget);
 
     addressWidget = new QLineEdit(this);
-#if QT_VERSION >= 0x040700
     addressWidget->setPlaceholderText(tr("Enter address or label to search"));
-#endif
     hlayout->addWidget(addressWidget);
 
     amountWidget = new QLineEdit(this);
-#if QT_VERSION >= 0x040700
     amountWidget->setPlaceholderText(tr("Min amount"));
-#endif
 #ifdef Q_OS_MAC
     amountWidget->setFixedWidth(97);
 #else
@@ -377,7 +375,7 @@ void TransactionView::exportClicked()
     if (fExport) {
         emit message(tr("Exporting Successful"), tr("The transaction history was successfully saved to %1.").arg(filename),
                      CClientUIInterface::MSG_INFORMATION);
-    } 
+    }
     else {
         emit message(tr("Exporting Failed"), tr("There was an error trying to save the transaction history to %1.").arg(filename),
                      CClientUIInterface::MSG_ERROR);

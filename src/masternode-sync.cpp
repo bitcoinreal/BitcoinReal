@@ -1,5 +1,6 @@
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2017 The PIVX developers
+// Copyright (c) 2015-2018 The PIVX developers
+// Copyright (c) 2019 The BitcoinReal developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -49,11 +50,6 @@ bool CMasternodeSync::IsBlockchainSynced()
     if (!lockMain) return false;
 
     CBlockIndex* pindex = chainActive.Tip();
-
-    if (chainActive.Height() == 3029) {
-        return true;
-    }
-
     if (pindex == NULL) return false;
 
 
@@ -238,7 +234,6 @@ void CMasternodeSync::ClearFulfilledRequest()
 void CMasternodeSync::Process()
 {
     static int tick = 0;
-    static int syncCount = 0;
 
     if (tick++ % MASTERNODE_SYNC_TIMEOUT != 0) return;
 
@@ -246,11 +241,8 @@ void CMasternodeSync::Process()
         /* 
             Resync if we lose all masternodes from sleep/wake or failure to sync originally
         */
-        if (mnodeman.CountEnabled() == 0 ) {
-			if(syncCount < 2){
-				Reset();
-				syncCount++;
-			}
+        if (mnodeman.CountEnabled() == 0) {
+            Reset();
         } else
             return;
     }

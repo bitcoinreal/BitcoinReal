@@ -1,14 +1,14 @@
 Translations
 ============
 
-The BitcoinReal Core project has been designed to support multiple localisations. This makes adding new phrases, and completely new languages easily achievable. For managing all application translations, BitcoinReal Core makes use of the Transifex online translation management tool.
+The BitcoinReal project has been designed to support multiple localisations. This makes adding new phrases, and completely new languages easily achievable. For managing all application translations, BitcoinReal makes use of the Transifex online translation management tool.
 
 ### Helping to translate (using Transifex)
 Transifex is setup to monitor the GitHub repo for updates, and when code containing new translations is found, Transifex will process any changes. It may take several hours after a pull-request has been merged, to appear in the Transifex web interface.
 
 Multiple language support is critical in assisting BitcoinReal's global adoption, and growth. One of BitcoinReal's greatest strengths is cross-border money transfers, any help making that easier is greatly appreciated.
 
-See the [Transifex BitcoinReal project](https://www.transifex.com/) to assist in translations.
+See the [Transifex BitcoinReal project](https://www.transifex.com/bitcoinreal-project/bitcoinreal-project-translations/) to assist in translations.
 
 ### Writing code with translations
 We use automated scripts to help extract translations in both Qt, and non-Qt source files. It is rarely necessary to manually edit the files in `src/qt/locale/`. The translation source files must adhere to the following format:
@@ -43,7 +43,7 @@ git commit
 ### Creating a Transifex account
 Visit the [Transifex Signup](https://www.transifex.com/signup/) page to create an account. Take note of your username and password, as they will be required to configure the command-line tool.
 
-You can find the BitcoinReal translation project at [https://www.transifex.com/](https://www.transifex.com/).
+You can find the BitcoinReal translation project at [https://www.transifex.com/bitcoinreal-project/bitcoinreal-project-translations/](https://www.transifex.com/bitcoinreal-project/bitcoinreal-project-translations/).
 
 ### Installing the Transifex client command-line tool
 The client it used to fetch updated translations. If you are having problems, or need more details, see [http://docs.transifex.com/developer/client/setup](http://docs.transifex.com/developer/client/setup)
@@ -106,6 +106,6 @@ To create a new language template, you will need to edit the languages manifest 
 **Note:** that the language translation file **must end in `.qm`** (the compiled extension), and not `.ts`.
 
 ### Questions and general assistance
-The BitcoinReal Core translation maintainers include *GOAT*. You can find them, and others, in the [BitcoinReal Discord](https://discord.gg/YcnvMqt).
+The BitcoinReal translation maintainers include *Fuzzbawls and s3v3nh4cks*. You can find them, and others, in the [BitcoinReal Discord](https://discord.bitcoinreal.org).
 
 Announcements will be posted during application pre-releases to notify translators to check for updates.

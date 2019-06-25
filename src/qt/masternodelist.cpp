@@ -1,3 +1,8 @@
+// Copyright (c) 2014-2016 The Dash Developers
+// Copyright (c) 2016-2018 The BitcoinReal developers
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #include "masternodelist.h"
 #include "ui_masternodelist.h"
 
@@ -11,6 +16,7 @@
 #include "sync.h"
 #include "wallet.h"
 #include "walletmodel.h"
+#include "askpassphrasedialog.h"
 
 #include <QMessageBox>
 #include <QTimer>
@@ -32,15 +38,14 @@ MasternodeList::MasternodeList(QWidget* parent) : QWidget(parent),
     int columnStatusWidth = 80;
     int columnActiveWidth = 130;
     int columnLastSeenWidth = 130;
-    int columnTierWidth = 60;
 
+    ui->tableWidgetMyMasternodes->setAlternatingRowColors(true);
     ui->tableWidgetMyMasternodes->setColumnWidth(0, columnAliasWidth);
     ui->tableWidgetMyMasternodes->setColumnWidth(1, columnAddressWidth);
     ui->tableWidgetMyMasternodes->setColumnWidth(2, columnProtocolWidth);
-    ui->tableWidgetMyMasternodes->setColumnWidth(3, columnTierWidth);
-    ui->tableWidgetMyMasternodes->setColumnWidth(4, columnStatusWidth);
-    ui->tableWidgetMyMasternodes->setColumnWidth(5, columnActiveWidth);
-    ui->tableWidgetMyMasternodes->setColumnWidth(6, columnLastSeenWidth);
+    ui->tableWidgetMyMasternodes->setColumnWidth(3, columnStatusWidth);
+    ui->tableWidgetMyMasternodes->setColumnWidth(4, columnActiveWidth);
+    ui->tableWidgetMyMasternodes->setColumnWidth(5, columnLastSeenWidth);
 
     ui->tableWidgetMyMasternodes->setContextMenuPolicy(Qt::CustomContextMenu);
 
@@ -90,20 +95,17 @@ void MasternodeList::StartAlias(std::string strAlias)
             std::string strError;
             CMasternodeBroadcast mnb;
 
-            LogPrintf("Trying to start MN: %s\n", mne.getIp());
-            //bool fSuccess = CMasternodeBroadcast::Create(mne.getIp(), mne.getPrivKey(), mne.getTxHash(), mne.getOutputIndex(), strError, mnb);
-            bool fSuccess = activeMasternode.Register(mne.getIp(), mne.getPrivKey(), mne.getTxHash(), mne.getOutputIndex(), strError);
+            bool fSuccess = CMasternodeBroadcast::Create(mne.getIp(), mne.getPrivKey(), mne.getTxHash(), mne.getOutputIndex(), strError, mnb);
 
             if (fSuccess) {
                 strStatusHtml += "<br>Successfully started masternode.";
-                //mnodeman.UpdateMasternodeList(mnb);
-                //mnb.Relay();
+                mnodeman.UpdateMasternodeList(mnb);
+                mnb.Relay();
             } else {
                 strStatusHtml += "<br>Failed to start masternode.<br>Error: " + strError;
             }
             break;
-		}
-        
+        }
     }
     strStatusHtml += "</center>";
 
@@ -185,17 +187,14 @@ void MasternodeList::updateMyMasternodeInfo(QString strAlias, QString strAddr, C
     GUIUtil::DHMSTableWidgetItem* activeSecondsItem = new GUIUtil::DHMSTableWidgetItem(pmn ? (pmn->lastPing.sigTime - pmn->sigTime) : 0);
     QTableWidgetItem* lastSeenItem = new QTableWidgetItem(QString::fromStdString(DateTimeStrFormat("%Y-%m-%d %H:%M", pmn ? pmn->lastPing.sigTime : 0)));
     QTableWidgetItem* pubkeyItem = new QTableWidgetItem(QString::fromStdString(pmn ? CBitcoinAddress(pmn->pubKeyCollateralAddress.GetID()).ToString() : ""));
-    QTableWidgetItem* tierItem = new QTableWidgetItem(QString::number(GetSporkValue(SPORK_17_CURRENT_MN_COLLATERAL)));
-
 
     ui->tableWidgetMyMasternodes->setItem(nNewRow, 0, aliasItem);
     ui->tableWidgetMyMasternodes->setItem(nNewRow, 1, addrItem);
     ui->tableWidgetMyMasternodes->setItem(nNewRow, 2, protocolItem);
-    ui->tableWidgetMyMasternodes->setItem(nNewRow, 3, tierItem);
-    ui->tableWidgetMyMasternodes->setItem(nNewRow, 4, statusItem);
-    ui->tableWidgetMyMasternodes->setItem(nNewRow, 5, activeSecondsItem);
-    ui->tableWidgetMyMasternodes->setItem(nNewRow, 6, lastSeenItem);
-    ui->tableWidgetMyMasternodes->setItem(nNewRow, 7, pubkeyItem);
+    ui->tableWidgetMyMasternodes->setItem(nNewRow, 3, statusItem);
+    ui->tableWidgetMyMasternodes->setItem(nNewRow, 4, activeSecondsItem);
+    ui->tableWidgetMyMasternodes->setItem(nNewRow, 5, lastSeenItem);
+    ui->tableWidgetMyMasternodes->setItem(nNewRow, 6, pubkeyItem);
 }
 
 void MasternodeList::updateMyNodeList(bool fForce)
@@ -249,7 +248,7 @@ void MasternodeList::on_startButton_clicked()
     WalletModel::EncryptionStatus encStatus = walletModel->getEncryptionStatus();
 
     if (encStatus == walletModel->Locked || encStatus == walletModel->UnlockedForAnonymizationOnly) {
-        WalletModel::UnlockContext ctx(walletModel->requestUnlock());
+        WalletModel::UnlockContext ctx(walletModel->requestUnlock(AskPassphraseDialog::Context::Unlock_Full));
 
         if (!ctx.isValid()) return; // Unlock wallet was cancelled
 
@@ -273,7 +272,7 @@ void MasternodeList::on_startAllButton_clicked()
     WalletModel::EncryptionStatus encStatus = walletModel->getEncryptionStatus();
 
     if (encStatus == walletModel->Locked || encStatus == walletModel->UnlockedForAnonymizationOnly) {
-        WalletModel::UnlockContext ctx(walletModel->requestUnlock());
+        WalletModel::UnlockContext ctx(walletModel->requestUnlock(AskPassphraseDialog::Context::Unlock_Full));
 
         if (!ctx.isValid()) return; // Unlock wallet was cancelled
 
@@ -304,7 +303,7 @@ void MasternodeList::on_startMissingButton_clicked()
     WalletModel::EncryptionStatus encStatus = walletModel->getEncryptionStatus();
 
     if (encStatus == walletModel->Locked || encStatus == walletModel->UnlockedForAnonymizationOnly) {
-        WalletModel::UnlockContext ctx(walletModel->requestUnlock());
+        WalletModel::UnlockContext ctx(walletModel->requestUnlock(AskPassphraseDialog::Context::Unlock_Full));
 
         if (!ctx.isValid()) return; // Unlock wallet was cancelled
 

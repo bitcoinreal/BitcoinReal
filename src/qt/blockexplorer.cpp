@@ -1,3 +1,8 @@
+// Copyright (c) 2017-2018 The PIVX developers
+// Copyright (c) 2019 The BitcoinReal developers
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #include "blockexplorer.h"
 #include "bitcoinunits.h"
 #include "chainparams.h"
@@ -176,7 +181,7 @@ const CBlockIndex* getexplorerBlockIndex(int64_t height)
 
 std::string getexplorerBlockHash(int64_t Height)
 {
-    std::string genesisblockhash = "0000041e482b9b9691d98eefb48473405c0b8ec31b76df3797c74a78680ef818";
+    std::string genesisblockhash = "00000885c705ff8181c7cfb1638414f07db8b08cfb7230b8239456266da753e9";
     CBlockIndex* pindexBest = mapBlockIndex[chainActive.Tip()->GetBlockHash()];
     if ((Height < 0) || (Height > pindexBest->nHeight)) {
         return genesisblockhash;
@@ -225,7 +230,7 @@ std::string BlockToString(CBlockIndex* pBlock)
     if (pBlock->nHeight == 0)
         Generated = OutVolume;
     else
-        Generated = GetBlockValue(pBlock->nHeight - 1);
+        Generated = GetBlockValue(pBlock->nHeight);
 
     std::string BlockContentCells[] =
         {
@@ -391,8 +396,10 @@ std::string AddressToString(const CBitcoinAddress& Address)
     /*
     CScript AddressScript;
     AddressScript.SetDestination(Address.Get());
+
     CAmount Sum = 0;
     bool fAddrIndex = false;
+
     if (!fAddrIndex)
         return ""; // it will take too long to find transactions by address
     else
@@ -470,9 +477,9 @@ void BlockExplorer::showEvent(QShowEvent*)
         m_History.push_back(text);
         updateNavButtons();
 
-        if (!GetBoolArg("-txindex", false)) {
+        if (!GetBoolArg("-txindex", true)) {
             QString Warning = tr("Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (bitcoinreal.conf).");
-            QMessageBox::warning(this, "Bitcon Real Core Blockchain Explorer", Warning, QMessageBox::Ok);
+            QMessageBox::warning(this, "BitcoinReal Blockchain Explorer", Warning, QMessageBox::Ok);
         }
     }
 }
@@ -548,7 +555,7 @@ void BlockExplorer::setBlock(CBlockIndex* pBlock)
 
 void BlockExplorer::setContent(const std::string& Content)
 {
-    QString CSS = "body {font-size:12px; color:#f8f6f6; bgcolor:#F38F10;}\n a, span { font-family: monospace; }\n span.addr {color:#F38F10; font-weight: bold;}\n table tr td {padding: 3px; border: 1px solid black; background-color: #F38F10;}\n td.d0 {font-weight: bold; color:#f8f6f6;}\n h2, h3 { white-space:nowrap; color:#F38F10;}\n a { color:#FFFC00; text-decoration:none; }\n a.nav {color:#F38F10;}\n";
+    QString CSS = "body {font-size:12px; color:#f8f6f6; bgcolor:#fa9f1b;}\n a, span { font-family: monospace; }\n span.addr {color:#fa9f1b; font-weight: bold;}\n table tr td {padding: 3px; border: 1px solid black; background-color: #fa9f1b;}\n td.d0 {font-weight: bold; color:#f8f6f6;}\n h2, h3 { white-space:nowrap; color:#fa9f1b;}\n a { color:#88f6f6; text-decoration:none; }\n a.nav {color:#fa9f1b;}\n";
     QString FullContent = "<html><head><style type=\"text/css\">" + CSS + "</style></head>" + "<body>" + Content.c_str() + "</body></html>";
     // printf(FullContent.toUtf8());
 

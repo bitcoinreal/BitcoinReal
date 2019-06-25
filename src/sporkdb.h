@@ -1,9 +1,10 @@
-// Copyright (c) 2017 The PIVX developers
+// Copyright (c) 2017-2018 The PIVX developers
+// Copyright (c) 2019 The BitcoinReal developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef bitcoinreal_CSPORKDB_H
-#define bitcoinreal_CSPORKDB_H
+#ifndef BitcoinReal_CSPORKDB_H
+#define BitcoinReal_CSPORKDB_H
 
 #include <boost/filesystem/path.hpp>
 #include "leveldbwrapper.h"
@@ -25,4 +26,4 @@ public:
 };
 
 
-#endif //bitcoinreal_CSPORKDB_H
+#endif //BitcoinReal_CSPORKDB_H
